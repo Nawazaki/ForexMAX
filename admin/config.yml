@@ -8,7 +8,7 @@ public_folder: "/assets/images"
 
 collections:
   - name: "articles"
-    label: "Articles"
+    label: "Institutional Articles"
     folder: "articles"
     create: true
     slug: "{{slug}}"
@@ -21,3 +21,29 @@ collections:
       - { label: "Tag/Badge", name: "tag", widget: "string", default: "Latest Report" }
       - { label: "Excerpt", name: "excerpt", widget: "text" }
       - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "settings"
+    label: "Global Settings"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - name: "security_notice"
+        label: "Security & Official Disclaimer"
+        file: "index.html"
+        fields:
+          - { label: "Security Notice Text", name: "security_notice_text", widget: "text" }
+
+      - name: "brokers"
+        label: "Institutional Brokers"
+        file: "index.html"
+        fields:
+          - label: "Brokers List"
+            name: "brokers_list"
+            widget: "list"
+            fields:
+              - { label: "Broker Name", name: "name", widget: "string" }
+              - { label: "Tagline", name: "tagline", widget: "string" }
+              - { label: "Raw Spread", name: "spread", widget: "string" }
+              - { label: "Execution Venue", name: "execution", widget: "string" }
+              - { label: "Leverage", name: "leverage", widget: "string" }
