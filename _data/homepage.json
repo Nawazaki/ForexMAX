@@ -1,0 +1,18 @@
+{
+  "hero": {
+    "title": "The Next Evolution in Institutional Trading & Retail Funding",
+    "subtitle": "ForexMax represents a highly scalable, defensible blueprint designed to capture the explosive intersection of proprietary retail funding and tier-1 liquidity aggregation."
+  },
+  "stats": [
+    {"value": "$6.6T", "label": "Daily FX Volume"},
+    {"value": "300%+", "label": "YoY Prop-Firm Growth"},
+    {"value": "Tier-1", "label": "Target Liquidity Integration"}
+  ],
+  "brokers": [
+    {"name": "Broker Alpha", "spread": "0.0 Pips", "execution": "Equinix NY4", "leverage": "Up to 1:500"},
+    {"name": "Broker Beta", "spread": "0.1 Pips", "execution": "Equinix LD4", "leverage": "Up to 1:200"},
+    {"name": "Broker Prime", "spread": "0.0 Pips", "execution": "Equinix TY3", "leverage": "Up to 1:100"}
+  ],
+  "security_notice": "SECURITY NOTICE: ForexMax.com is the ONLY official website for our brand. We provide intelligence and analytics only. We do NOT manage client portfolios, and we will NEVER contact any user asking for money, deposits, or investments. Beware of impersonators and scams.",
+  "contact_email": "djamal@forexmax.com"
+}

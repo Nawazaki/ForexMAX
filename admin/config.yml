@@ -21,28 +21,33 @@ collections:
       - { label: "Excerpt", name: "excerpt", widget: "text" }
       - { label: "Body", name: "body", widget: "markdown" }
 
-  - name: "settings"
-    label: "Global Settings"
+  - name: "pages"
+    label: "Pages"
     delete: false
-    editor:
-      preview: false
     files:
-      - name: "security_notice"
-        label: "Security & Official Disclaimer"
-        file: "index.html"
+      - name: "homepage"
+        label: "Homepage Content"
+        file: "_data/homepage.json"
         fields:
-          - { label: "Security Notice Text", name: "security_notice_text", widget: "text" }
-
-      - name: "brokers"
-        label: "Institutional Brokers"
-        file: "index.html"
-        fields:
-          - label: "Brokers List"
-            name: "brokers_list"
+          - label: "Hero Section"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Subtitle", name: "subtitle", widget: "text" }
+          - label: "Market Stats"
+            name: "stats"
+            widget: "list"
+            fields:
+              - { label: "Value", name: "value", widget: "string" }
+              - { label: "Label", name: "label", widget: "string" }
+          - label: "Institutional Brokers"
+            name: "brokers"
             widget: "list"
             fields:
               - { label: "Broker Name", name: "name", widget: "string" }
-              - { label: "Tagline", name: "tagline", widget: "string" }
-              - { label: "Raw Spread", name: "spread", widget: "string" }
-              - { label: "Execution Venue", name: "execution", widget: "string" }
+              - { label: "Spread", name: "spread", widget: "string" }
+              - { label: "Execution", name: "execution", widget: "string" }
               - { label: "Leverage", name: "leverage", widget: "string" }
+          - { label: "Security Notice", name: "security_notice", widget: "text" }
+          - { label: "Contact Email", name: "contact_email", widget: "string" }
