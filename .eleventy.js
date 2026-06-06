@@ -15,6 +15,16 @@ module.exports = function(eleventyConfig) {
     });
   });
 
+  eleventyConfig.addFilter("dateFilter", function(dateObj) {
+    if (!dateObj) return "";
+    return new Date(dateObj).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+  });
+
+  eleventyConfig.addFilter("date", function(dateObj) {
+    if (!dateObj) return "";
+    return new Date(dateObj).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+  });
+
   return {
     dir: {
       input: ".",
