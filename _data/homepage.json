@@ -19,7 +19,7 @@
   ],
   "brokers": [
     {
-      "name": "Broker Alpha",
+      "name": "Finotiv",
       "spread": "0.0 Pips",
       "execution": "Equinix NY4",
       "leverage": "Up to 1:500"
