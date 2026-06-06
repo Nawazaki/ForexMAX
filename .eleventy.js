@@ -7,6 +7,14 @@ module.exports = function(eleventyConfig) {
   // Set watch targets
   eleventyConfig.addWatchTarget("./_data/");
 
+  // Add articles collection
+  eleventyConfig.addCollection("articles", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("articles/*.html").filter(item => {
+      // Only include files that have front matter (like title)
+      return !!item.data.title;
+    });
+  });
+
   return {
     dir: {
       input: ".",
