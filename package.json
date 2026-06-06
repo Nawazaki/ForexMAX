@@ -1,0 +1,14 @@
+{
+  "name": "forexmax-institutional",
+  "version": "1.0.0",
+  "description": "ForexMax Institutional Trading & Ecosystem Vision",
+  "main": "index.js",
+  "scripts": {
+    "build": "eleventy",
+    "start": "eleventy --serve",
+    "debug": "DEBUG=Eleventy* npx @11ty/eleventy"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^2.0.0"
+  }
+}
