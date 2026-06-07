@@ -109,12 +109,20 @@
     <nav class="fixed w-full z-50 top-0 transition-all duration-300" id="navbar">
         <div class="absolute inset-0 bg-obsidian/80 backdrop-blur-md border-b border-white/5"></div>
         <div class="max-w-7xl mx-auto px-6 py-4 relative flex justify-between items-center">
-            <div class="text-2xl font-bold tracking-tighter text-white flex items-center gap-2">
+            <div class="text-2xl font-bold tracking-tighter text-white flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
                 <div class="w-3 h-3 bg-accent-gold rounded-sm"></div>
                 ForexMax<span class="text-accent-gold">.</span>
             </div>
-            <a href="mailto:djamal@forexmax.com" class="hidden md:inline-flex items-center justify-center px-5 py-2 text-sm font-medium text-white transition-all border border-white/10 rounded-full hover:bg-white/5 hover:border-accent-gold">
-                Inquire Acquisition
+            
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#articles" class="text-sm font-medium text-gray-400 hover:text-accent-gold transition-colors">Intelligence</a>
+                <a href="#brokers" class="text-sm font-medium text-gray-400 hover:text-accent-gold transition-colors">Brokers</a>
+                <a href="#security" class="text-sm font-medium text-gray-400 hover:text-accent-gold transition-colors">Security</a>
+                <a href="#contact" class="text-sm font-medium text-gray-400 hover:text-accent-gold transition-colors">Contact</a>
+            </div>
+
+            <a href="#contact" class="hidden lg:inline-flex items-center justify-center px-5 py-2 text-sm font-medium text-white transition-all border border-white/10 rounded-full hover:bg-white/5 hover:border-accent-gold">
+                Direct Access
             </a>
         </div>
     </nav>
