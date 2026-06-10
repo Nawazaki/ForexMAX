@@ -52,10 +52,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 extend: {
                     colors: {
                         obsidian: '#050507',
-                        slateDark: '#12141a',
+                        slate: '#12141a',
                         surface: '#1c1f26',
-                        accentGold: '#D4AF37',
-                        accentCyan: '#00E5FF'
+                        accent: {
+                            gold: '#D4AF37',
+                            goldLight: '#F3E5AB',
+                            cyan: '#00E5FF',
+                        }
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -74,8 +77,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .gradient-text { background: linear-gradient(135deg, #D4AF37 0%, #00E5FF 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     </style>
 </head>
-<body class="antialiased">
-    <div class="max-w-6xl mx-auto px-6 py-12">
+<body class="antialiased bg-grid relative selection:bg-accent-gold selection:text-obsidian">
+    <nav class="fixed w-full z-50 top-0 bg-obsidian/80 backdrop-blur-md border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center gap-3">
+                <img src="../assets/forexmax-logo.png" alt="ForexMax Logo" class="h-12 md:h-16 w-auto object-contain hover:scale-105 transition-transform duration-300 drop-shadow-[0_0_8px_rgba(212,175,55,0.3)]">
+            </a>
+            <a href="mailto:djamal@forexmax.com" class="px-5 py-2 text-sm font-medium text-white border border-white/10 rounded-full hover:border-accent-gold">Inquire Acquisition</a>
+        </div>
+    </nav>
+
+    <div class="max-w-6xl mx-auto px-6 py-32">
         <!-- URL Slug Comment -->
         <!-- URL Slug: articles/trading_sessions.html -->
 
@@ -240,14 +252,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             </a>
         </div>
 
-        <!-- Footer / Cross-link -->
-        <footer class="text-center border-t border-white/5 pt-12 mt-12">
-            <p class="text-gray-500 text-sm mb-6">© 2026 ForexMax Intelligence. All rights reserved.</p>
-            <div class="flex justify-center gap-8">
-                <a href="../index.html" class="text-accentGold hover:underline text-sm">Back to Home</a>
-                <a href="#" class="text-gray-500 hover:text-white text-sm">Privacy Policy</a>
-            </div>
-        </footer>
     </div>
+
+    <footer class="border-t border-white/5 bg-obsidian py-12">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-gray-500 text-sm">
+            <div class="text-white font-bold text-xl">ForexMax<span class="text-accent-gold">.</span></div>
+            <div>&copy; 2026 ForexMax. All rights reserved. | Premium Digital Asset Portfolio.</div>
+            <div class="flex gap-6">
+                <a href="mailto:djamal@forexmax.com" class="hover:text-white">Contact</a>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
