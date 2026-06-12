@@ -1,0 +1,30 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "تقرير سوق الفوركس المؤسسي: 5 يونيو 2026",
+  "description": "تحليل شامل لبيانات سوق الفوركس المؤسسي، بما في ذلك بيانات الاقتصاد الكلي، توقعات السياسة النقدية، تحركات الأموال الذكية، ومؤشر VIX.",
+  "image": [
+    "https://forexmax.com/assets/og-image.jpg" 
+  ],
+  "datePublished": "2026-06-05T00:00:00Z",
+  "dateModified": "2026-06-05T00:00:00Z",
+  "author": {
+    "@type": "Person",
+    "name": "Djamal K. (ForexMax Analyst)",
+    "url": "https://forexmax.com/authors/djamal-k"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "ForexMax",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://forexmax.com/assets/forexmax-logo.png"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://forexmax.com/articles/institutional-fx-market-report-2026-06-05"
+  }
+}
+</script>

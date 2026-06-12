@@ -57,15 +57,27 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://forexmax.com/articles/template</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://forexmax.com/articles/trading_sessions</loc>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://forexmax.com/articles/xau-usd-liquidity-shock</loc>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://forexmax.com/risk-disclosure</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://forexmax.com/privacy-policy</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://forexmax.com/terms-of-service</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://forexmax.com/prop-firm-comparison</loc>
+    <priority>0.9</priority>
   </url>
 </urlset>

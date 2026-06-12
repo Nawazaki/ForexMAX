@@ -1,0 +1,36 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FinancialService",
+  "name": "ForexMax Prop Firm Evaluation",
+  "description": "ForexMax offers institutional-grade prop firm evaluation programs designed to identify and fund talented traders in a simulated trading environment.",
+  "url": "https://forexmax.com/prop-firm-evaluation",
+  "provider": {
+    "@type": "Organization",
+    "name": "ForexMax",
+    "url": "https://forexmax.com"
+  },
+  "serviceType": "Proprietary Trading Firm Evaluation",
+  "areaServed": "Worldwide",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Prop Firm Evaluation Programs",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "ForexMax 1-Step Evaluation"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "ForexMax 2-Step Evaluation"
+        }
+      }
+    ]
+  }
+}
+</script>

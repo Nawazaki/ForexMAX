@@ -1,0 +1,31 @@
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "ForexMax",
+    "url": "https://forexmax.com",
+    "logo": "https://forexmax.com/assets/forexmax-logo.png",
+    "sameAs": [
+      "https://t.me/forexm_ax"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+1-555-FOREXMAX",
+      "contactType": "customer service",
+      "email": "djamal@forexmax.com"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "ForexMax",
+    "url": "https://forexmax.com",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://forexmax.com/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+]
+</script>
