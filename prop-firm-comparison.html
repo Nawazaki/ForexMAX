@@ -3,16 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prop Firm Comparison Hub | ForexMax</title>
+    <title>Prop Firm & Broker Comparison Hub | ForexMax</title>
     <link rel="canonical" href="https://forexmax.com/prop-firm-comparison" />
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/icon-180.png">
     <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="assets/icon-512.png">
-    <meta name="description" content="Compare top prop trading firms based on Max Allocation, Profit Split, Trailing Drawdown, and Cost. Find the best prop firm for your trading style.">
+    <meta name="description" content="Compare top proprietary trading firms like Finotive and Earn2Trade, and retail brokers like XM and Exness. Find the best platform for your trading style.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        obsidian: '#050507',
+                        slate: '#12141a',
+                        surface: '#1c1f26',
+                        accent: {
+                            gold: '#D4AF37',
+                            goldLight: '#F3E5AB',
+                            cyan: '#00E5FF',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         body {
             background-color: #050507;
@@ -20,79 +42,298 @@
             overflow-x: hidden;
             font-family: 'Inter', sans-serif;
         }
-        .table-container {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
         .premium-border {
             border: 1px solid rgba(255, 255, 255, 0.06);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
         }
+        .table-container {
+            overflow-x: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(212, 175, 55, 0.3) transparent;
+        }
+        .table-container::-webkit-scrollbar {
+            height: 6px;
+        }
+        .table-container::-webkit-scrollbar-thumb {
+            background-color: rgba(212, 175, 55, 0.3);
+            border-radius: 10px;
+        }
     </style>
 </head>
-<body>
-    <div class="min-h-screen flex flex-col items-center py-12 bg-obsidian">
-        <div class="max-w-7xl mx-auto px-6 w-full">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-center text-accent-gold mb-8">Prop Firm Comparison Hub</h1>
-            <p class="text-lg text-gray-400 text-center max-w-3xl mx-auto mb-12">Find the ideal proprietary trading firm for your strategy. Compare key metrics like maximum allocation, profit split, drawdown rules, and evaluation costs across leading platforms.</p>
+<body class="antialiased selection:bg-accent-gold selection:text-obsidian">
 
-            <div class="table-container premium-border rounded-xl">
-                <table class="min-w-full divide-y divide-white/10">
-                    <thead class="bg-surface">
-                        <tr>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Feature</th>
-                            <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-accent-gold uppercase tracking-wider">AlphaFunded</th>
-                            <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-accent-cyan uppercase tracking-wider">QuantumProp</th>
-                            <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-purple-400 uppercase tracking-wider">ApexTrades</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-slate divide-y divide-white/5">
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">Max Allocation</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-300">$400,000</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-300">$200,000</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-300">$300,000</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">Profit Split</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-300">80%</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-300">75%</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-300">90%</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">Trailing Drawdown</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-300">5%</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-300">4%</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-300">6%</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">Evaluation Cost</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-300">$350 (for $100k)</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-300">$250 (for $100k)</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-300">$400 (for $100k)</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">Platform</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-300">MetaTrader 5</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-300">cTrader</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-300">DXtrade</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">Instruments</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-300">Forex, Indices, Commodities</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-300">Forex, Crypto, Indices</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-300">Forex, Futures, Commodities</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="mt-12 text-center">
-                <a href="#" class="inline-flex items-center justify-center px-8 py-4 bg-accent-gold text-obsidian font-semibold rounded-lg hover:bg-goldLight transition-colors">
-                    Explore All Prop Firms
-                </a>
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-obsidian/80 backdrop-blur-md border-b border-white/5 py-4 px-6">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2">
+                <img src="assets/forexmax-logo.png" alt="ForexMax Logo" class="h-10 w-auto">
+            </a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="index.html#articles" class="text-sm font-medium text-gray-400 hover:text-accent-gold transition-colors">Intelligence</a>
+                <a href="prop-firm-comparison.html" class="text-sm font-medium text-accent-gold transition-colors">Comparison</a>
+                <a href="index.html#contact" class="text-sm font-medium text-gray-400 hover:text-accent-gold transition-colors">Contact</a>
             </div>
         </div>
-    </div>
+    </nav>
+
+    <main class="py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <!-- Hero Section -->
+            <div class="text-center mb-24">
+                <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight text-white mb-6">
+                    Institutional <span class="text-accent-gold">Comparison</span> Hub
+                </h1>
+                <p class="max-w-3xl mx-auto text-lg text-gray-400 font-light leading-relaxed">
+                    Unbiased, data-driven analysis of the world's leading proprietary trading firms and retail brokers. 
+                    Choose the right partner for your capital requirements.
+                </p>
+            </div>
+
+            <!-- Section 1: Proprietary Trading Firms -->
+            <section class="mb-32">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                    <div>
+                        <h2 class="text-3xl font-bold text-white mb-3">Top Prop Firm Evaluations</h2>
+                        <p class="text-gray-400 max-w-2xl">Compare industry-leading proprietary trading firms and get funded. Review evaluation phases, profit splits, and scaling plans.</p>
+                    </div>
+                    <div class="flex items-center gap-2 px-4 py-2 bg-accent-gold/10 border border-accent-gold/20 rounded-lg">
+                        <span class="w-2 h-2 rounded-full bg-accent-gold animate-pulse"></span>
+                        <span class="text-xs font-bold text-accent-gold uppercase tracking-wider">Live 2026 Data</span>
+                    </div>
+                </div>
+
+                <div class="table-container premium-border rounded-2xl bg-surface/50 backdrop-blur-sm">
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr class="border-b border-white/10">
+                                <th class="px-8 py-6 text-left text-sm font-semibold text-gray-400 uppercase tracking-wider">Prop Firm</th>
+                                <th class="px-8 py-6 text-center text-sm font-semibold text-gray-400 uppercase tracking-wider">Max Allocation</th>
+                                <th class="px-8 py-6 text-center text-sm font-semibold text-gray-400 uppercase tracking-wider">Profit Split</th>
+                                <th class="px-8 py-6 text-center text-sm font-semibold text-gray-400 uppercase tracking-wider">Drawdown Rules</th>
+                                <th class="px-8 py-6 text-center text-sm font-semibold text-gray-400 uppercase tracking-wider">Evaluation Cost</th>
+                                <th class="px-8 py-6 text-center text-sm font-semibold text-gray-400 uppercase tracking-wider">Platforms</th>
+                                <th class="px-8 py-6 text-right text-sm font-semibold text-gray-400 uppercase tracking-wider">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-white/5">
+                            <!-- Finotive -->
+                            <tr class="hover:bg-white/[0.02] transition-colors group">
+                                <td class="px-8 py-8">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-accent-gold transition-colors">
+                                            <span class="text-accent-gold font-bold">FF</span>
+                                        </div>
+                                        <div>
+                                            <div class="text-white font-bold text-lg">Finotive Funding</div>
+                                            <div class="text-xs text-gray-500 uppercase tracking-widest">Instant & Challenge</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-8 py-8 text-center">
+                                    <div class="text-white font-medium">$200,000</div>
+                                    <div class="text-xs text-gray-500">Scale to $5.4M</div>
+                                </td>
+                                <td class="px-8 py-8 text-center">
+                                    <div class="text-accent-cyan font-bold text-xl">Up to 95%</div>
+                                    <div class="text-xs text-gray-500">Performance Based</div>
+                                </td>
+                                <td class="px-8 py-8 text-center">
+                                    <div class="text-gray-300 text-sm">4.5% Daily</div>
+                                    <div class="text-gray-300 text-sm">9% Overall</div>
+                                </td>
+                                <td class="px-8 py-8 text-center">
+                                    <div class="text-white font-medium">From $29</div>
+                                    <div class="text-xs text-gray-500">Refundable Fee</div>
+                                </td>
+                                <td class="px-8 py-8 text-center">
+                                    <div class="flex flex-wrap justify-center gap-2">
+                                        <span class="px-2 py-1 bg-white/5 rounded text-[10px] text-gray-400 border border-white/10 uppercase">MT5</span>
+                                        <span class="px-2 py-1 bg-white/5 rounded text-[10px] text-gray-400 border border-white/10 uppercase">Finotive Terminal</span>
+                                    </div>
+                                </td>
+                                <td class="px-8 py-8 text-right">
+                                    <a href="YOUR_FINOTIVE_AFFILIATE_LINK" class="inline-flex items-center px-6 py-3 bg-accent-gold text-obsidian text-sm font-bold rounded-lg hover:bg-accent-goldLight transition-all">
+                                        Start Evaluation
+                                    </a>
+                                </td>
+                            </tr>
+                            <!-- Earn2Trade -->
+                            <tr class="hover:bg-white/[0.02] transition-colors group">
+                                <td class="px-8 py-8">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-accent-cyan transition-colors">
+                                            <span class="text-accent-cyan font-bold">E2T</span>
+                                        </div>
+                                        <div>
+                                            <div class="text-white font-bold text-lg">Earn2Trade</div>
+                                            <div class="text-xs text-gray-500 uppercase tracking-widest">Futures Trading</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-8 py-8 text-center">
+                                    <div class="text-white font-medium">$200,000</div>
+                                    <div class="text-xs text-gray-500">Trader Career Path</div>
+                                </td>
+                                <td class="px-8 py-8 text-center">
+                                    <div class="text-accent-cyan font-bold text-xl">80%</div>
+                                    <div class="text-xs text-gray-500">Fixed Split</div>
+                                </td>
+                                <td class="px-8 py-8 text-center">
+                                    <div class="text-gray-300 text-sm">Trailing</div>
+                                    <div class="text-gray-300 text-sm">Drawdown Rules</div>
+                                </td>
+                                <td class="px-8 py-8 text-center">
+                                    <div class="text-white font-medium">From $150/mo</div>
+                                    <div class="text-xs text-gray-500">Subscription Model</div>
+                                </td>
+                                <td class="px-8 py-8 text-center">
+                                    <div class="flex flex-wrap justify-center gap-2">
+                                        <span class="px-2 py-1 bg-white/5 rounded text-[10px] text-gray-400 border border-white/10 uppercase">NinjaTrader</span>
+                                        <span class="px-2 py-1 bg-white/5 rounded text-[10px] text-gray-400 border border-white/10 uppercase">Rithmic</span>
+                                    </div>
+                                </td>
+                                <td class="px-8 py-8 text-right">
+                                    <a href="YOUR_EARN2TRADE_AFFILIATE_LINK" class="inline-flex items-center px-6 py-3 bg-white/10 text-white text-sm font-bold rounded-lg hover:bg-white/20 transition-all border border-white/10">
+                                        Start Evaluation
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Section 2: Retail Forex Brokers -->
+            <section>
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                    <div>
+                        <h2 class="text-3xl font-bold text-white mb-3">Top Retail Brokers</h2>
+                        <p class="text-gray-400 max-w-2xl">Trade your own capital with regulated, high-liquidity brokers. Compare spreads, leverage, and deposit minimums.</p>
+                    </div>
+                    <div class="flex items-center gap-2 px-4 py-2 bg-accent-cyan/10 border border-accent-cyan/20 rounded-lg">
+                        <span class="w-2 h-2 rounded-full bg-accent-cyan animate-pulse"></span>
+                        <span class="text-xs font-bold text-accent-cyan uppercase tracking-wider">Tier-1 Regulated</span>
+                    </div>
+                </div>
+
+                <div class="table-container premium-border rounded-2xl bg-surface/50 backdrop-blur-sm">
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr class="border-b border-white/10">
+                                <th class="px-8 py-6 text-left text-sm font-semibold text-gray-400 uppercase tracking-wider">Broker</th>
+                                <th class="px-8 py-6 text-center text-sm font-semibold text-gray-400 uppercase tracking-wider">Min. Deposit</th>
+                                <th class="px-8 py-6 text-center text-sm font-semibold text-gray-400 uppercase tracking-wider">Max Leverage</th>
+                                <th class="px-8 py-6 text-center text-sm font-semibold text-gray-400 uppercase tracking-wider">Spreads & Comm.</th>
+                                <th class="px-8 py-6 text-center text-sm font-semibold text-gray-400 uppercase tracking-wider">Account Types</th>
+                                <th class="px-8 py-6 text-center text-sm font-semibold text-gray-400 uppercase tracking-wider">Platforms</th>
+                                <th class="px-8 py-6 text-right text-sm font-semibold text-gray-400 uppercase tracking-wider">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-white/5">
+                            <!-- XM -->
+                            <tr class="hover:bg-white/[0.02] transition-colors group">
+                                <td class="px-8 py-8">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-accent-gold transition-colors">
+                                            <span class="text-accent-gold font-bold">XM</span>
+                                        </div>
+                                        <div>
+                                            <div class="text-white font-bold text-lg">XM Group</div>
+                                            <div class="text-xs text-gray-500 uppercase tracking-widest">Global Regulation</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-8 py-8 text-center">
+                                    <div class="text-white font-medium">$5</div>
+                                    <div class="text-xs text-gray-500">Low Entry Barrier</div>
+                                </td>
+                                <td class="px-8 py-8 text-center">
+                                    <div class="text-accent-cyan font-bold text-xl">1:1000</div>
+                                    <div class="text-xs text-gray-500">Dynamic Leverage</div>
+                                </td>
+                                <td class="px-8 py-8 text-center">
+                                    <div class="text-gray-300 text-sm">From 0.6 Pips</div>
+                                    <div class="text-gray-300 text-sm">Zero Commission</div>
+                                </td>
+                                <td class="px-8 py-8 text-center">
+                                    <div class="text-white font-medium">Micro, Standard</div>
+                                    <div class="text-xs text-gray-500">Ultra-Low Accounts</div>
+                                </td>
+                                <td class="px-8 py-8 text-center">
+                                    <div class="flex flex-wrap justify-center gap-2">
+                                        <span class="px-2 py-1 bg-white/5 rounded text-[10px] text-gray-400 border border-white/10 uppercase">MT4</span>
+                                        <span class="px-2 py-1 bg-white/5 rounded text-[10px] text-gray-400 border border-white/10 uppercase">MT5</span>
+                                    </div>
+                                </td>
+                                <td class="px-8 py-8 text-right">
+                                    <a href="YOUR_XM_AFFILIATE_LINK" class="inline-flex items-center px-6 py-3 bg-accent-gold text-obsidian text-sm font-bold rounded-lg hover:bg-accent-goldLight transition-all">
+                                        Open Account
+                                    </a>
+                                </td>
+                            </tr>
+                            <!-- Exness -->
+                            <tr class="hover:bg-white/[0.02] transition-colors group">
+                                <td class="px-8 py-8">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-accent-cyan transition-colors">
+                                            <span class="text-accent-cyan font-bold">EX</span>
+                                        </div>
+                                        <div>
+                                            <div class="text-white font-bold text-lg">Exness</div>
+                                            <div class="text-xs text-gray-500 uppercase tracking-widest">Market Leader</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-8 py-8 text-center">
+                                    <div class="text-white font-medium">$10</div>
+                                    <div class="text-xs text-gray-500">Instant Withdrawals</div>
+                                </td>
+                                <td class="px-8 py-8 text-center">
+                                    <div class="text-accent-cyan font-bold text-xl">Unlimited</div>
+                                    <div class="text-xs text-gray-500">Based on Equity</div>
+                                </td>
+                                <td class="px-8 py-8 text-center">
+                                    <div class="text-gray-300 text-sm">From 0.0 Pips</div>
+                                    <div class="text-gray-300 text-sm">Raw Spread Avail.</div>
+                                </td>
+                                <td class="px-8 py-8 text-center">
+                                    <div class="text-white font-medium">Pro, Raw Spread</div>
+                                    <div class="text-xs text-gray-500">Zero, Standard</div>
+                                </td>
+                                <td class="px-8 py-8 text-center">
+                                    <div class="flex flex-wrap justify-center gap-2">
+                                        <span class="px-2 py-1 bg-white/5 rounded text-[10px] text-gray-400 border border-white/10 uppercase">MT4</span>
+                                        <span class="px-2 py-1 bg-white/5 rounded text-[10px] text-gray-400 border border-white/10 uppercase">MT5</span>
+                                        <span class="px-2 py-1 bg-white/5 rounded text-[10px] text-gray-400 border border-white/10 uppercase">Terminal</span>
+                                    </div>
+                                </td>
+                                <td class="px-8 py-8 text-right">
+                                    <a href="YOUR_EXNESS_AFFILIATE_LINK" class="inline-flex items-center px-6 py-3 bg-white/10 text-white text-sm font-bold rounded-lg hover:bg-white/20 transition-all border border-white/10">
+                                        Open Account
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p class="text-sm text-gray-500">© 2026 ForexMax. All rights reserved.</p>
+            <div class="flex gap-8">
+                <a href="index.html#contact" class="text-sm text-gray-500 hover:text-white transition-colors">Contact</a>
+                <a href="terms-of-service.html" class="text-sm text-gray-500 hover:text-white transition-colors">Terms</a>
+                <a href="privacy-policy.html" class="text-sm text-gray-500 hover:text-white transition-colors">Privacy</a>
+                <a href="risk-disclosure.html" class="text-sm text-gray-500 hover:text-white transition-colors">Risk Disclosure</a>
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>
