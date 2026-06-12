@@ -43,14 +43,15 @@
             border-radius: 10px;
         }
         .section-header {
-            font-size: 2.5rem;
+            font-size: 3.5rem;
             font-weight: 800;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.04em;
             background: linear-gradient(135deg, #D4AF37 0%, #F3E5AB 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
         }
         .nav-link {
             position: relative;
@@ -63,73 +64,82 @@
             position: sticky;
             top: 0;
             z-index: 50;
-            background: rgba(5, 5, 7, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(5, 5, 7, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
         table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0;
         }
         th {
-            background-color: #1c1f26;
-            padding: 1.5rem 2rem;
+            background-color: #0f1115;
+            padding: 1.25rem 1.5rem;
             text-align: left;
-            font-weight: 600;
-            color: #cbd5e1;
+            font-weight: 700;
+            color: #94a3b8;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.875rem;
-            letter-spacing: 0.1em;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
         }
         td {
-            padding: 1.5rem 2rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
             color: #cbd5e1;
+            vertical-align: middle;
+        }
+        tbody tr:last-child td {
+            border-bottom: none;
         }
         tbody tr:hover {
             background-color: rgba(255, 255, 255, 0.02);
-            transition: background-color 0.3s ease;
+            transition: background-color 0.2s ease;
         }
         .btn-primary {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             padding: 0.75rem 1.5rem;
-            background-color: #D4AF37;
+            background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
             color: #050507;
-            font-weight: 700;
+            font-weight: 800;
             font-size: 0.875rem;
-            border-radius: 0.5rem;
+            border-radius: 0.75rem;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border: none;
             cursor: pointer;
+            white-space: nowrap;
         }
         .btn-primary:hover {
-            background-color: #F3E5AB;
             transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(212, 175, 55, 0.2);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+            filter: brightness(1.1);
         }
-        .btn-secondary {
+        .btn-outline {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             padding: 0.75rem 1.5rem;
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: transparent;
             color: #f8fafc;
-            font-weight: 700;
+            font-weight: 600;
             font-size: 0.875rem;
-            border-radius: 0.5rem;
+            border-radius: 0.75rem;
             text-decoration: none;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             cursor: pointer;
         }
-        .btn-secondary:hover {
-            background-color: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.2);
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: #D4AF37;
+            color: #D4AF37;
         }
+        .accent-gold { color: #D4AF37; }
+        .bg-surface { background-color: #0f1115; }
     </style>
 </head>
 <body>
@@ -137,115 +147,131 @@
     <!-- Sticky Navigation -->
     <nav class="sticky-nav">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="text-xl font-bold text-accent-gold">ForexMax</a>
-            <div class="hidden md:flex gap-8">
-                <a href="#articles" class="nav-link text-sm font-medium text-gray-400">Articles</a>
-                <a href="#comparison" class="nav-link text-sm font-medium text-gray-400">Comparison</a>
-                <a href="#brokers" class="nav-link text-sm font-medium text-gray-400">Brokers</a>
-                <a href="#security" class="nav-link text-sm font-medium text-gray-400">Security</a>
-                <a href="#contact" class="nav-link text-sm font-medium text-gray-400">Contact</a>
+            <a href="index.html" class="flex items-center gap-2 group">
+                <img src="assets/forexmax-logo.png" alt="ForexMax Logo" class="h-8 w-auto">
+                <span class="text-2xl font-black tracking-tighter text-white group-hover:text-accent-gold transition-colors">FOREXMAX</span>
+            </a>
+            <div class="hidden lg:flex gap-10">
+                <a href="#articles" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400">Articles</a>
+                <a href="#comparison" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400">Comparison</a>
+                <a href="#brokers" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400">Brokers</a>
+                <a href="#security" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400">Security</a>
+                <a href="#contact" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400">Contact</a>
             </div>
+            <a href="#comparison" class="btn-primary py-2 px-6 text-xs">Compare Now</a>
         </div>
     </nav>
 
-    <main class="py-20">
+    <main class="pt-24 pb-32">
         <div class="max-w-7xl mx-auto px-6">
 
             <!-- Hero Section -->
-            <section class="mb-32 text-center">
-                <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight text-white mb-6">
-                    Institutional <span class="text-accent-gold">Comparison</span> Hub
+            <section class="mb-40 text-center">
+                <div class="inline-block px-4 py-1.5 mb-6 rounded-full border border-accent-gold/20 bg-accent-gold/5 text-accent-gold text-xs font-bold tracking-widest uppercase">
+                    Institutional Trading Hub
+                </div>
+                <h1 class="text-6xl md:text-8xl font-black tracking-tighter text-white mb-8 leading-none">
+                    ELITE <span class="accent-gold">CAPITAL</span><br>SOLUTIONS.
                 </h1>
-                <p class="max-w-3xl mx-auto text-lg text-gray-400 font-light leading-relaxed">
+                <p class="max-w-2xl mx-auto text-xl text-gray-400 font-medium leading-relaxed">
                     Unbiased, data-driven analysis of the world's leading proprietary trading firms and retail brokers. 
                     Choose the right partner for your capital requirements.
                 </p>
             </section>
 
-            <!-- ===== SECTION 1: ARTICLES ===== -->
-            <section id="articles" class="mb-32 scroll-mt-24">
+            <!-- ===== CATEGORY 1: ARTICLES ===== -->
+            <section id="articles" class="mb-48 scroll-mt-32">
                 <h2 class="section-header">Articles</h2>
-                <p class="text-lg text-gray-400 mb-8 max-w-3xl">
-                    Stay informed with our latest market intelligence, trading insights, and institutional analysis. 
-                    Our articles are written by experienced traders and financial analysts.
-                </p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <a href="articles/institutional-fx-market-report-2026-06-05.html" class="premium-border rounded-xl p-8 hover:border-accent-gold/50 transition-all group">
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-accent-gold transition-colors">Institutional FX Market Report 2026</h3>
-                        <p class="text-gray-400 mb-4">Deep dive into institutional forex market trends, liquidity patterns, and algorithmic trading strategies.</p>
-                        <span class="text-accent-gold font-semibold text-sm">Read Article →</span>
-                    </a>
-                    <a href="forexmax_article.html" class="premium-border rounded-xl p-8 hover:border-accent-gold/50 transition-all group">
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-accent-gold transition-colors">Prop Firm Evaluation Strategies</h3>
-                        <p class="text-gray-400 mb-4">Master the techniques used by successful traders to pass prop firm evaluations and scale to institutional capital.</p>
-                        <span class="text-accent-gold font-semibold text-sm">Read Article →</span>
-                    </a>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-1">
+                        <p class="text-xl text-gray-400 font-medium mb-8">
+                            Stay informed with our latest market intelligence, trading insights, and institutional analysis.
+                        </p>
+                        <a href="index.html" class="btn-outline">View All Intelligence</a>
+                    </div>
+                    <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <a href="articles/earn2trade-mobile-futures-killer-app.html" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
+                            <div class="text-accent-gold font-bold text-xs tracking-widest uppercase mb-4">Futures</div>
+                            <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors">The NEW Earn2Trade Mobile Update</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-6">Why Futures Just Became Your Forex Killer App. Explore the 2026 update bringing CME precision to mobile.</p>
+                            <span class="text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2">Read More <span class="group-hover:translate-x-1 transition-transform">→</span></span>
+                        </a>
+                        <a href="articles/finotive-instant-funding.html" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
+                            <div class="text-accent-gold font-bold text-xs tracking-widest uppercase mb-4">Prop Firms</div>
+                            <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors">Finotive Instant Funding</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-6">Skip the Prop Firm Challenge. Access live capital immediately and scale your trading career without evaluations.</p>
+                            <span class="text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2">Read More <span class="group-hover:translate-x-1 transition-transform">→</span></span>
+                        </a>
+                    </div>
                 </div>
             </section>
 
-            <!-- ===== SECTION 2: COMPARISON ===== -->
-            <section id="comparison" class="mb-32 scroll-mt-24">
+            <!-- ===== CATEGORY 2: COMPARISON ===== -->
+            <section id="comparison" class="mb-48 scroll-mt-32">
                 <h2 class="section-header">Comparison</h2>
-                <p class="text-lg text-gray-400 mb-12 max-w-3xl">
-                    Compare top proprietary trading firms across different asset classes. Find the best evaluation program for your trading style.
-                </p>
-
-                <!-- Subsection 2A: Futures Prop Firms -->
-                <div class="mb-20">
-                    <div class="mb-8">
-                        <h3 class="text-2xl font-bold text-white mb-2">Top Futures Prop Firms</h3>
-                        <p class="text-gray-400">Get funded to trade CME futures. Compare evaluation rules, scaling, and data fees.</p>
+                
+                <!-- Table 1: Futures Prop Firms -->
+                <div class="mb-24">
+                    <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+                        <div>
+                            <h3 class="text-3xl font-black text-white mb-3 uppercase tracking-tight">Top Futures Prop Firms</h3>
+                            <p class="text-gray-400 font-medium">Get funded to trade CME futures. Compare evaluation rules, scaling, and data fees.</p>
+                        </div>
+                        <div class="px-4 py-2 bg-surface premium-border rounded-lg text-xs font-bold text-gray-400">
+                            UPDATED: JUNE 2026
+                        </div>
                     </div>
-                    <div class="table-container premium-border rounded-2xl bg-slate/50 backdrop-blur-sm">
+                    
+                    <div class="table-container premium-border rounded-3xl bg-surface/50 backdrop-blur-sm overflow-hidden">
                         <table>
                             <thead>
                                 <tr>
                                     <th>Prop Firm</th>
                                     <th class="text-center">Max Allocation</th>
                                     <th class="text-center">Profit Split</th>
-                                    <th class="text-center">End-of-Day Drawdown</th>
-                                    <th class="text-center">Evaluation Cost</th>
-                                    <th class="text-center">Supported Platforms</th>
+                                    <th class="text-center">Drawdown</th>
+                                    <th class="text-center">Eval Cost</th>
+                                    <th class="text-center">Platforms</th>
                                     <th class="text-right">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>
-                                        <div class="flex items-center gap-3">
-                                            <div class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center border border-white/10">
-                                                <span class="text-accent-gold font-bold text-sm">E2T</span>
+                                        <div class="flex items-center gap-4">
+                                            <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center p-2">
+                                                <span class="text-obsidian font-black text-xs">E2T</span>
                                             </div>
                                             <div>
-                                                <div class="font-bold text-white">Earn2Trade</div>
-                                                <div class="text-xs text-gray-500">Gauntlet Mini</div>
+                                                <div class="font-black text-white text-lg tracking-tight">Earn2Trade</div>
+                                                <div class="text-xs font-bold text-accent-gold uppercase tracking-widest">Gauntlet Mini</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <div class="text-white font-medium">$200,000</div>
-                                        <div class="text-xs text-gray-500">Futures Contracts</div>
+                                        <div class="text-white font-bold text-xl">$200,000</div>
+                                        <div class="text-[10px] font-bold text-gray-500 uppercase">Buying Power</div>
                                     </td>
                                     <td class="text-center">
-                                        <div class="text-accent-cyan font-bold text-lg">80%</div>
-                                        <div class="text-xs text-gray-500">Fixed Split</div>
+                                        <div class="text-white font-black text-2xl">80%</div>
+                                        <div class="text-[10px] font-bold text-gray-500 uppercase">To Trader</div>
                                     </td>
                                     <td class="text-center">
-                                        <div class="text-gray-300 text-sm">Trailing</div>
-                                        <div class="text-gray-300 text-sm">Drawdown Rules</div>
+                                        <div class="text-gray-300 font-medium">End-of-Day</div>
+                                        <div class="text-[10px] font-bold text-gray-500 uppercase">Trailing</div>
                                     </td>
                                     <td class="text-center">
-                                        <div class="text-white font-medium">From $150/mo</div>
-                                        <div class="text-xs text-gray-500">Subscription</div>
+                                        <div class="text-white font-bold">From $150</div>
+                                        <div class="text-[10px] font-bold text-gray-500 uppercase">Per Month</div>
                                     </td>
                                     <td class="text-center">
-                                        <div class="flex flex-wrap justify-center gap-2">
-                                            <span class="px-2 py-1 bg-white/5 rounded text-[10px] text-gray-400 border border-white/10 uppercase">NinjaTrader</span>
-                                            <span class="px-2 py-1 bg-white/5 rounded text-[10px] text-gray-400 border border-white/10 uppercase">Rithmic</span>
+                                        <div class="flex flex-wrap justify-center gap-1.5">
+                                            <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase">NinjaTrader</span>
+                                            <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase">Rithmic</span>
                                         </div>
                                     </td>
                                     <td class="text-right">
-                                        <a href="https://www.earn2trade.com" class="btn-primary">Start Gauntlet Mini</a>
+                                        <a href="https://www.earn2trade.com/gauntlet-mini?a_pid=Tradetolear4&a_bid=f38a33c1" target="_blank" class="btn-primary">Start Gauntlet Mini</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -253,62 +279,65 @@
                     </div>
                 </div>
 
-                <!-- Subsection 2B: Forex Prop Firms -->
+                <!-- Table 2: Forex Prop Firms -->
                 <div>
-                    <div class="mb-8">
-                        <h3 class="text-2xl font-bold text-white mb-2">Top Forex Prop Firms</h3>
-                        <p class="text-gray-400">Trade forex, indices, and crypto with institutional capital. Review phase rules and profit targets.</p>
+                    <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+                        <div>
+                            <h3 class="text-3xl font-black text-white mb-3 uppercase tracking-tight">Top Forex Prop Firms</h3>
+                            <p class="text-gray-400 font-medium">Trade forex, indices, and crypto with institutional capital. Review phase rules and profit targets.</p>
+                        </div>
                     </div>
-                    <div class="table-container premium-border rounded-2xl bg-slate/50 backdrop-blur-sm">
+                    
+                    <div class="table-container premium-border rounded-3xl bg-surface/50 backdrop-blur-sm overflow-hidden">
                         <table>
                             <thead>
                                 <tr>
                                     <th>Prop Firm</th>
                                     <th class="text-center">Max Allocation</th>
                                     <th class="text-center">Profit Split</th>
-                                    <th class="text-center">Drawdown Rules</th>
-                                    <th class="text-center">Evaluation Cost</th>
-                                    <th class="text-center">Trading Platforms</th>
+                                    <th class="text-center">Drawdown</th>
+                                    <th class="text-center">Eval Cost</th>
+                                    <th class="text-center">Platforms</th>
                                     <th class="text-right">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>
-                                        <div class="flex items-center gap-3">
-                                            <div class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center border border-white/10">
-                                                <span class="text-accent-gold font-bold text-sm">FF</span>
+                                        <div class="flex items-center gap-4">
+                                            <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center p-1">
+                                                <img src="assets/finotive-logo.jpg" alt="Finotive" class="w-full h-auto rounded-lg">
                                             </div>
                                             <div>
-                                                <div class="font-bold text-white">Finotive Funding</div>
-                                                <div class="text-xs text-gray-500">Challenge & Instant</div>
+                                                <div class="font-black text-white text-lg tracking-tight">Finotive Funding</div>
+                                                <div class="text-xs font-bold text-accent-gold uppercase tracking-widest">Instant Funding</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <div class="text-white font-medium">$200,000</div>
-                                        <div class="text-xs text-gray-500">Scale to $5.4M</div>
+                                        <div class="text-white font-bold text-xl">$200,000</div>
+                                        <div class="text-[10px] font-bold text-gray-500 uppercase">Direct Capital</div>
                                     </td>
                                     <td class="text-center">
-                                        <div class="text-accent-cyan font-bold text-lg">Up to 95%</div>
-                                        <div class="text-xs text-gray-500">Performance Based</div>
+                                        <div class="text-white font-black text-2xl">Up to 95%</div>
+                                        <div class="text-[10px] font-bold text-gray-500 uppercase">Performance Based</div>
                                     </td>
                                     <td class="text-center">
-                                        <div class="text-gray-300 text-sm">4.5% Daily</div>
-                                        <div class="text-gray-300 text-sm">9% Overall</div>
+                                        <div class="text-gray-300 font-medium">Daily & Total</div>
+                                        <div class="text-[10px] font-bold text-gray-500 uppercase">Relative</div>
                                     </td>
                                     <td class="text-center">
-                                        <div class="text-white font-medium">From $29</div>
-                                        <div class="text-xs text-gray-500">Refundable Fee</div>
+                                        <div class="text-white font-bold">Varies</div>
+                                        <div class="text-[10px] font-bold text-gray-500 uppercase">No Evaluation</div>
                                     </td>
                                     <td class="text-center">
-                                        <div class="flex flex-wrap justify-center gap-2">
-                                            <span class="px-2 py-1 bg-white/5 rounded text-[10px] text-gray-400 border border-white/10 uppercase">MT5</span>
-                                            <span class="px-2 py-1 bg-white/5 rounded text-[10px] text-gray-400 border border-white/10 uppercase">Terminal</span>
+                                        <div class="flex flex-wrap justify-center gap-1.5">
+                                            <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase">Finotive Platform</span>
+                                            <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase">MT5</span>
                                         </div>
                                     </td>
                                     <td class="text-right">
-                                        <a href="https://finotivefunding.com" class="btn-primary">Get Funded</a>
+                                        <a href="https://finotivefunding.com/Top" target="_blank" class="btn-primary">Get Funded</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -317,102 +346,104 @@
                 </div>
             </section>
 
-            <!-- ===== SECTION 3: BROKERS ===== -->
-            <section id="brokers" class="mb-32 scroll-mt-24">
+            <!-- ===== CATEGORY 3: BROKERS ===== -->
+            <section id="brokers" class="mb-48 scroll-mt-32">
                 <h2 class="section-header">Brokers</h2>
-                <p class="text-lg text-gray-400 mb-12 max-w-3xl">
-                    Trade your own capital with regulated, high-liquidity brokers. Compare spreads, leverage, and deposit minimums.
-                </p>
-
-                <div class="table-container premium-border rounded-2xl bg-slate/50 backdrop-blur-sm">
+                
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+                    <div>
+                        <h3 class="text-3xl font-black text-white mb-3 uppercase tracking-tight">Top Retail Brokers</h3>
+                        <p class="text-gray-400 font-medium">Trade your own capital with regulated, high-liquidity brokers. Compare spreads, leverage, and deposit minimums.</p>
+                    </div>
+                </div>
+                
+                <div class="table-container premium-border rounded-3xl bg-surface/50 backdrop-blur-sm overflow-hidden">
                     <table>
                         <thead>
                             <tr>
                                 <th>Broker</th>
-                                <th class="text-center">Minimum Deposit</th>
+                                <th class="text-center">Min Deposit</th>
                                 <th class="text-center">Max Leverage</th>
-                                <th class="text-center">Spreads & Commissions</th>
+                                <th class="text-center">Spreads/Comm</th>
                                 <th class="text-center">Account Types</th>
-                                <th class="text-center">Trading Platforms</th>
+                                <th class="text-center">Platforms</th>
                                 <th class="text-right">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center border border-white/10">
-                                            <span class="text-accent-gold font-bold text-sm">XM</span>
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center p-2">
+                                            <img src="assets/xm-logo.png" alt="XM" class="w-full h-auto">
                                         </div>
                                         <div>
-                                            <div class="font-bold text-white">XM Group</div>
-                                            <div class="text-xs text-gray-500">Global Regulation</div>
+                                            <div class="font-black text-white text-lg tracking-tight">XM Global</div>
+                                            <div class="text-xs font-bold text-accent-gold uppercase tracking-widest">Regulated</div>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="text-center">
-                                    <div class="text-white font-medium">$5</div>
-                                    <div class="text-xs text-gray-500">Low Entry Barrier</div>
+                                    <div class="text-white font-bold text-xl">$5</div>
+                                    <div class="text-[10px] font-bold text-gray-500 uppercase">Micro Start</div>
                                 </td>
                                 <td class="text-center">
-                                    <div class="text-accent-cyan font-bold text-lg">1:1000</div>
-                                    <div class="text-xs text-gray-500">Dynamic Leverage</div>
+                                    <div class="text-white font-black text-2xl">1000:1</div>
+                                    <div class="text-[10px] font-bold text-gray-500 uppercase">Dynamic</div>
                                 </td>
                                 <td class="text-center">
-                                    <div class="text-gray-300 text-sm">From 0.6 Pips</div>
-                                    <div class="text-gray-300 text-sm">Zero Commission</div>
+                                    <div class="text-gray-300 font-medium">From 0.6 Pips</div>
+                                    <div class="text-[10px] font-bold text-gray-500 uppercase">Zero Commission</div>
                                 </td>
                                 <td class="text-center">
-                                    <div class="text-white font-medium">Micro, Standard</div>
-                                    <div class="text-xs text-gray-500">Ultra-Low Accounts</div>
+                                    <div class="text-white font-bold text-xs">Micro, Standard, Ultra Low</div>
                                 </td>
                                 <td class="text-center">
-                                    <div class="flex flex-wrap justify-center gap-2">
-                                        <span class="px-2 py-1 bg-white/5 rounded text-[10px] text-gray-400 border border-white/10 uppercase">MT4</span>
-                                        <span class="px-2 py-1 bg-white/5 rounded text-[10px] text-gray-400 border border-white/10 uppercase">MT5</span>
+                                    <div class="flex flex-wrap justify-center gap-1.5">
+                                        <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase">MT4</span>
+                                        <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase">MT5</span>
                                     </div>
                                 </td>
                                 <td class="text-right">
-                                    <a href="https://xmglobal.com/referral?token=jZbxEDNkYnopzuq1HVHMxg" class="btn-primary">Open Account</a>
+                                    <a href="https://xmglobal.com/referral?token=jZbxEDNkYnopzuq1HVHMxg" target="_blank" class="btn-primary">Open Account</a>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center border border-white/10">
-                                            <span class="text-accent-cyan font-bold text-sm">EX</span>
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center p-2">
+                                            <img src="assets/exness-logo.png" alt="Exness" class="w-full h-auto">
                                         </div>
                                         <div>
-                                            <div class="font-bold text-white">Exness</div>
-                                            <div class="text-xs text-gray-500">Market Leader</div>
+                                            <div class="font-black text-white text-lg tracking-tight">Exness</div>
+                                            <div class="text-xs font-bold text-accent-gold uppercase tracking-widest">Multi-Regulated</div>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="text-center">
-                                    <div class="text-white font-medium">$10</div>
-                                    <div class="text-xs text-gray-500">Instant Withdrawals</div>
+                                    <div class="text-white font-bold text-xl">$10</div>
+                                    <div class="text-[10px] font-bold text-gray-500 uppercase">Flexible</div>
                                 </td>
                                 <td class="text-center">
-                                    <div class="text-accent-cyan font-bold text-lg">Unlimited</div>
-                                    <div class="text-xs text-gray-500">Based on Equity</div>
+                                    <div class="text-white font-black text-2xl">Unlimited</div>
+                                    <div class="text-[10px] font-bold text-gray-500 uppercase">Conditions Apply</div>
                                 </td>
                                 <td class="text-center">
-                                    <div class="text-gray-300 text-sm">From 0.0 Pips</div>
-                                    <div class="text-gray-300 text-sm">Raw Spread Avail.</div>
+                                    <div class="text-gray-300 font-medium">From 0.0 Pips</div>
+                                    <div class="text-[10px] font-bold text-gray-500 uppercase">Raw Spreads</div>
                                 </td>
                                 <td class="text-center">
-                                    <div class="text-white font-medium">Pro, Raw Spread</div>
-                                    <div class="text-xs text-gray-500">Zero, Standard</div>
+                                    <div class="text-white font-bold text-xs">Standard, Pro, Raw Spread</div>
                                 </td>
                                 <td class="text-center">
-                                    <div class="flex flex-wrap justify-center gap-2">
-                                        <span class="px-2 py-1 bg-white/5 rounded text-[10px] text-gray-400 border border-white/10 uppercase">MT4</span>
-                                        <span class="px-2 py-1 bg-white/5 rounded text-[10px] text-gray-400 border border-white/10 uppercase">MT5</span>
-                                        <span class="px-2 py-1 bg-white/5 rounded text-[10px] text-gray-400 border border-white/10 uppercase">Terminal</span>
+                                    <div class="flex flex-wrap justify-center gap-1.5">
+                                        <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase">MT4</span>
+                                        <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase">MT5</span>
+                                        <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase">Exness App</span>
                                     </div>
                                 </td>
                                 <td class="text-right">
-                                    <a href="https://one.exnessonelink.com/a/8ja3w1gcvj" class="btn-primary">Open Account</a>
+                                    <a href="https://one.exnessonelink.com/a/8ja3w1gcvj" target="_blank" class="btn-primary">Open Account</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -420,60 +451,45 @@
                 </div>
             </section>
 
-            <!-- ===== SECTION 4: SECURITY ===== -->
-            <section id="security" class="mb-32 scroll-mt-24">
+            <!-- ===== CATEGORY 4: SECURITY ===== -->
+            <section id="security" class="mb-48 scroll-mt-32">
                 <h2 class="section-header">Security</h2>
-                <p class="text-lg text-gray-400 mb-12 max-w-3xl">
-                    ForexMax is committed to transparency and legal compliance. Review our legal documentation and risk disclosures.
-                </p>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <a href="risk-disclosure.html" class="premium-border rounded-xl p-8 hover:border-accent-gold/50 transition-all group">
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-accent-gold transition-colors">Risk Disclosure</h3>
-                        <p class="text-gray-400 mb-4">Understand the risks associated with trading forex, CFDs, and prop firm evaluations.</p>
-                        <span class="text-accent-gold font-semibold text-sm">View Document →</span>
+                    <a href="risk-disclosure.html" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
+                        <h3 class="text-xl font-black text-white mb-4 uppercase tracking-tight group-hover:text-accent-gold transition-colors">Risk Disclosure</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">Understand the significant risks associated with trading leveraged financial instruments and prop firm evaluations.</p>
+                        <span class="text-accent-gold font-bold text-xs uppercase tracking-widest">Review Policy →</span>
                     </a>
-                    <a href="privacy-policy.html" class="premium-border rounded-xl p-8 hover:border-accent-gold/50 transition-all group">
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-accent-gold transition-colors">Privacy Policy</h3>
-                        <p class="text-gray-400 mb-4">Learn how we collect, use, and protect your personal data in compliance with GDPR.</p>
-                        <span class="text-accent-gold font-semibold text-sm">View Document →</span>
+                    <a href="privacy-policy.html" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
+                        <h3 class="text-xl font-black text-white mb-4 uppercase tracking-tight group-hover:text-accent-gold transition-colors">Privacy Policy</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">How we protect your data and maintain the highest standards of digital privacy and security.</p>
+                        <span class="text-accent-gold font-bold text-xs uppercase tracking-widest">Review Policy →</span>
                     </a>
-                    <a href="terms-of-service.html" class="premium-border rounded-xl p-8 hover:border-accent-gold/50 transition-all group">
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-accent-gold transition-colors">Terms of Service</h3>
-                        <p class="text-gray-400 mb-4">Review the terms governing your use of ForexMax and our informational services.</p>
-                        <span class="text-accent-gold font-semibold text-sm">View Document →</span>
+                    <a href="terms-of-service.html" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
+                        <h3 class="text-xl font-black text-white mb-4 uppercase tracking-tight group-hover:text-accent-gold transition-colors">Terms of Service</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">The legal framework governing your use of the ForexMax platform and its informational resources.</p>
+                        <span class="text-accent-gold font-bold text-xs uppercase tracking-widest">Review Terms →</span>
                     </a>
                 </div>
             </section>
 
-            <!-- ===== SECTION 5: CONTACT ===== -->
-            <section id="contact" class="mb-32 scroll-mt-24">
+            <!-- ===== CATEGORY 5: CONTACT ===== -->
+            <section id="contact" class="scroll-mt-32">
                 <h2 class="section-header">Contact</h2>
-                <p class="text-lg text-gray-400 mb-12 max-w-3xl">
-                    Have questions or feedback? Reach out to our team. We're here to help.
-                </p>
-                <div class="premium-border rounded-2xl p-12 bg-slate/50 backdrop-blur-sm">
-                    <div class="max-w-2xl">
-                        <h3 class="text-2xl font-bold text-white mb-6">Get in Touch</h3>
-                        <div class="space-y-6">
-                            <div>
-                                <p class="text-gray-400 mb-2">Email</p>
-                                <a href="mailto:djamal@forexmax.com" class="text-accent-gold font-semibold hover:text-accent-goldLight transition-colors">
-                                    djamal@forexmax.com
-                                </a>
-                            </div>
-                            <div>
-                                <p class="text-gray-400 mb-2">Response Time</p>
-                                <p class="text-white font-medium">Within 24 hours</p>
-                            </div>
-                            <div>
-                                <p class="text-gray-400 mb-4">Message</p>
-                                <form class="space-y-4">
-                                    <input type="text" placeholder="Your Name" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-accent-gold transition-colors">
-                                    <input type="email" placeholder="Your Email" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-accent-gold transition-colors">
-                                    <textarea placeholder="Your Message" rows="5" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-accent-gold transition-colors resize-none"></textarea>
-                                    <button type="submit" class="btn-primary w-full md:w-auto">Send Message</button>
-                                </form>
-                            </div>
+                <div class="bg-surface premium-border rounded-3xl p-12 text-center">
+                    <h3 class="text-4xl font-black text-white mb-6 uppercase tracking-tight">Need Institutional Support?</h3>
+                    <p class="text-xl text-gray-400 font-medium mb-10 max-w-2xl mx-auto">
+                        Our team is available for deep-dive consultations regarding prop firm selection and broker architecture.
+                    </p>
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-8">
+                        <div class="flex flex-col items-center">
+                            <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">Direct Email</span>
+                            <a href="mailto:support@forexmax.com" class="text-2xl font-black text-accent-gold hover:text-white transition-colors">support@forexmax.com</a>
+                        </div>
+                        <div class="w-px h-12 bg-white/10 hidden md:block"></div>
+                        <div class="flex flex-col items-center">
+                            <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">Response Time</span>
+                            <span class="text-2xl font-black text-white uppercase tracking-tight">< 24 Hours</span>
                         </div>
                     </div>
                 </div>
@@ -482,16 +498,16 @@
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="py-12 border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p class="text-sm text-gray-500">© 2026 ForexMax. All rights reserved.</p>
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex items-center gap-2">
+                <img src="assets/forexmax-logo.png" alt="ForexMax Logo" class="h-6 opacity-50">
+                <span class="text-sm font-bold text-gray-500">© 2026 FOREXMAX. ALL RIGHTS RESERVED.</span>
+            </div>
             <div class="flex gap-8">
-                <a href="#articles" class="text-sm text-gray-500 hover:text-white transition-colors">Articles</a>
-                <a href="#comparison" class="text-sm text-gray-500 hover:text-white transition-colors">Comparison</a>
-                <a href="#brokers" class="text-sm text-gray-500 hover:text-white transition-colors">Brokers</a>
-                <a href="#security" class="text-sm text-gray-500 hover:text-white transition-colors">Security</a>
-                <a href="#contact" class="text-sm text-gray-500 hover:text-white transition-colors">Contact</a>
+                <a href="risk-disclosure.html" class="text-[10px] font-bold text-gray-500 hover:text-white uppercase tracking-widest">Risk Disclosure</a>
+                <a href="privacy-policy.html" class="text-[10px] font-bold text-gray-500 hover:text-white uppercase tracking-widest">Privacy Policy</a>
+                <a href="terms-of-service.html" class="text-[10px] font-bold text-gray-500 hover:text-white uppercase tracking-widest">Terms of Service</a>
             </div>
         </div>
     </footer>
