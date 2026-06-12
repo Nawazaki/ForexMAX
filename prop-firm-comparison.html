@@ -22,7 +22,7 @@
         body {
             background-color: #050507;
             color: #f8fafc;
-            font-family: 'Inter', sans-serif;
+            font-family: \'Inter\', sans-serif;
             line-height: 1.6;
         }
         .premium-border {
@@ -140,17 +140,81 @@
         }
         .accent-gold { color: #D4AF37; }
         .bg-surface { background-color: #0f1115; }
+
+        /* Mobile Menu Styles */
+        #mobile-menu-toggle {
+            display: none;
+        }
+
+        #mobile-menu-toggle:checked ~ #mobile-menu {
+            max-height: 500px;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #mobile-menu {
+            max-height: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out, visibility 0.3s ease-out;
+            overflow: hidden;
+        }
+
+        .hamburger-icon {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .hamburger-icon span {
+            width: 25px;
+            height: 2px;
+            background-color: #f8fafc;
+            transition: all 0.3s ease;
+        }
+
+        #mobile-menu-toggle:checked ~ .hamburger-icon span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        #mobile-menu-toggle:checked ~ .hamburger-icon span:nth-child(2) {
+            opacity: 0;
+        }
+
+        #mobile-menu-toggle:checked ~ .hamburger-icon span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Responsive Hero Headline */
+        @media (max-width: 768px) {
+            .section-header {
+                font-size: 2rem;
+            }
+            h1 {
+                font-size: 2.25rem !important;
+            }
+        }
+
+        /* Table Responsive Fix */
+        @media (max-width: 1024px) {
+            .table-container {
+                min-width: auto;
+            }
+        }
     </style>
 </head>
 <body>
 
     <!-- Sticky Navigation -->
-    <nav class="sticky-nav">
+    <nav class="sticky-nav relative">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-2 group">
                 <img src="assets/forexmax-logo.png" alt="ForexMax Logo" class="h-8 w-auto">
-                <span class="text-2xl font-black tracking-tighter text-white group-hover:text-accent-gold transition-colors">FOREXMAX</span>
+                <span class="text-2xl font-black tracking-tighter text-white group-hover:text-accent-gold transition-colors hidden sm:inline">FOREXMAX</span>
             </a>
+            
+            <!-- Desktop Navigation -->
             <div class="hidden lg:flex gap-10">
                 <a href="#articles" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400">Articles</a>
                 <a href="#comparison" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400">Comparison</a>
@@ -158,7 +222,31 @@
                 <a href="#security" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400">Security</a>
                 <a href="#contact" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400">Contact</a>
             </div>
-            <a href="#comparison" class="btn-primary py-2 px-6 text-xs">Compare Now</a>
+            
+            <!-- Desktop CTA -->
+            <a href="#comparison" class="btn-primary py-2 px-6 text-xs hidden lg:inline-flex">Compare Now</a>
+
+            <!-- Mobile Menu Toggle -->
+            <input type="checkbox" id="mobile-menu-toggle" class="hidden" />
+            <label for="mobile-menu-toggle" class="lg:hidden flex items-center cursor-pointer">
+                <div class="hamburger-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </label>
+
+            <!-- Mobile Navigation Menu -->
+            <div id="mobile-menu" class="absolute top-full left-0 right-0 bg-obsidian/95 backdrop-blur-md border-b border-white/5 lg:hidden">
+                <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-4">
+                    <a href="#articles" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400 py-2" onclick="document.getElementById(\'mobile-menu-toggle\').checked = false;">Articles</a>
+                    <a href="#comparison" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400 py-2" onclick="document.getElementById(\'mobile-menu-toggle\').checked = false;">Comparison</a>
+                    <a href="#brokers" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400 py-2" onclick="document.getElementById(\'mobile-menu-toggle\').checked = false;">Brokers</a>
+                    <a href="#security" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400 py-2" onclick="document.getElementById(\'mobile-menu-toggle\').checked = false;">Security</a>
+                    <a href="#contact" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400 py-2" onclick="document.getElementById(\'mobile-menu-toggle\').checked = false;">Contact</a>
+                    <a href="#comparison" class="btn-primary py-2 px-6 text-xs mt-2" onclick="document.getElementById(\'mobile-menu-toggle\').checked = false;">Compare Now</a>
+                </div>
+            </div>
         </div>
     </nav>
 
@@ -170,11 +258,11 @@
                 <div class="inline-block px-4 py-1.5 mb-6 rounded-full border border-accent-gold/20 bg-accent-gold/5 text-accent-gold text-xs font-bold tracking-widest uppercase">
                     Institutional Trading Hub
                 </div>
-                <h1 class="text-6xl md:text-8xl font-black tracking-tighter text-white mb-8 leading-none">
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter text-white mb-8 leading-none">
                     ELITE <span class="accent-gold">CAPITAL</span><br>SOLUTIONS.
                 </h1>
                 <p class="max-w-2xl mx-auto text-xl text-gray-400 font-medium leading-relaxed">
-                    Unbiased, data-driven analysis of the world's leading proprietary trading firms and retail brokers. 
+                    Unbiased, data-driven analysis of the world\'s leading proprietary trading firms and retail brokers. 
                     Choose the right partner for your capital requirements.
                 </p>
             </section>
@@ -222,22 +310,24 @@
                         </div>
                     </div>
                     
-                    <div class="overflow-x-auto pb-4" style="-webkit-overflow-scrolling: touch; overflow-y: hidden; width: 100%;"><table class="premium-border rounded-3xl" style="min-width: 1200px; display: table; background: rgba(15, 17, 21, 0.5); backdrop-filter: blur(10px);">
-                            <thead>
-                                <tr>
-                                    <th class="whitespace-nowrap">Prop Firm</th>
-                                    <th class="text-center whitespace-nowrap">Max Allocation</th>
-                                    <th class="text-center whitespace-nowrap">Profit Split</th>
-                                    <th class="text-center whitespace-nowrap">Drawdown</th>
-                                    <th class="text-center whitespace-nowrap">Eval Cost</th>
-                                    <th class="text-center whitespace-nowrap">Platforms</th>
-                                    <th class="text-right whitespace-nowrap">Action</th>
+                    <div class="w-full overflow-x-auto overflow-y-hidden touch-pan-x pb-4">
+                        <div class="table-container premium-border rounded-3xl bg-surface/50 backdrop-blur-sm overflow-hidden" style="min-width: max-content;">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="whitespace-nowrap">Prop Firm</th>
+                                            <th class="text-center whitespace-nowrap">Max Allocation</th>
+                                            <th class="text-center whitespace-nowrap">Profit Split</th>
+                                            <th class="text-center whitespace-nowrap">Drawdown</th>
+                                            <th class="text-center whitespace-nowrap">Eval Cost</th>
+                                            <th class="text-center whitespace-nowrap">Platforms</th>
+                                            <th class="text-right whitespace-nowrap">Action</th>
                                         </tr>
                                     </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="whitespace-nowrap">
-                                        <div class="flex items-center gap-4">
+                                    <tbody>
+                                        <tr>
+                                            <td class="whitespace-nowrap">
+                                                <div class="flex items-center gap-4">
                                                     <div class="w-12 h-12 rounded-xl bg-white flex-shrink-0 flex items-center justify-center p-2">
                                                         <span class="text-obsidian font-black text-xs">E2T</span>
                                                     </div>
@@ -247,99 +337,367 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                    <td class="text-center whitespace-nowrap">
-                                        <div class="text-white font-bold text-xl">$200,000</div>
-                                        <div class="text-[10px] font-bold text-gray-500 uppercase">Buying Power</div>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-bold text-xl">$200,000</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">Buying Power</div>
                                             </td>
-                                    <td class="text-center whitespace-nowrap">
-                                        <div class="text-white font-black text-2xl">80%</div>
-                                        <div class="text-[10px] font-bold text-gray-500 uppercase">To Trader</div>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-black text-2xl">80%</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">To Trader</div>
                                             </td>
-                                    <td class="text-center whitespace-nowrap">
-                                        <div class="text-gray-300 font-medium">End-of-Day</div>
-                                        <div class="text-[10px] font-bold text-gray-500 uppercase">Trailing</div>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-gray-300 font-medium">End-of-Day</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">Trailing</div>
                                             </td>
-                                    <td class="text-center whitespace-nowrap">
-                                        <div class="text-white font-bold">From $150</div>
-                                        <div class="text-[10px] font-bold text-gray-500 uppercase">Per Month</div>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-bold">From $150</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">Per Month</div>
                                             </td>
-                                    <td class="text-center whitespace-nowrap">
-                                        <div class="flex flex-nowrap justify-center gap-1.5">
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="flex flex-nowrap justify-center gap-1.5">
                                                     <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">NinjaTrader</span>
                                                     <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">Rithmic</span>
                                                 </div>
                                             </td>
-                                    <td class="text-right whitespace-nowrap">
-                                        <a href="https://www.earn2trade.com/gauntlet-mini?a_pid=Tradetolear4&a_bid=f38a33c1" target="_blank" class="btn-primary flex-shrink-0">Start Gauntlet Mini</a>
+                                            <td class="text-right whitespace-nowrap">
+                                                <a href="https://www.earn2trade.com/gauntlet-mini?a_pid=Tradetolear4&a_bid=f38a33c1" target="_blank" class="btn-primary flex-shrink-0">Start Gauntlet Mini</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="whitespace-nowrap">
+                                                <div class="flex items-center gap-4">
+                                                    <div class="w-12 h-12 rounded-xl bg-white flex-shrink-0 flex items-center justify-center p-2">
+                                                        <span class="text-obsidian font-black text-xs">FT</span>
+                                                    </div>
+                                                    <div class="flex-shrink-0">
+                                                        <div class="font-black text-white text-lg tracking-tight">Funded Trading Plus</div>
+                                                        <div class="text-xs font-bold text-accent-gold uppercase tracking-widest">Experienced Trader</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-bold text-xl">$2,000,000</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">Buying Power</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-black text-2xl">80%</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">To Trader</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-gray-300 font-medium">Scaling</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">Trailing</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-bold">From $199</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">One-Time</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="flex flex-nowrap justify-center gap-1.5">
+                                                    <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">MT4/5</span>
+                                                    <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">cTrader</span>
+                                                </div>
+                                            </td>
+                                            <td class="text-right whitespace-nowrap">
+                                                <a href="https://fundedtradingplus.com/?ref=190" target="_blank" class="btn-primary flex-shrink-0">Get Funded</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="whitespace-nowrap">
+                                                <div class="flex items-center gap-4">
+                                                    <div class="w-12 h-12 rounded-xl bg-white flex-shrink-0 flex items-center justify-center p-2">
+                                                        <span class="text-obsidian font-black text-xs">TF</span>
+                                                    </div>
+                                                    <div class="flex-shrink-0">
+                                                        <div class="font-black text-white text-lg tracking-tight">Topstep</div>
+                                                        <div class="text-xs font-bold text-accent-gold uppercase tracking-widest">Express Funding</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-bold text-xl">$150,000</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">Buying Power</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-black text-2xl">90%</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">To Trader</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-gray-300 font-medium">Daily</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">Trailing</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-bold">From $165</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">Per Month</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="flex flex-nowrap justify-center gap-1.5">
+                                                    <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">NinjaTrader</span>
+                                                    <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">Tradovate</span>
+                                                </div>
+                                            </td>
+                                            <td class="text-right whitespace-nowrap">
+                                                <a href="https://www.topstep.com/" target="_blank" class="btn-primary flex-shrink-0">Start Trading</a>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Table 2: Forex Prop Firms -->
-                <div>
+                <div class="mb-24">
                     <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
                         <div>
                             <h3 class="text-3xl font-black text-white mb-3 uppercase tracking-tight">Top Forex Prop Firms</h3>
                             <p class="text-gray-400 font-medium">Trade forex, indices, and crypto with institutional capital. Review phase rules and profit targets.</p>
                         </div>
+                        <div class="px-4 py-2 bg-surface premium-border rounded-lg text-xs font-bold text-gray-400">
+                            UPDATED: JUNE 2026
+                        </div>
                     </div>
                     
-                    <div class="overflow-x-auto pb-4" style="-webkit-overflow-scrolling: touch; overflow-y: hidden; width: 100%;"><table class="premium-border rounded-3xl" style="min-width: 1200px; display: table; background: rgba(15, 17, 21, 0.5); backdrop-filter: blur(10px);">
-                            <thead>
-                                <tr>
-                                    <th class="whitespace-nowrap">Prop Firm</th>
-                                    <th class="text-center whitespace-nowrap">Max Allocation</th>
-                                    <th class="text-center whitespace-nowrap">Profit Split</th>
-                                    <th class="text-center whitespace-nowrap">Drawdown</th>
-                                    <th class="text-center whitespace-nowrap">Eval Cost</th>
-                                    <th class="text-center whitespace-nowrap">Platforms</th>
-                                    <th class="text-right whitespace-nowrap">Action</th>
+                    <div class="w-full overflow-x-auto overflow-y-hidden touch-pan-x pb-4">
+                        <div class="table-container premium-border rounded-3xl bg-surface/50 backdrop-blur-sm overflow-hidden" style="min-width: max-content;">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="whitespace-nowrap">Prop Firm</th>
+                                            <th class="text-center whitespace-nowrap">Max Allocation</th>
+                                            <th class="text-center whitespace-nowrap">Profit Split</th>
+                                            <th class="text-center whitespace-nowrap">Drawdown</th>
+                                            <th class="text-center whitespace-nowrap">Eval Cost</th>
+                                            <th class="text-center whitespace-nowrap">Platforms</th>
+                                            <th class="text-right whitespace-nowrap">Action</th>
                                         </tr>
                                     </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="whitespace-nowrap">
-                                        <div class="flex items-center gap-4">
-                                                    <div class="w-12 h-12 rounded-xl bg-white flex-shrink-0 flex items-center justify-center p-1">
-                                                        <img src="assets/finotive-logo.jpg" alt="Finotive" class="w-full h-auto rounded-lg">
+                                    <tbody>
+                                        <tr>
+                                            <td class="whitespace-nowrap">
+                                                <div class="flex items-center gap-4">
+                                                    <div class="w-12 h-12 rounded-xl bg-white flex-shrink-0 flex items-center justify-center p-2">
+                                                        <span class="text-obsidian font-black text-xs">FTMO</span>
                                                     </div>
                                                     <div class="flex-shrink-0">
-                                                        <div class="font-black text-white text-lg tracking-tight">Finotive Funding</div>
-                                                        <div class="text-xs font-bold text-accent-gold uppercase tracking-widest">Instant Funding</div>
+                                                        <div class="font-black text-white text-lg tracking-tight">FTMO</div>
+                                                        <div class="text-xs font-bold text-accent-gold uppercase tracking-widest">Challenge</div>
                                                     </div>
                                                 </div>
                                             </td>
-                                    <td class="text-center whitespace-nowrap">
-                                        <div class="text-white font-bold text-xl">$200,000</div>
-                                        <div class="text-[10px] font-bold text-gray-500 uppercase">Direct Capital</div>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-bold text-xl">$400,000</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">Buying Power</div>
                                             </td>
-                                    <td class="text-center whitespace-nowrap">
-                                        <div class="text-white font-black text-2xl">Up to 95%</div>
-                                        <div class="text-[10px] font-bold text-gray-500 uppercase">Performance Based</div>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-black text-2xl">90%</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">To Trader</div>
                                             </td>
-                                    <td class="text-center whitespace-nowrap">
-                                        <div class="text-gray-300 font-medium">Daily & Total</div>
-                                        <div class="text-[10px] font-bold text-gray-500 uppercase">Relative</div>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-gray-300 font-medium">Relative</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">Trailing</div>
                                             </td>
-                                    <td class="text-center whitespace-nowrap">
-                                        <div class="text-white font-bold">Varies</div>
-                                        <div class="text-[10px] font-bold text-gray-500 uppercase">No Evaluation</div>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-bold">From €155</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">One-Time</div>
                                             </td>
-                                    <td class="text-center whitespace-nowrap">
-                                        <div class="flex flex-nowrap justify-center gap-1.5">
-                                                    <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">Finotive Platform</span>
-                                                    <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">MT5</span>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="flex flex-nowrap justify-center gap-1.5">
+                                                    <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">MT4/5</span>
+                                                    <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">cTrader</span>
                                                 </div>
                                             </td>
-                                    <td class="text-right whitespace-nowrap">
-                                        <a href="https://finotivefunding.com/Top" target="_blank" class="btn-primary flex-shrink-0">Get Funded</a>
+                                            <td class="text-right whitespace-nowrap">
+                                                <a href="https://ftmo.com/en/?affiliates=630" target="_blank" class="btn-primary flex-shrink-0">Start Challenge</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="whitespace-nowrap">
+                                                <div class="flex items-center gap-4">
+                                                    <div class="w-12 h-12 rounded-xl bg-white flex-shrink-0 flex items-center justify-center p-2">
+                                                        <span class="text-obsidian font-black text-xs">TFF</span>
+                                                    </div>
+                                                    <div class="flex-shrink-0">
+                                                        <div class="font-black text-white text-lg tracking-tight">The Funded Trader</div>
+                                                        <div class="text-xs font-bold text-accent-gold uppercase tracking-widest">Rapid Challenge</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-bold text-xl">$600,000</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">Buying Power</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-black text-2xl">90%</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">To Trader</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-gray-300 font-medium">Absolute</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">Trailing</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-bold">From $129</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">One-Time</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="flex flex-nowrap justify-center gap-1.5">
+                                                    <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">MT4/5</span>
+                                                    <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">DXtrade</span>
+                                                </div>
+                                            </td>
+                                            <td class="text-right whitespace-nowrap">
+                                                <a href="https://www.thefundedtraderprogram.com/" target="_blank" class="btn-primary flex-shrink-0">Start Challenge</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="whitespace-nowrap">
+                                                <div class="flex items-center gap-4">
+                                                    <div class="w-12 h-12 rounded-xl bg-white flex-shrink-0 flex items-center justify-center p-2">
+                                                        <span class="text-obsidian font-black text-xs">MF</span>
+                                                    </div>
+                                                    <div class="flex-shrink-0">
+                                                        <div class="font-black text-white text-lg tracking-tight">MyForexFunds</div>
+                                                        <div class="text-xs font-bold text-accent-gold uppercase tracking-widest">Evaluation</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-bold text-xl">$2,000,000</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">Buying Power</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-black text-2xl">80%</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">To Trader</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-gray-300 font-medium">Scaling</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">Trailing</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-bold">From $49</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">One-Time</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="flex flex-nowrap justify-center gap-1.5">
+                                                    <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">MT4/5</span>
+                                                    <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">cTrader</span>
+                                                </div>
+                                            </td>
+                                            <td class="text-right whitespace-nowrap">
+                                                <a href="https://myforexfunds.com/" target="_blank" class="btn-primary flex-shrink-0">Start Evaluation</a>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Table 3: Retail Brokers -->
+                <div class="mb-24">
+                    <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+                        <div>
+                            <h3 class="text-3xl font-black text-white mb-3 uppercase tracking-tight">Top Retail Brokers</h3>
+                            <p class="text-gray-400 font-medium">Access global markets with leading retail brokers. Compare leverage, spreads, and platforms.</p>
+                        </div>
+                        <div class="px-4 py-2 bg-surface premium-border rounded-lg text-xs font-bold text-gray-400">
+                            UPDATED: JUNE 2026
+                        </div>
+                    </div>
+                    
+                    <div class="w-full overflow-x-auto overflow-y-hidden touch-pan-x pb-4">
+                        <div class="table-container premium-border rounded-3xl bg-surface/50 backdrop-blur-sm overflow-hidden" style="min-width: max-content;">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="whitespace-nowrap">Broker</th>
+                                            <th class="text-center whitespace-nowrap">Min Deposit</th>
+                                            <th class="text-center whitespace-nowrap">Max Leverage</th>
+                                            <th class="text-center whitespace-nowrap">Spreads From</th>
+                                            <th class="text-center whitespace-nowrap">Platforms</th>
+                                            <th class="text-center whitespace-nowrap">Regulation</th>
+                                            <th class="text-right whitespace-nowrap">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="whitespace-nowrap">
+                                                <div class="flex items-center gap-4">
+                                                    <div class="w-12 h-12 rounded-xl bg-white flex-shrink-0 flex items-center justify-center p-2">
+                                                        <span class="text-obsidian font-black text-xs">XM</span>
+                                                    </div>
+                                                    <div class="flex-shrink-0">
+                                                        <div class="font-black text-white text-lg tracking-tight">XM Global</div>
+                                                        <div class="text-xs font-bold text-accent-gold uppercase tracking-widest">Regulated</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-bold text-xl">$5</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">USD</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-black text-2xl">1000:1</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">Max</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-gray-300 font-medium">0.6 Pips</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">EUR/USD</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="flex flex-nowrap justify-center gap-1.5">
+                                                    <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">MT4/5</span>
+                                                    <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">WebTrader</span>
+                                                </div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-bold">CySEC, ASIC</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">Multiple</div>
+                                            </td>
+                                            <td class="text-right whitespace-nowrap">
+                                                <a href="https://www.xmglobal.com/referral?token=jZbxEDNkYnopzuq1HVHMxg" target="_blank" class="btn-primary flex-shrink-0">Open Account</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="whitespace-nowrap">
+                                                <div class="flex items-center gap-4">
+                                                    <div class="w-12 h-12 rounded-xl bg-white flex-shrink-0 flex items-center justify-center p-2">
+                                                        <span class="text-obsidian font-black text-xs">EX</span>
+                                                    </div>
+                                                    <div class="flex-shrink-0">
+                                                        <div class="font-black text-white text-lg tracking-tight">Exness</div>
+                                                        <div class="text-xs font-bold text-accent-gold uppercase tracking-widest">Multi-Regulated</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-bold text-xl">$10</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">USD</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-black text-2xl">Unlimited</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">Leverage</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-gray-300 font-medium">0.0 Pips</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">Raw</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="flex flex-nowrap justify-center gap-1.5">
+                                                    <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">MT4/5</span>
+                                                    <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">Exness Terminal</span>
+                                                </div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-bold">FCA, CySEC</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">Multiple</div>
+                                            </td>
+                                            <td class="text-right whitespace-nowrap">
+                                                <a href="https://one.exnessonelink.com/a/8ja3w1gcvj" target="_blank" class="btn-primary flex-shrink-0">Open Account</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -347,150 +705,76 @@
             <!-- ===== CATEGORY 3: BROKERS ===== -->
             <section id="brokers" class="mb-48 scroll-mt-32">
                 <h2 class="section-header">Brokers</h2>
-                
-                <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
-                    <div>
-                        <h3 class="text-3xl font-black text-white mb-3 uppercase tracking-tight">Top Retail Brokers</h3>
-                        <p class="text-gray-400 font-medium">Trade your own capital with regulated, high-liquidity brokers. Compare spreads, leverage, and deposit minimums.</p>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-1">
+                        <p class="text-xl text-gray-400 font-medium mb-8">
+                            Access global markets with leading retail brokers. Compare leverage, spreads, and platforms.
+                        </p>
+                        <a href="#comparison" class="btn-outline">Compare Brokers</a>
+                    </div>
+                    <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <a href="https://www.xmglobal.com/referral?token=jZbxEDNkYnopzuq1HVHMxg" target="_blank" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
+                            <div class="text-accent-gold font-bold text-xs tracking-widest uppercase mb-4">Regulated</div>
+                            <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors">XM Global</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-6">A well-established, regulated forex and CFD broker offering a wide range of trading instruments, competitive spreads, and flexible leverage.</p>
+                            <span class="text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2">Open Account <span class="group-hover:translate-x-1 transition-transform">→</span></span>
+                        </a>
+                        <a href="https://one.exnessonelink.com/a/8ja3w1gcvj" target="_blank" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
+                            <div class="text-accent-gold font-bold text-xs tracking-widest uppercase mb-4">Multi-Regulated</div>
+                            <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors">Exness</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-6">A globally recognized multi-regulated broker offering exceptional trading conditions, including ultra-low spreads, unlimited leverage (conditions apply), and instant withdrawals.</p>
+                            <span class="text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2">Open Account <span class="group-hover:translate-x-1 transition-transform">→</span></span>
+                        </a>
                     </div>
                 </div>
-                
-                <div class="w-full max-w-full overflow-hidden">
-                    <div class="w-full overflow-x-auto overflow-y-hidden touch-pan-x pb-4">
-                        <div class="table-container premium-border rounded-3xl bg-surface/50 backdrop-blur-sm overflow-hidden min-w-[1000px]">
-                            <table class="w-full">
-                                <thead>
-                                    <tr>
-                                        <th class="whitespace-nowrap">Broker</th>
-                                        <th class="text-center whitespace-nowrap">Min Deposit</th>
-                                        <th class="text-center whitespace-nowrap">Max Leverage</th>
-                                        <th class="text-center whitespace-nowrap">Spreads/Comm</th>
-                                        <th class="text-center whitespace-nowrap">Account Types</th>
-                                        <th class="text-center whitespace-nowrap">Platforms</th>
-                                        <th class="text-right whitespace-nowrap">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="whitespace-nowrap">
-                                            <div class="flex items-center gap-4">
-                                        <div class="w-12 h-12 rounded-xl bg-white flex-shrink-0 flex items-center justify-center p-2">
-                                                    <img src="assets/xm-logo.png" alt="XM" class="w-full h-auto">
-                                                </div>
-                                        <div class="flex-shrink-0">
-                                                    <div class="font-black text-white text-lg tracking-tight">XM Global</div>
-                                                    <div class="text-xs font-bold text-accent-gold uppercase tracking-widest">Regulated</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-center whitespace-nowrap">
-                                            <div class="text-white font-bold text-xl">$5</div>
-                                            <div class="text-[10px] font-bold text-gray-500 uppercase">Micro Start</div>
-                                        </td>
-                                        <td class="text-center whitespace-nowrap">
-                                            <div class="text-white font-black text-2xl">1000:1</div>
-                                            <div class="text-[10px] font-bold text-gray-500 uppercase">Dynamic</div>
-                                        </td>
-                                        <td class="text-center whitespace-nowrap">
-                                            <div class="text-gray-300 font-medium">From 0.6 Pips</div>
-                                            <div class="text-[10px] font-bold text-gray-500 uppercase">Zero Commission</div>
-                                        </td>
-                                        <td class="text-center whitespace-nowrap">
-                                            <div class="text-white font-bold text-xs">Micro, Standard, Ultra Low</div>
-                                        </td>
-                                        <td class="text-center whitespace-nowrap">
-                                            <div class="flex flex-nowrap justify-center gap-1.5">
-                                                <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">MT4</span>
-                                                <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">MT5</span>
-                                            </div>
-                                        </td>
-                                        <td class="text-right whitespace-nowrap">
-                                            <a href="https://xmglobal.com/referral?token=jZbxEDNkYnopzuq1HVHMxg" target="_blank" class="btn-primary flex-shrink-0">Open Account</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="whitespace-nowrap">
-                                            <div class="flex items-center gap-4">
-                                        <div class="w-12 h-12 rounded-xl bg-white flex-shrink-0 flex items-center justify-center p-2">
-                                                    <img src="assets/exness-logo.png" alt="Exness" class="w-full h-auto">
-                                                </div>
-                                        <div class="flex-shrink-0">
-                                                    <div class="font-black text-white text-lg tracking-tight">Exness</div>
-                                                    <div class="text-xs font-bold text-accent-gold uppercase tracking-widest">Multi-Regulated</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-center whitespace-nowrap">
-                                            <div class="text-white font-bold text-xl">$10</div>
-                                            <div class="text-[10px] font-bold text-gray-500 uppercase">Flexible</div>
-                                        </td>
-                                        <td class="text-center whitespace-nowrap">
-                                            <div class="text-white font-black text-2xl">Unlimited</div>
-                                            <div class="text-[10px] font-bold text-gray-500 uppercase">Conditions Apply</div>
-                                        </td>
-                                        <td class="text-center whitespace-nowrap">
-                                            <div class="text-gray-300 font-medium">From 0.0 Pips</div>
-                                            <div class="text-[10px] font-bold text-gray-500 uppercase">Raw Spreads</div>
-                                        </td>
-                                        <td class="text-center whitespace-nowrap">
-                                            <div class="text-white font-bold text-xs">Standard, Pro, Raw Spread</div>
-                                        </td>
-                                        <td class="text-center whitespace-nowrap">
-                                            <div class="flex flex-nowrap justify-center gap-1.5">
-                                                <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">MT4</span>
-                                                <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">MT5</span>
-                                                <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">Exness App</span>
-                                            </div>
-                                        </td>
-                                        <td class="text-right whitespace-nowrap">
-                                            <a href="https://one.exnessonelink.com/a/8ja3w1gcvj" target="_blank" class="btn-primary flex-shrink-0">Open Account</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                    </div>
             </section>
 
             <!-- ===== CATEGORY 4: SECURITY ===== -->
             <section id="security" class="mb-48 scroll-mt-32">
                 <h2 class="section-header">Security</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <a href="risk-disclosure.html" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
-                        <h3 class="text-xl font-black text-white mb-4 uppercase tracking-tight group-hover:text-accent-gold transition-colors">Risk Disclosure</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">Understand the significant risks associated with trading leveraged financial instruments and prop firm evaluations.</p>
-                        <span class="text-accent-gold font-bold text-xs uppercase tracking-widest">Review Policy →</span>
-                    </a>
-                    <a href="privacy-policy.html" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
-                        <h3 class="text-xl font-black text-white mb-4 uppercase tracking-tight group-hover:text-accent-gold transition-colors">Privacy Policy</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">How we protect your data and maintain the highest standards of digital privacy and security.</p>
-                        <span class="text-accent-gold font-bold text-xs uppercase tracking-widest">Review Policy →</span>
-                    </a>
-                    <a href="terms-of-service.html" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
-                        <h3 class="text-xl font-black text-white mb-4 uppercase tracking-tight group-hover:text-accent-gold transition-colors">Terms of Service</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">The legal framework governing your use of the ForexMax platform and its informational resources.</p>
-                        <span class="text-accent-gold font-bold text-xs uppercase tracking-widest">Review Terms →</span>
-                    </a>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-1">
+                        <p class="text-xl text-gray-400 font-medium mb-8">
+                            Your capital and data are protected by institutional-grade security protocols and regulatory adherence.
+                        </p>
+                        <a href="risk-disclosure.html" class="btn-outline">Review Risk Disclosure</a>
+                    </div>
+                    <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <a href="privacy-policy.html" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
+                            <div class="text-accent-gold font-bold text-xs tracking-widest uppercase mb-4">Compliance</div>
+                            <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors">Privacy Policy</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-6">How we protect your data and maintain the highest standards of digital privacy and security.</p>
+                            <span class="text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2">Read Policy <span class="group-hover:translate-x-1 transition-transform">→</span></span>
+                        </a>
+                        <a href="terms-of-service.html" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
+                            <div class="text-accent-gold font-bold text-xs tracking-widest uppercase mb-4">Legal</div>
+                            <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors">Terms of Service</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-6">The legal framework governing your use of the ForexMax platform and its informational resources.</p>
+                            <span class="text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2">Read Terms <span class="group-hover:translate-x-1 transition-transform">→</span></span>
+                        </a>
+                    </div>
                 </div>
             </section>
 
             <!-- ===== CATEGORY 5: CONTACT ===== -->
             <section id="contact" class="scroll-mt-32">
                 <h2 class="section-header">Contact</h2>
-                <div class="bg-surface premium-border rounded-3xl p-12 text-center">
-                    <h3 class="text-4xl font-black text-white mb-6 uppercase tracking-tight">Need Institutional Support?</h3>
-                    <p class="text-xl text-gray-400 font-medium mb-10 max-w-2xl mx-auto">
-                        Our team is available for deep-dive consultations regarding prop firm selection and broker architecture.
-                    </p>
-                    <div class="flex flex-col md:flex-row items-center justify-center gap-8">
-                        <div class="flex flex-col items-center">
-                            <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">Direct Email</span>
-                            <a href="mailto:support@forexmax.com" class="text-2xl font-black text-accent-gold hover:text-white transition-colors">djamal@forexmax.com</a>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="lg:col-span-1">
+                        <p class="text-xl text-gray-400 font-medium mb-8">
+                            Connect directly with the executive team for M&A discussions, institutional liquidity partnerships, or to access our premium market intelligence feeds.
+                        </p>
+                        <a href="mailto:djamal@forexmax.com" class="btn-outline">Email Us</a>
+                    </div>
+                    <div class="lg:col-span-1 bg-surface premium-border rounded-2xl p-8">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center border border-white/10">
+                                <svg class="w-6 h-6 text-accent-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white">General Inquiries</h3>
                         </div>
-                        <div class="w-px h-12 bg-white/10 hidden md:block"></div>
-                        <div class="flex flex-col items-center">
-                            <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">Response Time</span>
-                            <span class="text-2xl font-black text-white uppercase tracking-tight">< 24 Hours</span>
-                        </div>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">For general questions, feedback, or support, please reach out to us via email.</p>
+                        <a href="mailto:djamal@forexmax.com" class="text-accent-gold font-semibold hover:text-accent-goldLight transition-colors">djamal@forexmax.com</a>
                     </div>
                 </div>
             </section>
@@ -499,18 +783,42 @@
     </main>
 
     <footer class="py-12 border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="flex items-center gap-2">
-                <img src="assets/forexmax-logo.png" alt="ForexMax Logo" class="h-6 opacity-50">
-                <span class="text-sm font-bold text-gray-500">© 2026 FOREXMAX. ALL RIGHTS RESERVED.</span>
-            </div>
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p class="text-sm text-gray-500">© 2026 ForexMax. All rights reserved.</p>
             <div class="flex gap-8">
-                <a href="risk-disclosure.html" class="text-[10px] font-bold text-gray-500 hover:text-white uppercase tracking-widest">Risk Disclosure</a>
-                <a href="privacy-policy.html" class="text-[10px] font-bold text-gray-500 hover:text-white uppercase tracking-widest">Privacy Policy</a>
-                <a href="terms-of-service.html" class="text-[10px] font-bold text-gray-500 hover:text-white uppercase tracking-widest">Terms of Service</a>
+                <a href="mailto:djamal@forexmax.com" class="text-sm text-gray-500 hover:text-white transition-colors">Contact</a>
+                <a href="terms-of-service.html" class="text-sm text-gray-500 hover:text-white transition-colors">Terms</a>
+                <a href="privacy-policy.html" class="text-sm text-gray-500 hover:text-white transition-colors">Privacy</a>
+                <a href="risk-disclosure.html" class="text-sm text-gray-500 hover:text-white transition-colors">Risk Disclosure</a>
             </div>
         </div>
     </footer>
 
+    <script>
+        // Smooth Reveal Animation on Scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add(\'active\');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll(\".reveal\").forEach(el => observer.observe(el));
+
+        // Navbar Scroll Effect
+        window.addEventListener(\'scroll\', () => {
+            const nav = document.querySelector(\".sticky-nav\");
+            if (window.scrollY > 50) {
+                nav.classList.add(\"scrolled\");
+            } else {
+                nav.classList.remove(\"scrolled\");
+            }
+        });
+    </script>
 </body>
 </html>
