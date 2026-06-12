@@ -222,61 +222,63 @@
                         </div>
                     </div>
                     
-                    <div class="w-full overflow-x-auto pb-4">
-                        <div class="table-container premium-border rounded-3xl bg-surface/50 backdrop-blur-sm overflow-hidden">
-                            <table class="min-w-[900px]">
-                                <thead>
-                                    <tr>
-                                        <th>Prop Firm</th>
-                                        <th class="text-center">Max Allocation</th>
-                                        <th class="text-center">Profit Split</th>
-                                        <th class="text-center">Drawdown</th>
-                                        <th class="text-center">Eval Cost</th>
-                                        <th class="text-center">Platforms</th>
-                                        <th class="text-right">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="flex items-center gap-4">
-                                                <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center p-2">
-                                                    <span class="text-obsidian font-black text-xs">E2T</span>
+                    <div class="w-full max-w-full overflow-hidden">
+                        <div class="w-full overflow-x-auto overflow-y-hidden touch-pan-x pb-4">
+                            <div class="table-container premium-border rounded-3xl bg-surface/50 backdrop-blur-sm overflow-hidden min-w-[1000px]">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="whitespace-nowrap">Prop Firm</th>
+                                            <th class="text-center whitespace-nowrap">Max Allocation</th>
+                                            <th class="text-center whitespace-nowrap">Profit Split</th>
+                                            <th class="text-center whitespace-nowrap">Drawdown</th>
+                                            <th class="text-center whitespace-nowrap">Eval Cost</th>
+                                            <th class="text-center whitespace-nowrap">Platforms</th>
+                                            <th class="text-right whitespace-nowrap">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="whitespace-nowrap">
+                                                <div class="flex items-center gap-4">
+                                                    <div class="w-12 h-12 rounded-xl bg-white flex-shrink-0 flex items-center justify-center p-2">
+                                                        <span class="text-obsidian font-black text-xs">E2T</span>
+                                                    </div>
+                                                    <div class="flex-shrink-0">
+                                                        <div class="font-black text-white text-lg tracking-tight">Earn2Trade</div>
+                                                        <div class="text-xs font-bold text-accent-gold uppercase tracking-widest">Gauntlet Mini</div>
+                                                    </div>
                                                 </div>
-                                                <div>
-                                                    <div class="font-black text-white text-lg tracking-tight">Earn2Trade</div>
-                                                    <div class="text-xs font-bold text-accent-gold uppercase tracking-widest">Gauntlet Mini</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-bold text-xl">$200,000</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">Buying Power</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-black text-2xl">80%</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">To Trader</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-gray-300 font-medium">End-of-Day</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">Trailing</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-bold">From $150</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">Per Month</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="flex flex-nowrap justify-center gap-1.5">
+                                                    <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">NinjaTrader</span>
+                                                    <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">Rithmic</span>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="text-white font-bold text-xl">$200,000</div>
-                                            <div class="text-[10px] font-bold text-gray-500 uppercase">Buying Power</div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="text-white font-black text-2xl">80%</div>
-                                            <div class="text-[10px] font-bold text-gray-500 uppercase">To Trader</div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="text-gray-300 font-medium">End-of-Day</div>
-                                            <div class="text-[10px] font-bold text-gray-500 uppercase">Trailing</div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="text-white font-bold">From $150</div>
-                                            <div class="text-[10px] font-bold text-gray-500 uppercase">Per Month</div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="flex flex-wrap justify-center gap-1.5">
-                                                <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase">NinjaTrader</span>
-                                                <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase">Rithmic</span>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">
-                                            <a href="https://www.earn2trade.com/gauntlet-mini?a_pid=Tradetolear4&a_bid=f38a33c1" target="_blank" class="btn-primary">Start Gauntlet Mini</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                            </td>
+                                            <td class="text-right whitespace-nowrap">
+                                                <a href="https://www.earn2trade.com/gauntlet-mini?a_pid=Tradetolear4&a_bid=f38a33c1" target="_blank" class="btn-primary flex-shrink-0">Start Gauntlet Mini</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -290,61 +292,63 @@
                         </div>
                     </div>
                     
-                    <div class="w-full overflow-x-auto pb-4">
-                        <div class="table-container premium-border rounded-3xl bg-surface/50 backdrop-blur-sm overflow-hidden">
-                            <table class="min-w-[900px]">
-                                <thead>
-                                    <tr>
-                                        <th>Prop Firm</th>
-                                        <th class="text-center">Max Allocation</th>
-                                        <th class="text-center">Profit Split</th>
-                                        <th class="text-center">Drawdown</th>
-                                        <th class="text-center">Eval Cost</th>
-                                        <th class="text-center">Platforms</th>
-                                        <th class="text-right">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="flex items-center gap-4">
-                                                <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center p-1">
-                                                    <img src="assets/finotive-logo.jpg" alt="Finotive" class="w-full h-auto rounded-lg">
+                    <div class="w-full max-w-full overflow-hidden">
+                        <div class="w-full overflow-x-auto overflow-y-hidden touch-pan-x pb-4">
+                            <div class="table-container premium-border rounded-3xl bg-surface/50 backdrop-blur-sm overflow-hidden min-w-[1000px]">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="whitespace-nowrap">Prop Firm</th>
+                                            <th class="text-center whitespace-nowrap">Max Allocation</th>
+                                            <th class="text-center whitespace-nowrap">Profit Split</th>
+                                            <th class="text-center whitespace-nowrap">Drawdown</th>
+                                            <th class="text-center whitespace-nowrap">Eval Cost</th>
+                                            <th class="text-center whitespace-nowrap">Platforms</th>
+                                            <th class="text-right whitespace-nowrap">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="whitespace-nowrap">
+                                                <div class="flex items-center gap-4">
+                                                    <div class="w-12 h-12 rounded-xl bg-white flex-shrink-0 flex items-center justify-center p-1">
+                                                        <img src="assets/finotive-logo.jpg" alt="Finotive" class="w-full h-auto rounded-lg">
+                                                    </div>
+                                                    <div class="flex-shrink-0">
+                                                        <div class="font-black text-white text-lg tracking-tight">Finotive Funding</div>
+                                                        <div class="text-xs font-bold text-accent-gold uppercase tracking-widest">Instant Funding</div>
+                                                    </div>
                                                 </div>
-                                                <div>
-                                                    <div class="font-black text-white text-lg tracking-tight">Finotive Funding</div>
-                                                    <div class="text-xs font-bold text-accent-gold uppercase tracking-widest">Instant Funding</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-bold text-xl">$200,000</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">Direct Capital</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-black text-2xl">Up to 95%</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">Performance Based</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-gray-300 font-medium">Daily & Total</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">Relative</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="text-white font-bold">Varies</div>
+                                                <div class="text-[10px] font-bold text-gray-500 uppercase">No Evaluation</div>
+                                            </td>
+                                            <td class="text-center whitespace-nowrap">
+                                                <div class="flex flex-nowrap justify-center gap-1.5">
+                                                    <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">Finotive Platform</span>
+                                                    <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">MT5</span>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="text-white font-bold text-xl">$200,000</div>
-                                            <div class="text-[10px] font-bold text-gray-500 uppercase">Direct Capital</div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="text-white font-black text-2xl">Up to 95%</div>
-                                            <div class="text-[10px] font-bold text-gray-500 uppercase">Performance Based</div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="text-gray-300 font-medium">Daily & Total</div>
-                                            <div class="text-[10px] font-bold text-gray-500 uppercase">Relative</div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="text-white font-bold">Varies</div>
-                                            <div class="text-[10px] font-bold text-gray-500 uppercase">No Evaluation</div>
-                                        </td>
-                                        <td class="text-center">
-                                            <div class="flex flex-wrap justify-center gap-1.5">
-                                                <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase">Finotive Platform</span>
-                                                <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase">MT5</span>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">
-                                            <a href="https://finotivefunding.com/Top" target="_blank" class="btn-primary">Get Funded</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                            </td>
+                                            <td class="text-right whitespace-nowrap">
+                                                <a href="https://finotivefunding.com/Top" target="_blank" class="btn-primary flex-shrink-0">Get Funded</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -361,98 +365,100 @@
                     </div>
                 </div>
                 
-                <div class="w-full overflow-x-auto pb-4">
-                    <div class="table-container premium-border rounded-3xl bg-surface/50 backdrop-blur-sm overflow-hidden">
-                        <table class="min-w-[900px]">
-                            <thead>
-                                <tr>
-                                    <th>Broker</th>
-                                    <th class="text-center">Min Deposit</th>
-                                    <th class="text-center">Max Leverage</th>
-                                    <th class="text-center">Spreads/Comm</th>
-                                    <th class="text-center">Account Types</th>
-                                    <th class="text-center">Platforms</th>
-                                    <th class="text-right">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                    <div class="flex items-center gap-4">
-                                        <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center p-2">
-                                            <img src="assets/xm-logo.png" alt="XM" class="w-full h-auto">
-                                        </div>
-                                        <div>
-                                            <div class="font-black text-white text-lg tracking-tight">XM Global</div>
-                                            <div class="text-xs font-bold text-accent-gold uppercase tracking-widest">Regulated</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-center">
-                                    <div class="text-white font-bold text-xl">$5</div>
-                                    <div class="text-[10px] font-bold text-gray-500 uppercase">Micro Start</div>
-                                </td>
-                                <td class="text-center">
-                                    <div class="text-white font-black text-2xl">1000:1</div>
-                                    <div class="text-[10px] font-bold text-gray-500 uppercase">Dynamic</div>
-                                </td>
-                                <td class="text-center">
-                                    <div class="text-gray-300 font-medium">From 0.6 Pips</div>
-                                    <div class="text-[10px] font-bold text-gray-500 uppercase">Zero Commission</div>
-                                </td>
-                                <td class="text-center">
-                                    <div class="text-white font-bold text-xs">Micro, Standard, Ultra Low</div>
-                                </td>
-                                <td class="text-center">
-                                    <div class="flex flex-wrap justify-center gap-1.5">
-                                        <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase">MT4</span>
-                                        <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase">MT5</span>
-                                    </div>
-                                </td>
-                                <td class="text-right">
-                                    <a href="https://xmglobal.com/referral?token=jZbxEDNkYnopzuq1HVHMxg" target="_blank" class="btn-primary">Open Account</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="flex items-center gap-4">
-                                        <div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center p-2">
-                                            <img src="assets/exness-logo.png" alt="Exness" class="w-full h-auto">
-                                        </div>
-                                        <div>
-                                            <div class="font-black text-white text-lg tracking-tight">Exness</div>
-                                            <div class="text-xs font-bold text-accent-gold uppercase tracking-widest">Multi-Regulated</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-center">
-                                    <div class="text-white font-bold text-xl">$10</div>
-                                    <div class="text-[10px] font-bold text-gray-500 uppercase">Flexible</div>
-                                </td>
-                                <td class="text-center">
-                                    <div class="text-white font-black text-2xl">Unlimited</div>
-                                    <div class="text-[10px] font-bold text-gray-500 uppercase">Conditions Apply</div>
-                                </td>
-                                <td class="text-center">
-                                    <div class="text-gray-300 font-medium">From 0.0 Pips</div>
-                                    <div class="text-[10px] font-bold text-gray-500 uppercase">Raw Spreads</div>
-                                </td>
-                                <td class="text-center">
-                                    <div class="text-white font-bold text-xs">Standard, Pro, Raw Spread</div>
-                                </td>
-                                <td class="text-center">
-                                    <div class="flex flex-wrap justify-center gap-1.5">
-                                        <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase">MT4</span>
-                                        <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase">MT5</span>
-                                        <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase">Exness App</span>
-                                    </div>
-                                </td>
-                                <td class="text-right">
-                                    <a href="https://one.exnessonelink.com/a/8ja3w1gcvj" target="_blank" class="btn-primary">Open Account</a>
-                                </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <div class="w-full max-w-full overflow-hidden">
+                    <div class="w-full overflow-x-auto overflow-y-hidden touch-pan-x pb-4">
+                        <div class="table-container premium-border rounded-3xl bg-surface/50 backdrop-blur-sm overflow-hidden min-w-[1000px]">
+                            <table class="w-full">
+                                <thead>
+                                    <tr>
+                                        <th class="whitespace-nowrap">Broker</th>
+                                        <th class="text-center whitespace-nowrap">Min Deposit</th>
+                                        <th class="text-center whitespace-nowrap">Max Leverage</th>
+                                        <th class="text-center whitespace-nowrap">Spreads/Comm</th>
+                                        <th class="text-center whitespace-nowrap">Account Types</th>
+                                        <th class="text-center whitespace-nowrap">Platforms</th>
+                                        <th class="text-right whitespace-nowrap">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="whitespace-nowrap">
+                                            <div class="flex items-center gap-4">
+                                                <div class="w-12 h-12 rounded-xl bg-white flex-shrink-0 flex items-center justify-center p-2">
+                                                    <img src="assets/xm-logo.png" alt="XM" class="w-full h-auto">
+                                                </div>
+                                                <div class="flex-shrink-0">
+                                                    <div class="font-black text-white text-lg tracking-tight">XM Global</div>
+                                                    <div class="text-xs font-bold text-accent-gold uppercase tracking-widest">Regulated</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center whitespace-nowrap">
+                                            <div class="text-white font-bold text-xl">$5</div>
+                                            <div class="text-[10px] font-bold text-gray-500 uppercase">Micro Start</div>
+                                        </td>
+                                        <td class="text-center whitespace-nowrap">
+                                            <div class="text-white font-black text-2xl">1000:1</div>
+                                            <div class="text-[10px] font-bold text-gray-500 uppercase">Dynamic</div>
+                                        </td>
+                                        <td class="text-center whitespace-nowrap">
+                                            <div class="text-gray-300 font-medium">From 0.6 Pips</div>
+                                            <div class="text-[10px] font-bold text-gray-500 uppercase">Zero Commission</div>
+                                        </td>
+                                        <td class="text-center whitespace-nowrap">
+                                            <div class="text-white font-bold text-xs">Micro, Standard, Ultra Low</div>
+                                        </td>
+                                        <td class="text-center whitespace-nowrap">
+                                            <div class="flex flex-nowrap justify-center gap-1.5">
+                                                <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">MT4</span>
+                                                <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">MT5</span>
+                                            </div>
+                                        </td>
+                                        <td class="text-right whitespace-nowrap">
+                                            <a href="https://xmglobal.com/referral?token=jZbxEDNkYnopzuq1HVHMxg" target="_blank" class="btn-primary flex-shrink-0">Open Account</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="whitespace-nowrap">
+                                            <div class="flex items-center gap-4">
+                                                <div class="w-12 h-12 rounded-xl bg-white flex-shrink-0 flex items-center justify-center p-2">
+                                                    <img src="assets/exness-logo.png" alt="Exness" class="w-full h-auto">
+                                                </div>
+                                                <div class="flex-shrink-0">
+                                                    <div class="font-black text-white text-lg tracking-tight">Exness</div>
+                                                    <div class="text-xs font-bold text-accent-gold uppercase tracking-widest">Multi-Regulated</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center whitespace-nowrap">
+                                            <div class="text-white font-bold text-xl">$10</div>
+                                            <div class="text-[10px] font-bold text-gray-500 uppercase">Flexible</div>
+                                        </td>
+                                        <td class="text-center whitespace-nowrap">
+                                            <div class="text-white font-black text-2xl">Unlimited</div>
+                                            <div class="text-[10px] font-bold text-gray-500 uppercase">Conditions Apply</div>
+                                        </td>
+                                        <td class="text-center whitespace-nowrap">
+                                            <div class="text-gray-300 font-medium">From 0.0 Pips</div>
+                                            <div class="text-[10px] font-bold text-gray-500 uppercase">Raw Spreads</div>
+                                        </td>
+                                        <td class="text-center whitespace-nowrap">
+                                            <div class="text-white font-bold text-xs">Standard, Pro, Raw Spread</div>
+                                        </td>
+                                        <td class="text-center whitespace-nowrap">
+                                            <div class="flex flex-nowrap justify-center gap-1.5">
+                                                <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">MT4</span>
+                                                <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">MT5</span>
+                                                <span class="px-2 py-0.5 bg-white/5 rounded text-[9px] font-bold text-gray-400 border border-white/10 uppercase flex-shrink-0">Exness App</span>
+                                            </div>
+                                        </td>
+                                        <td class="text-right whitespace-nowrap">
+                                            <a href="https://one.exnessonelink.com/a/8ja3w1gcvj" target="_blank" class="btn-primary flex-shrink-0">Open Account</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </section>
