@@ -20,6 +20,22 @@
             padding: 0;
             box-sizing: border-box;
         }
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .ticker-container {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+        .ticker-content {
+            display: inline-block;
+            animation: ticker 30s linear infinite;
+        }
+        .ticker-content:hover {
+            animation-play-state: paused;
+        }
         body {
             background-color: #050507;
             color: #f8fafc;
@@ -154,6 +170,19 @@
                 font-size: 2.25rem !important;
             }
         }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .bg-card-grad {
+            background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%);
+        }
     </style>
 </head>
 <body>
@@ -168,15 +197,14 @@
             
             <!-- Desktop Navigation -->
             <div class="hidden lg:flex gap-10">
-                <a href="#articles" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400">Articles</a>
-                <a href="#comparison" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400">Comparison</a>
-                <a href="#audits" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400">Audits</a>
-                <a href="#security" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400">Security</a>
-                <a href="#contact" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400">Contact</a>
+                <a href="#risk-radar" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400">Risk Radar</a>
+                <a href="#execution-desk" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400">Execution</a>
+                <a href="#macro-strategy" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400">Intelligence</a>
+                <a href="prop-firm-comparison.html" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400">Comparison</a>
             </div>
             
             <!-- Desktop CTA -->
-            <a href="prop-firm-comparison.html" class="btn-primary py-2 px-6 text-xs hidden lg:inline-flex">Compare Now</a>
+            <a href="prop-firm-comparison.html" class="btn-primary py-2 px-6 text-xs hidden lg:inline-flex">Terminal Access</a>
 
             <!-- Mobile Menu Toggle -->
             <input type="checkbox" id="mobile-menu-toggle" class="hidden" />
@@ -191,54 +219,67 @@
             <!-- Mobile Navigation Menu -->
             <div id="mobile-menu" class="absolute top-full left-0 right-0 bg-slate-900/95 backdrop-blur-md border-b border-white/5 lg:hidden">
                 <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-4">
-                    <a href="#articles" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400 py-2" onclick="document.getElementById('mobile-menu-toggle').checked = false;">Articles</a>
-                    <a href="#comparison" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400 py-2" onclick="document.getElementById('mobile-menu-toggle').checked = false;">Comparison</a>
-                    <a href="#audits" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400 py-2" onclick="document.getElementById('mobile-menu-toggle').checked = false;">Audits</a>
-                    <a href="#security" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400 py-2" onclick="document.getElementById('mobile-menu-toggle').checked = false;">Security</a>
-                    <a href="#contact" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400 py-2" onclick="document.getElementById('mobile-menu-toggle').checked = false;">Contact</a>
+                    <a href="#risk-radar" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400 py-2" onclick="document.getElementById('mobile-menu-toggle').checked = false;">Risk Radar</a>
+                    <a href="#execution-desk" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400 py-2" onclick="document.getElementById('mobile-menu-toggle').checked = false;">Execution</a>
+                    <a href="#macro-strategy" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400 py-2" onclick="document.getElementById('mobile-menu-toggle').checked = false;">Intelligence</a>
                     <a href="prop-firm-comparison.html" class="btn-primary py-2 px-6 text-xs mt-2" onclick="document.getElementById('mobile-menu-toggle').checked = false;">Compare Now</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <main class="pt-24 pb-32 w-full">
+    <!-- Terminal Data Ticker -->
+    <div class="bg-gray-900 border-y border-white/5 py-2 ticker-container z-40">
+        <div class="ticker-content font-mono text-xs text-gray-400 tracking-widest uppercase">
+            <span class="mx-8 text-accent-gold">SYS_MSG: SEC MONITORING ACTIVE</span>
+            <span class="mx-8 text-white">//</span>
+            <span class="mx-8 text-accent-gold">CFTC REGULATIONS UPDATED</span>
+            <span class="mx-8 text-white">//</span>
+            <span class="mx-8 text-red-500">FINOTIVE FUNDING DOWNGRADED TO ELEVATED RISK</span>
+            <span class="mx-8 text-white">//</span>
+            <span class="mx-8 text-green-500">EARN2TRADE EXECUTION AUDIT: VERIFIED</span>
+            <span class="mx-8 text-white">//</span>
+            <span class="mx-8 text-accent-gold">GOLD RESERVES HIT ALL-TIME HIGH</span>
+            <!-- Duplicate for seamless loop -->
+            <span class="mx-8 text-accent-gold">SYS_MSG: SEC MONITORING ACTIVE</span>
+            <span class="mx-8 text-white">//</span>
+            <span class="mx-8 text-accent-gold">CFTC REGULATIONS UPDATED</span>
+            <span class="mx-8 text-white">//</span>
+            <span class="mx-8 text-red-500">FINOTIVE FUNDING DOWNGRADED TO ELEVATED RISK</span>
+            <span class="mx-8 text-white">//</span>
+            <span class="mx-8 text-green-500">EARN2TRADE EXECUTION AUDIT: VERIFIED</span>
+            <span class="mx-8 text-white">//</span>
+            <span class="mx-8 text-accent-gold">GOLD RESERVES HIT ALL-TIME HIGH</span>
+        </div>
+    </div>
+
+    <main class="pt-12 pb-32 w-full">
         <div class="max-w-7xl mx-auto px-6 w-full">
 
             <!-- Hero Section -->
-            <section class="mb-40 text-center w-full">
+            <section class="mb-32 text-center w-full reveal">
                 <div class="inline-block px-4 py-1.5 mb-6 rounded-full border border-accent-gold/20 bg-accent-gold/5 text-accent-gold text-xs font-bold tracking-widest uppercase">
-                    Institutional Trading Hub
+                    Institutional Intelligence Terminal
                 </div>
                 <h1 class="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter text-white mb-8 leading-none">
                     ELITE <span class="accent-gold">CAPITAL</span><br>SOLUTIONS.
                 </h1>
                 <p class="max-w-3xl mx-auto text-xl text-gray-400 font-medium leading-relaxed mb-12">
-                    ForexMax is your ultimate portal for institutional-grade trading intelligence. Access unbiased comparisons of proprietary trading firms, retail brokers, and premium market analysis. Trade with confidence backed by data-driven insights.
+                    ForexMax is your ultimate portal for institutional-grade trading intelligence. Access unbiased comparisons of proprietary trading firms, retail brokers, and premium market analysis.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="prop-firm-comparison.html" class="btn-primary py-3 px-8 text-sm">Explore Comparison Hub</a>
-                    <a href="#articles" class="btn-outline py-3 px-8 text-sm">Read Intelligence</a>
+                    <a href="prop-firm-comparison.html" class="btn-primary py-3 px-8 text-sm">Launch Comparison Hub</a>
+                    <a href="#macro-strategy" class="btn-outline py-3 px-8 text-sm">Access Intelligence</a>
                 </div>
             </section>
 
-            <!-- ===== CATEGORY 2: AUDITS ===== -->
-            <section id="audits" class="mb-48 scroll-mt-32 w-full">
-                <h2 class="section-header">Prop Firm Technical Audits</h2>
-                <p class="text-xl text-gray-400 font-medium mb-12 max-w-3xl">
-                    Unbiased, data-driven technical audits of leading proprietary trading firms. Our research desk dives deep into execution, slippage, and risk mechanics.
-                </p>
+            <!-- ===== PILLAR A: PROP FIRM RISK RADAR ===== -->
+            <section id="risk-radar" class="mb-24 scroll-mt-32 w-full bg-red-950/10 border border-red-500/20 rounded-3xl p-8 reveal">
+                <div class="flex items-center gap-3 mb-8">
+                    <span class="text-2xl">🚨</span>
+                    <h2 class="text-3xl font-bold tracking-tighter text-white uppercase">Prop Firm Risk Radar</h2>
+                </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-                    <a href="audits/earn2trade-gauntlet-mini.html" class="bg-surface premium-border rounded-2xl p-8 border-accent-gold/30 hover:border-accent-gold transition-all group relative overflow-hidden">
-                        <div class="absolute top-0 right-0 w-24 h-24 bg-accent-gold/5 rounded-full blur-2xl"></div>
-                        <div class="text-accent-gold font-bold text-xs tracking-widest uppercase mb-4 flex items-center gap-2">
-                            <span class="w-2 h-2 bg-accent-gold rounded-full animate-pulse"></span>
-                            Technical Audit
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors leading-tight">Earn2Trade Gauntlet Mini™: Deep Dive Audit</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">Our research desk conducted a rigorous technical audit of Earn2Trade's Gauntlet Mini™ program, analyzing execution, slippage, and EOD drawdown mechanics.</p>
-                        <span class="text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2">Read Audit →</span>
-                    </a>
                     <a href="audits/finotive-funding.html" class="bg-surface premium-border rounded-2xl p-8 border-red-500/30 hover:border-red-500 transition-all group relative overflow-hidden">
                         <div class="absolute top-0 right-0 w-24 h-24 bg-red-900/5 rounded-full blur-2xl"></div>
                         <div class="flex items-center gap-3 mb-4">
@@ -246,568 +287,437 @@
                                 <span class="w-2 h-2 bg-red-400 rounded-full animate-pulse"></span>
                                 Technical Audit
                             </div>
-                            <span class="bg-red-900/40 text-red-400 border border-red-500/30 text-xs px-2 py-1 rounded-full uppercase font-bold">Elevated Risk</span>
+                            <span class="bg-red-900/40 text-red-400 border border-red-500/30 text-xs px-2 py-1 rounded-full uppercase font-bold animate-pulse">Elevated Risk</span>
                         </div>
                         <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-red-400 transition-colors leading-tight">Finotive Funding: Technical Audit & Risk Assessment</h3>
                         <p class="text-gray-400 text-sm leading-relaxed mb-6">Community Report Aggregation: Data privacy concerns (CC email exposure), payout disputes, and crypto commission analysis.</p>
                         <span class="text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2">Read Assessment →</span>
                     </a>
                 </div>
+                <p class="mt-6 text-xs text-red-400/60 font-mono uppercase tracking-widest">Active Community Alerts Monitored</p>
             </section>
 
-            <!-- ===== CATEGORY 1: ARTICLES ===== -->
-            <section id="articles" class="mb-48 scroll-mt-32 w-full">
-                <h2 class="section-header">Articles & Intelligence</h2>
-                <p class="text-xl text-gray-400 font-medium mb-12 max-w-3xl">
-                    Stay ahead of the market with our premium analysis. From trading strategies to geopolitical insights, we deliver institutional-grade market intelligence.
-                </p>
-                
-                <!-- Articles Grid -->
+            <!-- ===== PILLAR B: VERIFIED EXECUTION DESK ===== -->
+            <section id="execution-desk" class="mb-24 scroll-mt-32 w-full bg-slate-900/40 border border-emerald-500/30 rounded-3xl p-8 reveal">
+                <div class="flex items-center gap-3 mb-8">
+                    <span class="text-2xl">🛡️</span>
+                    <h2 class="text-3xl font-bold tracking-tighter text-white uppercase">Verified Execution Desk</h2>
+                </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-                    <!-- New Article: Post-CFTC Prop Firm Era -->
-                    <a href="articles/post-cftc-prop-firm-era.html" class="bg-surface premium-border rounded-2xl p-8 border-accentCyan/30 hover:border-accentCyan transition-all group relative overflow-hidden">
-                        <div class="absolute top-0 right-0 w-24 h-24 bg-accentCyan/5 rounded-full blur-2xl"></div>
-                        <div class="text-accentCyan font-bold text-xs tracking-widest uppercase mb-4 flex items-center gap-2">
-                            <span class="w-2 h-2 bg-accentCyan rounded-full animate-pulse"></span>
-                            Regulatory Alert
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-accentCyan transition-colors leading-tight">WARNING: The Post-CFTC Prop Firm Era - Your Funded Account is at Risk!</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">The CFTC and MiFID II are reshaping the prop firm landscape. Discover how to protect your funded accounts, navigate global regulatory shifts, and choose the right firm in 2026. Don\'t lose your capital!</p>
-                        <span class="text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2">Act Now <span class="group-hover:translate-x-1 transition-transform">→</span></span>
-                    </a>
-
-
-
-                    <!-- New Article: VWAP SD Bands Institutional Secrets -->
-                    <a href="articles/vwap-sd-bands-institutional-secrets.html" class="bg-surface premium-border rounded-2xl p-8 border-accentGold/30 hover:border-accentGold transition-all group relative overflow-hidden">
-                        <div class="absolute top-0 right-0 w-24 h-24 bg-accentGold/5 rounded-full blur-2xl"></div>
-                        <div class="text-accentGold font-bold text-xs tracking-widest uppercase mb-4 flex items-center gap-2">
-                            <span class="w-2 h-2 bg-accentGold rounded-full animate-pulse"></span>
-                            Institutional Edge
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-accentGold transition-colors leading-tight">UNLEASHED: The 0.5 & 1.5 VWAP SD Bands Institutional Playbook</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">Unlock the algorithmic edge. Master the 0.5 and 1.5 VWAP Standard Deviation Bands for institutional trend continuation and aggressive mean reversion. Pass prop firm challenges with precision.</p>
-                        <span class="text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2">Read Now <span class="group-hover:translate-x-1 transition-transform">→</span></span>
-                    </a>
-                    <!-- New Article: High Inflation & Institutional FX -->
-                    <a href="articles/high-inflation-institutional-fx-strategies.html" class="bg-surface premium-border rounded-2xl p-8 border-accentGold/30 hover:border-accentGold transition-all group relative overflow-hidden">
-                        <div class="absolute top-0 right-0 w-24 h-24 bg-accentGold/5 rounded-full blur-2xl"></div>
-                        <div class="text-accentGold font-bold text-xs tracking-widest uppercase mb-4 flex items-center gap-2">
-                            <span class="w-2 h-2 bg-accentGold rounded-full animate-pulse"></span>
-                            Market Intelligence
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-accentGold transition-colors leading-tight">4.2% CPI & FX Strategies</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">Master the 'Higher for Longer' regime. Discover institutional order flow secrets for EUR/USD and USD/JPY in high inflation.</p>
-                        <span class="text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2">Read Analysis <span class="group-hover:translate-x-1 transition-transform">→</span></span>
-                    </a>
-
-                    <!-- Article 1 -->
-                    <a href="articles/us-market-opening-range-strategy.html" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
-                        <div class="text-accent-gold font-bold text-xs tracking-widest uppercase mb-4">Trading Strategy</div>
-                        <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors">US Market Opening Range Strategy</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">Master the 15-minute opening range breakout strategy. Learn how to read market liquidity, bias, and sentiment in the first critical minutes of US stock market trading.</p>
-                        <span class="text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2">Read More <span class="group-hover:translate-x-1 transition-transform">→</span></span>
-                    </a>
-
-                    <!-- Article 2 -->
-                    <a href="articles/earn2trade-mobile-futures-killer-app.html" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
-                        <div class="text-accent-gold font-bold text-xs tracking-widest uppercase mb-4">Futures</div>
-                        <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors">The NEW Earn2Trade Mobile Update</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">Why Futures Just Became Your Forex Killer App. Explore the 2026 update bringing CME precision to mobile trading platforms.</p>
-                        <span class="text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2">Read More <span class="group-hover:translate-x-1 transition-transform">→</span></span>
-                    </a>
-
-                    <!-- Article 3 -->
-                    <a href="articles/finotive-instant-funding.html" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
-                        <div class="text-accent-gold font-bold text-xs tracking-widest uppercase mb-4">Prop Firms</div>
-                        <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors">Finotive Instant Funding</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">Skip the Prop Firm Challenge. Access live capital immediately and scale your trading career without evaluations.</p>
-                        <span class="text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2">Read More <span class="group-hover:translate-x-1 transition-transform">→</span></span>
-                    </a>
-
-                    <!-- Article 4 -->
-                    <a href="articles/xau-usd-liquidity-shock.html" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
-                        <div class="text-accent-gold font-bold text-xs tracking-widest uppercase mb-4">Market Analysis</div>
-                        <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors">XAU/USD Liquidity Shock</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">Understand the mechanics of gold liquidity shocks and how institutional traders exploit market inefficiencies in precious metals.</p>
-                        <span class="text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2">Read More <span class="group-hover:translate-x-1 transition-transform">→</span></span>
-                    </a>
-
-                    <!-- Article 5 -->
-                    <a href="articles/geopolitics-liquidity-sweeps.html" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
-                        <div class="text-accent-gold font-bold text-xs tracking-widest uppercase mb-4">Geopolitics</div>
-                        <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors">Geopolitics & Liquidity Sweeps</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">How geopolitical events trigger institutional liquidity sweeps and create trading opportunities across global markets.</p>
-                        <span class="text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2">Read More <span class="group-hover:translate-x-1 transition-transform">→</span></span>
-                    </a>
-
-                    <!-- Article 6 -->
-                    <a href="articles/central-banks-gold-buying.html" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
-                        <div class="text-accent-gold font-bold text-xs tracking-widest uppercase mb-4">Central Banks</div>
-                        <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors">Central Banks Gold Buying Surge</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">Analyze the unprecedented central bank gold accumulation trend and its implications for precious metals markets.</p>
-                        <span class="text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2">Read More <span class="group-hover:translate-x-1 transition-transform">→</span></span>
-                    </a>
-
-                    <!-- Article 7 -->
-                    <a href="articles/iran-israel-escalation.html" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
-                        <div class="text-accent-gold font-bold text-xs tracking-widest uppercase mb-4">Geopolitics</div>
-                        <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors">Iran-Israel Escalation Impact</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">Understanding how Middle East tensions influence oil prices, currency markets, and global trading sentiment.</p>
-                        <span class="text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2">Read More <span class="group-hover:translate-x-1 transition-transform">→</span></span>
-                    </a>
-
-                    <!-- Article 8 -->
-                    <a href="articles/gold-price-drop-opportunity-or-trap.html" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
-                        <div class="text-accent-gold font-bold text-xs tracking-widest uppercase mb-4">Precious Metals</div>
-                        <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors">Gold Price Drop: Opportunity or Trap?</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">Technical and fundamental analysis of gold price corrections. Is this a buying opportunity or a continuation of downtrend?</p>
-                        <span class="text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2">Read More <span class="group-hover:translate-x-1 transition-transform">→</span></span>
-                    </a>
-
-                    <!-- Article 9 -->
-                    <a href="articles/trading_sessions.html" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
-                        <div class="text-accent-gold font-bold text-xs tracking-widest uppercase mb-4">Trading Guide</div>
-                        <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors">Global Trading Sessions Guide</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">Master the characteristics of each global trading session. Understand volatility patterns, liquidity, and optimal trading times.</p>
-                        <span class="text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2">Read More <span class="group-hover:translate-x-1 transition-transform">→</span></span>
-                    </a>
-
-                    <!-- Article 10 -->
-                    <a href="articles/earn2trade-mobile-futures-migration.html" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
-                        <div class="text-accent-gold font-bold text-xs tracking-widest uppercase mb-4">Platform Migration</div>
-                        <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors">Earn2Trade Mobile Futures Migration</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">A comprehensive guide to migrating your Earn2Trade trading account to the new mobile futures platform.</p>
-                        <span class="text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2">Read More <span class="group-hover:translate-x-1 transition-transform">→</span></span>
-                    </a>
-
-                    <!-- Article 11 -->
-                    <a href="articles/institutional-fx-market-report-2026-06-05.html" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
-                        <div class="text-accent-gold font-bold text-xs tracking-widest uppercase mb-4">Market Report</div>
-                        <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors">Institutional FX Market Report</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">Weekly institutional forex market analysis. Key levels, central bank decisions, and trading opportunities.</p>
-                        <span class="text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2">Read More <span class="group-hover:translate-x-1 transition-transform">→</span></span>
-                    </a>
-
-                    <!-- Article 12 -->
-                    <a href="articles/central-banks-gold-buying-april.html" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
-                        <div class="text-accent-gold font-bold text-xs tracking-widest uppercase mb-4">Central Banks</div>
-                        <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors">Central Banks Gold Buying - April 2026</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">April 2026 update on global central bank gold accumulation. Market implications and trading strategies.</p>
-                        <span class="text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2">Read More <span class="group-hover:translate-x-1 transition-transform">→</span></span>
-                    </a>
-                </div>
-            </section>
-
-            <!-- ===== CATEGORY 2: COMPARISON PREVIEW ===== -->
-            <section id="comparison" class="mb-48 scroll-mt-32 w-full">
-                <h2 class="section-header">Comparison Hub</h2>
-                <p class="text-xl text-gray-400 font-medium mb-12 max-w-3xl">
-                    Access the most comprehensive comparison of proprietary trading firms, forex brokers, and futures platforms. Make data-driven decisions backed by institutional research.
-                </p>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
-                    <!-- Futures Prop Firms Card -->
-                    <a href="prop-firm-comparison.html#comparison" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
-                        <div class="text-accent-gold font-bold text-xs tracking-widest uppercase mb-4">Prop Trading</div>
-                        <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors">Top Futures Prop Firms</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">Compare Earn2Trade (now with Tradovate Mobile Trading), Funded Trading Plus, Topstep, and other leading futures prop firms. Analyze allocation sizes, profit splits, and evaluation costs.</p>
-                        <div class="flex items-center gap-2 text-accent-gold font-bold text-xs uppercase tracking-widest">
-                            <span>View Comparison</span>
-                            <span class="group-hover:translate-x-1 transition-transform">→</span>
-                        </div>
-                    </a>
-
-                    <!-- Forex Prop Firms Card -->
-                    <a href="prop-firm-comparison.html#comparison" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
-                        <div class="text-accent-gold font-bold text-xs tracking-widest uppercase mb-4">Prop Trading</div>
-                        <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors">Top Forex Prop Firms</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">Compare FTMO, The Funded Trader, MyForexFunds, and others. Review challenge rules, profit targets, and drawdown limits for forex trading.</p>
-                        <div class="flex items-center gap-2 text-accent-gold font-bold text-xs uppercase tracking-widest">
-                            <span>View Comparison</span>
-                            <span class="group-hover:translate-x-1 transition-transform">→</span>
-                        </div>
-                    </a>
-
-                    <!-- Retail Brokers Card -->
-                    <a href="prop-firm-comparison.html#comparison" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
-                        <div class="text-accent-gold font-bold text-xs tracking-widest uppercase mb-4">Retail Trading</div>
-                        <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors">Top Retail Brokers</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">Compare XM Global, Exness, and other regulated retail brokers. Analyze spreads, leverage, platforms, and regulatory status.</p>
-                        <div class="flex items-center gap-2 text-accent-gold font-bold text-xs uppercase tracking-widest">
-                            <span>View Comparison</span>
-                            <span class="group-hover:translate-x-1 transition-transform">→</span>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="mt-12 text-center">
-                    <a href="prop-firm-comparison.html" class="btn-primary py-3 px-8 text-sm">Explore Full Comparison Hub</a>
-                </div>
-            </section>
-
-            <!-- ===== CATEGORY 3: SECURITY ===== -->
-            <section id="security" class="mb-48 scroll-mt-32 w-full">
-                <h2 class="section-header">Security & Compliance</h2>
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full">
-                    <div class="lg:col-span-1">
-                        <p class="text-xl text-gray-400 font-medium mb-8">
-                            Your capital and data are protected by institutional-grade security protocols and regulatory adherence.
-                        </p>
-                        <a href="risk-disclosure.html" class="btn-outline">Review Risk Disclosure</a>
-                    </div>
-                    <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-                        <a href="privacy-policy.html" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
-                            <div class="text-accent-gold font-bold text-xs tracking-widest uppercase mb-4">Compliance</div>
-                            <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors">Privacy Policy</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-6">How we protect your data and maintain the highest standards of digital privacy and security.</p>
-                            <span class="text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2">Read Policy <span class="group-hover:translate-x-1 transition-transform">→</span></span>
-                        </a>
-                        <a href="terms-of-service.html" class="bg-surface premium-border rounded-2xl p-8 hover:border-accent-gold/40 transition-all group">
-                            <div class="text-accent-gold font-bold text-xs tracking-widest uppercase mb-4">Legal</div>
-                            <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors">Terms of Service</h3>
-                            <p class="text-gray-400 text-sm leading-relaxed mb-6">The legal framework governing your use of the ForexMax platform and its informational resources.</p>
-                            <span class="text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2">Read Terms <span class="group-hover:translate-x-1 transition-transform">→</span></span>
-                        </a>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===== CATEGORY 4: CONTACT ===== -->
-            <section id="contact" class="scroll-mt-32 w-full">
-                <h2 class="section-header">Contact</h2>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
-                    <div class="lg:col-span-1">
-                        <p class="text-xl text-gray-400 font-medium mb-8">
-                            Connect directly with the executive team for M&A discussions, institutional liquidity partnerships, or to access our premium market intelligence feeds.
-                        </p>
-                        <a href="mailto:djamal@forexmax.com" class="btn-outline">Email Us</a>
-                    </div>
-                    <div class="lg:col-span-1 bg-surface premium-border rounded-2xl p-8">
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center border border-white/10">
-                                <svg class="w-6 h-6 text-accent-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    <a href="audits/earn2trade-gauntlet-mini.html" class="bg-surface premium-border rounded-2xl p-8 border-accent-gold/30 hover:border-accent-gold transition-all group relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-accent-gold/5 rounded-full blur-2xl"></div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="text-accent-gold font-bold text-xs tracking-widest uppercase flex items-center gap-2">
+                                <span class="w-2 h-2 bg-accent-gold rounded-full animate-pulse"></span>
+                                Technical Audit
                             </div>
-                            <h3 class="text-2xl font-bold text-white">General Inquiries</h3>
+                            <span class="bg-emerald-900/40 text-emerald-400 border border-emerald-500/30 text-xs px-2 py-1 rounded-full uppercase font-bold">Audit Status: PASSED</span>
                         </div>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">For general questions, feedback, or support, please reach out to us via email.</p>
-                        <a href="mailto:djamal@forexmax.com" class="text-accent-gold font-semibold hover:text-accent-gold transition-colors">djamal@forexmax.com</a>
-                    </div>
+                        <h3 class="text-2xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors leading-tight">Earn2Trade Gauntlet Mini™: Deep Dive Audit</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">Our research desk conducted a rigorous technical audit of Earn2Trade's Gauntlet Mini™ program, analyzing execution, slippage, and EOD drawdown mechanics.</p>
+                        <span class="text-white font-bold text-xs uppercase tracking-widest flex items-center gap-2">Read Audit →</span>
+                    </a>
                 </div>
             </section>
 
+            <!-- ===== PILLAR C: GLOBAL MACRO & STRATEGY ===== -->
+            <section id="macro-strategy" class="mb-24 scroll-mt-32 w-full bg-slate-950 border border-white/5 rounded-3xl p-8 reveal">
+                <div class="flex items-center gap-3 mb-8">
+                    <span class="text-2xl">📰</span>
+                    <h2 class="text-3xl font-bold tracking-tighter text-white uppercase">Global Macro & Strategy</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Featured Large Card -->
+                    <div class="lg:col-span-2">
+                        <a href="articles/post-cftc-prop-firm-era.html" class="block h-full bg-surface premium-border rounded-2xl p-10 border-accentCyan/30 hover:border-accentCyan transition-all group relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-64 h-64 bg-accentCyan/5 rounded-full blur-3xl"></div>
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="text-accentCyan font-bold text-xs tracking-widest uppercase flex items-center gap-2">
+                                    <span class="w-2 h-2 bg-accentCyan rounded-full animate-pulse"></span>
+                                    Regulatory Alert
+                                </div>
+                                <span class="text-xs font-mono text-gray-500 uppercase">Macro Focus • 8 min read</span>
+                            </div>
+                            <h3 class="text-3xl md:text-4xl font-black text-white mb-6 group-hover:text-accentCyan transition-colors leading-tight">WARNING: The Post-CFTC Prop Firm Era - Your Funded Account is at Risk!</h3>
+                            <p class="text-gray-400 text-lg leading-relaxed mb-8">The CFTC and MiFID II are reshaping the prop firm landscape. Discover how to protect your funded accounts, navigate global regulatory shifts, and choose the right firm in 2026. Don't lose your capital!</p>
+                            <span class="text-white font-bold text-sm uppercase tracking-widest flex items-center gap-2">Read Full Intelligence Report <span class="group-hover:translate-x-2 transition-transform">→</span></span>
+                        </a>
+                    </div>
+
+                    <!-- Side Grid of Smaller Cards -->
+                    <div class="space-y-6">
+                        <a href="articles/vwap-sd-bands-institutional-secrets.html" class="block bg-surface premium-border rounded-xl p-6 border-accentGold/20 hover:border-accentGold transition-all group">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-accentGold font-bold text-[10px] tracking-widest uppercase">Institutional Edge</span>
+                                <span class="text-[10px] font-mono text-gray-500 uppercase">5 min read</span>
+                            </div>
+                            <h4 class="text-lg font-bold text-white mb-2 group-hover:text-accentGold transition-colors leading-tight">VWAP SD Bands Playbook</h4>
+                            <p class="text-gray-400 text-xs leading-relaxed line-clamp-2">Master the 0.5 and 1.5 VWAP Standard Deviation Bands for institutional trend continuation.</p>
+                        </a>
+                        <a href="articles/high-inflation-institutional-fx-strategies.html" class="block bg-surface premium-border rounded-xl p-6 border-accentGold/20 hover:border-accentGold transition-all group">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-accentGold font-bold text-[10px] tracking-widest uppercase">Market Intelligence</span>
+                                <span class="text-[10px] font-mono text-gray-500 uppercase">6 min read</span>
+                            </div>
+                            <h4 class="text-lg font-bold text-white mb-2 group-hover:text-accentGold transition-colors leading-tight">4.2% CPI & FX Strategies</h4>
+                            <p class="text-gray-400 text-xs leading-relaxed line-clamp-2">Master the 'Higher for Longer' regime and institutional order flow secrets.</p>
+                        </a>
+                        <a href="articles/iran-israel-escalation.html" class="block bg-surface premium-border rounded-xl p-6 border-accent-gold/20 hover:border-accent-gold transition-all group">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-accent-gold font-bold text-[10px] tracking-widest uppercase">Geopolitics</span>
+                                <span class="text-[10px] font-mono text-gray-500 uppercase">12 min read</span>
+                            </div>
+                            <h4 class="text-lg font-bold text-white mb-2 group-hover:text-accent-gold transition-colors leading-tight">Iran-Israel Escalation</h4>
+                            <p class="text-gray-400 text-xs leading-relaxed line-clamp-2">Understanding Middle East tensions and their influence on global trading sentiment.</p>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Secondary Grid for remaining articles -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+                    <a href="articles/us-market-opening-range-strategy.html" class="bg-surface premium-border rounded-xl p-6 hover:border-accent-gold/40 transition-all group">
+                        <div class="text-accent-gold font-bold text-[10px] tracking-widest uppercase mb-3">Trading Strategy</div>
+                        <h4 class="text-base font-bold text-white mb-2 group-hover:text-accent-gold transition-colors">US Opening Range</h4>
+                        <p class="text-gray-400 text-xs leading-relaxed line-clamp-2">Master the 15-minute opening range breakout strategy and read market liquidity.</p>
+                    </a>
+                    <a href="articles/earn2trade-mobile-futures-killer-app.html" class="bg-surface premium-border rounded-xl p-6 hover:border-accent-gold/40 transition-all group">
+                        <div class="text-accent-gold font-bold text-[10px] tracking-widest uppercase mb-3">Futures</div>
+                        <h4 class="text-base font-bold text-white mb-2 group-hover:text-accent-gold transition-colors">Earn2Trade Mobile</h4>
+                        <p class="text-gray-400 text-xs leading-relaxed line-clamp-2">Why Futures Just Became Your Forex Killer App. CME precision on mobile.</p>
+                    </a>
+                    <a href="articles/finotive-instant-funding.html" class="bg-surface premium-border rounded-xl p-6 hover:border-accent-gold/40 transition-all group">
+                        <div class="text-accent-gold font-bold text-[10px] tracking-widest uppercase mb-3">Prop Firms</div>
+                        <h4 class="text-base font-bold text-white mb-2 group-hover:text-accent-gold transition-colors">Instant Funding</h4>
+                        <p class="text-gray-400 text-xs leading-relaxed line-clamp-2">Skip the Prop Firm Challenge. Access live capital immediately without evaluations.</p>
+                    </a>
+                    <a href="articles/xau-usd-liquidity-shock.html" class="bg-surface premium-border rounded-xl p-6 hover:border-accent-gold/40 transition-all group">
+                        <div class="text-accent-gold font-bold text-[10px] tracking-widest uppercase mb-3">Market Analysis</div>
+                        <h4 class="text-base font-bold text-white mb-2 group-hover:text-accent-gold transition-colors">XAU/USD Liquidity</h4>
+                        <p class="text-gray-400 text-xs leading-relaxed line-clamp-2">How institutional traders exploit market inefficiencies in precious metals.</p>
+                    </a>
+                    <a href="articles/geopolitics-liquidity-sweeps.html" class="bg-surface premium-border rounded-xl p-6 hover:border-accent-gold/40 transition-all group">
+                        <div class="text-accent-gold font-bold text-[10px] tracking-widest uppercase mb-3">Geopolitics</div>
+                        <h4 class="text-base font-bold text-white mb-2 group-hover:text-accent-gold transition-colors">Liquidity Sweeps</h4>
+                        <p class="text-gray-400 text-xs leading-relaxed line-clamp-2">How geopolitical events trigger institutional liquidity sweeps across global markets.</p>
+                    </a>
+                    <a href="articles/central-banks-gold-buying.html" class="bg-surface premium-border rounded-xl p-6 hover:border-accent-gold/40 transition-all group">
+                        <div class="text-accent-gold font-bold text-[10px] tracking-widest uppercase mb-3">Central Banks</div>
+                        <h4 class="text-base font-bold text-white mb-2 group-hover:text-accent-gold transition-colors">Gold Buying Surge</h4>
+                        <p class="text-gray-400 text-xs leading-relaxed line-clamp-2">Analyze the unprecedented central bank gold accumulation trend in 2026.</p>
+                    </a>
+                </div>
+            </section>
         </div>
+
+        <!-- Market Intelligence Section - Auto-Updated Weekly -->
+        <section class="py-24 bg-slate relative border-y border-white/5 reveal">
+            <div class="max-w-7xl mx-auto px-6">
+                <!-- Section Header -->
+                <div class="text-center mb-16">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 mb-8 rounded-full bg-white/5 border border-white/10">
+                        <span class="w-2 h-2 rounded-full bg-accent-gold animate-pulse"></span>
+                        <span class="text-xs font-medium tracking-wide text-gray-300 uppercase">Weekly Institutional Pulse • Updated 2026-06-19</span>
+                    </div>
+                    <h2 class="text-3xl font-bold mb-4 text-white uppercase tracking-tighter">Market Intelligence <br/><span class="text-gray-500 font-light">& The Structural Edge</span></h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">Real-time institutional positioning, macro surprises, and volatility regime analysis updated every Friday 22:00 UTC.</p>
+                </div>
+
+                <!-- Grid Layout: 4 Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                    <!-- Card 1: Policy Expectations -->
+                    <div class="bg-card-grad premium-border rounded-2xl p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-sm font-semibold text-gray-300 uppercase tracking-wider">Policy Expectations</h3>
+                            <svg class="w-5 h-5 text-accent-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                        </div>
+                        <div class="space-y-3">
+                            <div>
+                                <p class="text-xs text-gray-500 mb-1">2Y Yield</p>
+                                <p class="text-xl font-bold text-white">4.09%</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 mb-1">10Y Yield</p>
+                                <p class="text-xl font-bold text-white">4.46%</p>
+                            </div>
+                            <div class="pt-2 border-t border-white/5">
+                                <p class="text-xs text-gray-500 mb-1">2Y/10Y Spread</p>
+                                <p class="text-lg font-semibold text-cyan-400">+37 bps</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Fed Rate Probabilities -->
+                    <div class="bg-card-grad premium-border rounded-2xl p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-sm font-semibold text-gray-300 uppercase tracking-wider">Fed Decision</h3>
+                            <svg class="w-5 h-5 text-accent-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        </div>
+                        <div class="space-y-3">
+                            <div>
+                                <p class="text-xs text-gray-500 mb-1">FOMC Action (Jun 17)</p>
+                                <p class="text-xl font-bold text-accent-gold">HOLD 3.50-3.75%</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 mb-1">Next Meeting (July 29)</p>
+                                <div class="flex items-center gap-2 mt-1">
+                                    <div class="flex-1 h-2 bg-white/10 rounded-full overflow-hidden">
+                                        <div class="h-full bg-accent-gold" style="width: 88.3%"></div>
+                                    </div>
+                                    <span class="text-sm font-bold text-accent-gold">88.3%</span>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 mb-1">Cut Probability</p>
+                                <div class="flex items-center gap-2 mt-1">
+                                    <div class="flex-1 h-2 bg-white/10 rounded-full overflow-hidden">
+                                        <div class="h-full bg-blue-500" style="width: 11.7%"></div>
+                                    </div>
+                                    <span class="text-sm font-bold text-blue-400">11.7%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Macro Surprise -->
+                    <div class="bg-card-grad premium-border rounded-2xl p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-sm font-semibold text-gray-300 uppercase tracking-wider">Macro Backdrop</h3>
+                            <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <div class="space-y-3">
+                            <div>
+                                <p class="text-xs text-gray-500 mb-1">Inflation Trend</p>
+                                <p class="text-sm font-bold text-white">Sticky at 4.2% YoY</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 mb-1">Labor Market</p>
+                                <p class="text-sm font-bold text-green-400">Strong (172K NFP)</p>
+                            </div>
+                            <div class="pt-2 border-t border-white/5">
+                                <span class="inline-flex items-center px-2 py-1 rounded-full bg-accent-gold/10 border border-accent-gold/30 text-xs font-semibold text-accent-gold">
+                                    ↔ Hawkish Hold
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Volatility Regime -->
+                    <div class="bg-card-grad premium-border rounded-2xl p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-sm font-semibold text-gray-300 uppercase tracking-wider">Volatility Regime</h3>
+                            <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        </div>
+                        <div class="space-y-3">
+                            <div>
+                                <p class="text-xs text-gray-500 mb-1">VIX Level (Close)</p>
+                                <p class="text-xl font-bold text-white">17.04</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 mb-1">Weekly Change</p>
+                                <div class="flex items-center gap-2 mt-1">
+                                    <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414-1.414L13.586 7H12z" clip-rule="evenodd"></path></svg>
+                                    <span class="text-sm font-bold text-green-400">-2.40 (-12.3%)</span>
+                                </div>
+                            </div>
+                            <div class="pt-2 border-t border-white/5">
+                                <span class="inline-flex items-center px-2 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-xs font-semibold text-blue-400">
+                                    Moderate Volatility
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detailed Tables Section -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Institutional Positioning Table -->
+                    <div class="bg-card-grad premium-border rounded-2xl p-8">
+                        <h3 class="text-lg font-bold mb-6 flex items-center gap-2 text-white">
+                            <span class="w-1 h-6 bg-accent-gold rounded-full"></span>
+                            Institutional Positioning (COT)
+                        </h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr class="border-b border-white/10">
+                                        <th class="text-left py-3 px-2 text-xs font-semibold text-gray-400 uppercase">Currency Pair</th>
+                                        <th class="text-right py-3 px-2 text-xs font-semibold text-gray-400 uppercase">Net Position</th>
+                                        <th class="text-right py-3 px-2 text-xs font-semibold text-gray-400 uppercase">Change</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                        <td class="py-3 px-2 font-medium text-white">EUR/USD</td>
+                                        <td class="py-3 px-2 text-right text-cyan-400 font-bold">+25,300</td>
+                                        <td class="py-3 px-2 text-right">
+                                            <span class="inline-flex items-center gap-1 text-green-400 font-semibold">
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414-1.414L13.586 7H12z" clip-rule="evenodd"></path></svg>
+                                                +7.1%
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                        <td class="py-3 px-2 font-medium text-white">GBP/USD</td>
+                                        <td class="py-3 px-2 text-right text-red-400 font-bold">-10,200</td>
+                                        <td class="py-3 px-2 text-right">
+                                            <span class="inline-flex items-center gap-1 text-red-400 font-semibold">
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12 13a1 1 0 110 2H7a1 1 0 110-2h5zm0-6a1 1 0 110 2H7a1 1 0 110-2h5z" clip-rule="evenodd"></path></svg>
+                                                -5.3%
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                        <td class="py-3 px-2 font-medium text-white">USD/JPY</td>
+                                        <td class="py-3 px-2 text-right text-accent-gold font-bold">+18,900</td>
+                                        <td class="py-3 px-2 text-right">
+                                            <span class="inline-flex items-center gap-1 text-green-400 font-semibold">
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414-1.414L13.586 7H12z" clip-rule="evenodd"></path></svg>
+                                                +6.5%
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-white/5 transition-colors">
+                                        <td class="py-3 px-2 font-medium text-white">USD/CAD</td>
+                                        <td class="py-3 px-2 text-right text-cyan-400 font-bold">+13,400</td>
+                                        <td class="py-3 px-2 text-right">
+                                            <span class="inline-flex items-center gap-1 text-green-400 font-semibold">
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414-1.414L13.586 7H12z" clip-rule="evenodd"></path></svg>
+                                                +4.2%
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-4 pt-4 border-t border-white/5">
+                            Source: CFTC Commitment of Traders Report | Data as of Friday EOD, June 19, 2026
+                        </p>
+                    </div>
+
+                    <!-- Economic Calendar Highlights -->
+                    <div class="bg-card-grad premium-border rounded-2xl p-8">
+                        <h3 class="text-lg font-bold mb-6 flex items-center gap-2 text-white">
+                            <span class="w-1 h-6 bg-cyan-400 rounded-full"></span>
+                            FOMC & Upcoming Events
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="pb-4 border-b border-white/5">
+                                <div class="flex items-start justify-between mb-2">
+                                    <div>
+                                        <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Wednesday, June 17 (Released)</p>
+                                        <p class="font-bold text-white">FOMC Decision & Statement</p>
+                                    </div>
+                                    <span class="inline-flex items-center px-2 py-1 rounded-full bg-accent-gold/10 border border-accent-gold/30 text-xs font-bold text-accent-gold">
+                                        Major Event
+                                    </span>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2 text-xs">
+                                    <div>
+                                        <p class="text-gray-500 mb-1">Action</p>
+                                        <p class="font-semibold text-accent-gold">Hold 3.50-3.75%</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-gray-500 mb-1">Vote</p>
+                                        <p class="font-semibold text-green-400">Unanimous (12-0)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pb-4 border-b border-white/5">
+                                <div class="flex items-start justify-between mb-2">
+                                    <div>
+                                        <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Friday, June 19</p>
+                                        <p class="font-bold text-white">Retail Sales (May)</p>
+                                    </div>
+                                    <span class="inline-flex items-center px-2 py-1 rounded-full bg-cyan-400/10 border border-cyan-400/30 text-xs font-bold text-cyan-400">
+                                        Economic Data
+                                    </span>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2 text-xs">
+                                    <div>
+                                        <p class="text-gray-500 mb-1">Actual</p>
+                                        <p class="font-semibold text-green-400">+0.4% MoM</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-gray-500 mb-1">Forecast</p>
+                                        <p class="font-semibold text-white">+0.3% MoM</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-4 pt-4 border-t border-white/5">
+                            Source: Federal Reserve & Trading Economics | Data as of June 19, 2026 22:00 UTC
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Summary Insights -->
+                <div class="mt-8 bg-surface premium-border rounded-2xl p-8">
+                    <h3 class="text-lg font-bold mb-4 flex items-center gap-2 text-white">
+                        <span class="w-1 h-6 bg-accent-gold rounded-full"></span>
+                        Weekly Institutional Insights
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <p class="text-xs text-gray-500 uppercase tracking-wider mb-2">Policy Direction</p>
+                            <p class="text-sm text-gray-300 leading-relaxed">
+                                Fed maintained hawkish stance with unanimous hold at 3.50-3.75%. Dot plot signals minimal cuts through 2026.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 uppercase tracking-wider mb-2">Macro Momentum</p>
+                            <p class="text-sm text-gray-300 leading-relaxed">
+                                Inflation remains sticky at 4.2% YoY, supporting Fed's cautious stance. Labor market resilience confirmed.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-500 uppercase tracking-wider mb-2">Positioning & Risk</p>
+                            <p class="text-sm text-gray-300 leading-relaxed">
+                                Institutional long USD positioning strengthens. VIX moderated to 17.04 post-FOMC clarity.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <!-- Market Intelligence Section -->
-<!-- Market Intelligence Section - Auto-Updated Weekly -->
-<section class="py-24 bg-slate relative border-y border-white/5">
-    <div class="max-w-7xl mx-auto px-6">
-        <!-- Section Header -->
-        <div class="text-center mb-16 reveal">
-            <div class="inline-flex items-center gap-2 px-3 py-1 mb-8 rounded-full bg-white/5 border border-white/10 reveal">
-                <span class="w-2 h-2 rounded-full bg-accent-gold animate-pulse"></span>
-                <span class="text-xs font-medium tracking-wide text-gray-300 uppercase">Weekly Institutional Pulse • Updated 2026-06-19</span>
-            </div>
-            <h2 class="text-3xl font-bold mb-4">Market Intelligence <br/><span class="text-gray-500 font-light">& The Structural Edge</span></h2>
-            <p class="text-gray-400 max-w-2xl mx-auto">Real-time institutional positioning, macro surprises, and volatility regime analysis updated every Friday 22:00 UTC.</p>
-        </div>
-
-        <!-- Grid Layout: 4 Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            
-            <!-- Card 1: Policy Expectations -->
-            <div class="bg-card-grad premium-border rounded-2xl p-6 reveal delay-100">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-sm font-semibold text-gray-300 uppercase tracking-wider">Policy Expectations</h3>
-                    <svg class="w-5 h-5 text-accent-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+    <footer class="py-20 border-t border-white/5 bg-slate-950">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-2">
+                    <a href="index.html" class="flex items-center gap-2 mb-6">
+                        <img src="assets/forexmax-logo.png" alt="ForexMax Logo" class="h-8 w-auto">
+                        <span class="text-2xl font-black tracking-tighter text-white">FOREXMAX</span>
+                    </a>
+                    <p class="text-gray-500 text-sm max-w-sm leading-relaxed">
+                        The definitive intelligence terminal for professional traders. Providing institutional-grade data, technical audits, and macro analysis for the modern capital markets.
+                    </p>
                 </div>
-                <div class="space-y-3">
-                    <div>
-                        <p class="text-xs text-gray-500 mb-1">2Y Yield</p>
-                        <p class="text-xl font-bold text-white">4.09%</p>
-                    </div>
-                    <div>
-                        <p class="text-xs text-gray-500 mb-1">10Y Yield</p>
-                        <p class="text-xl font-bold text-white">4.46%</p>
-                    </div>
-                    <div class="pt-2 border-t border-white/5">
-                        <p class="text-xs text-gray-500 mb-1">2Y/10Y Spread</p>
-                        <p class="text-lg font-semibold text-accent-cyan">+37 bps</p>
-                    </div>
+                <div>
+                    <h4 class="text-white font-bold text-xs uppercase tracking-widest mb-6">Intelligence</h4>
+                    <ul class="space-y-4 text-sm text-gray-500">
+                        <li><a href="#" class="hover:text-accent-gold transition-colors">Research Methodology</a></li>
+                        <li><a href="#" class="hover:text-accent-gold transition-colors">Submit Intelligence Report</a></li>
+                        <li><a href="audits/earn2trade-gauntlet-mini.html" class="hover:text-accent-gold transition-colors">Technical Audits</a></li>
+                        <li><a href="prop-firm-comparison.html" class="hover:text-accent-gold transition-colors">Comparison Hub</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold text-xs uppercase tracking-widest mb-6">Legal</h4>
+                    <ul class="space-y-4 text-sm text-gray-500">
+                        <li><a href="risk-disclosure.html" class="hover:text-accent-gold transition-colors">Legal Disclaimer</a></li>
+                        <li><a href="privacy-policy.html" class="hover:text-accent-gold transition-colors">Privacy Policy</a></li>
+                        <li><a href="terms-of-service.html" class="hover:text-accent-gold transition-colors">Terms of Service</a></li>
+                        <li><a href="mailto:djamal@forexmax.com" class="hover:text-accent-gold transition-colors">Contact Terminal</a></li>
+                    </ul>
                 </div>
             </div>
-
-            <!-- Card 2: Fed Rate Probabilities -->
-            <div class="bg-card-grad premium-border rounded-2xl p-6 reveal delay-150">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-sm font-semibold text-gray-300 uppercase tracking-wider">Fed Decision</h3>
-                    <svg class="w-5 h-5 text-accent-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                </div>
-                <div class="space-y-3">
-                    <div>
-                        <p class="text-xs text-gray-500 mb-1">FOMC Action (Jun 17)</p>
-                        <p class="text-xl font-bold text-accent-gold">HOLD 3.50-3.75%</p>
-                    </div>
-                    <div>
-                        <p class="text-xs text-gray-500 mb-1">Next Meeting (July 29)</p>
-                        <div class="flex items-center gap-2 mt-1">
-                            <div class="flex-1 h-2 bg-white/10 rounded-full overflow-hidden">
-                                <div class="h-full bg-accent-gold" style="width: 88.3%"></div>
-                            </div>
-                            <span class="text-sm font-bold text-accent-gold">88.3%</span>
-                        </div>
-                    </div>
-                    <div>
-                        <p class="text-xs text-gray-500 mb-1">Cut Probability</p>
-                        <div class="flex items-center gap-2 mt-1">
-                            <div class="flex-1 h-2 bg-white/10 rounded-full overflow-hidden">
-                                <div class="h-full bg-blue-500" style="width: 11.7%"></div>
-                            </div>
-                            <span class="text-sm font-bold text-blue-400">11.7%</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 3: Macro Surprise -->
-            <div class="bg-card-grad premium-border rounded-2xl p-6 reveal delay-200">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-sm font-semibold text-gray-300 uppercase tracking-wider">Macro Backdrop</h3>
-                    <svg class="w-5 h-5 text-accent-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </div>
-                <div class="space-y-3">
-                    <div>
-                        <p class="text-xs text-gray-500 mb-1">Inflation Trend</p>
-                        <p class="text-sm font-bold text-white">Sticky at 4.2% YoY</p>
-                    </div>
-                    <div>
-                        <p class="text-xs text-gray-500 mb-1">Labor Market</p>
-                        <p class="text-sm font-bold text-green-400">Strong (172K NFP)</p>
-                    </div>
-                    <div class="pt-2 border-t border-white/5">
-                        <span class="inline-flex items-center px-2 py-1 rounded-full bg-accent-gold/10 border border-accent-gold/30 text-xs font-semibold text-accent-gold">
-                            ↔ Hawkish Hold
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 4: Volatility Regime -->
-            <div class="bg-card-grad premium-border rounded-2xl p-6 reveal delay-250">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-sm font-semibold text-gray-300 uppercase tracking-wider">Volatility Regime</h3>
-                    <svg class="w-5 h-5 text-accent-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                </div>
-                <div class="space-y-3">
-                    <div>
-                        <p class="text-xs text-gray-500 mb-1">VIX Level (Close)</p>
-                        <p class="text-xl font-bold text-white">17.04</p>
-                    </div>
-                    <div>
-                        <p class="text-xs text-gray-500 mb-1">Weekly Change</p>
-                        <div class="flex items-center gap-2 mt-1">
-                            <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414-1.414L13.586 7H12z" clip-rule="evenodd"></path></svg>
-                            <span class="text-sm font-bold text-green-400">-2.40 (-12.3%)</span>
-                        </div>
-                    </div>
-                    <div class="pt-2 border-t border-white/5">
-                        <p class="text-xs text-gray-500 mb-1">Regime</p>
-                        <span class="inline-flex items-center px-2 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-xs font-semibold text-blue-400">
-                            Moderate Volatility
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Detailed Tables Section -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            
-            <!-- Institutional Positioning Table -->
-            <div class="bg-card-grad premium-border rounded-2xl p-8 reveal delay-300">
-                <h3 class="text-lg font-bold mb-6 flex items-center gap-2">
-                    <span class="w-1 h-6 bg-accent-gold rounded-full"></span>
-                    Institutional Positioning (COT)
-                </h3>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm">
-                        <thead>
-                            <tr class="border-b border-white/10">
-                                <th class="text-left py-3 px-2 text-xs font-semibold text-gray-400 uppercase">Currency Pair</th>
-                                <th class="text-right py-3 px-2 text-xs font-semibold text-gray-400 uppercase">Net Position</th>
-                                <th class="text-right py-3 px-2 text-xs font-semibold text-gray-400 uppercase">Change</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
-                                <td class="py-3 px-2 font-medium text-white">EUR/USD</td>
-                                <td class="py-3 px-2 text-right text-accent-cyan font-bold">+25,300</td>
-                                <td class="py-3 px-2 text-right">
-                                    <span class="inline-flex items-center gap-1 text-green-400 font-semibold">
-                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414-1.414L13.586 7H12z" clip-rule="evenodd"></path></svg>
-                                        +7.1%
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
-                                <td class="py-3 px-2 font-medium text-white">GBP/USD</td>
-                                <td class="py-3 px-2 text-right text-red-400 font-bold">-10,200</td>
-                                <td class="py-3 px-2 text-right">
-                                    <span class="inline-flex items-center gap-1 text-red-400 font-semibold">
-                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12 13a1 1 0 110 2H7a1 1 0 110-2h5zm0-6a1 1 0 110 2H7a1 1 0 110-2h5z" clip-rule="evenodd"></path></svg>
-                                        -5.3%
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
-                                <td class="py-3 px-2 font-medium text-white">USD/JPY</td>
-                                <td class="py-3 px-2 text-right text-accent-gold font-bold">+18,900</td>
-                                <td class="py-3 px-2 text-right">
-                                    <span class="inline-flex items-center gap-1 text-green-400 font-semibold">
-                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414-1.414L13.586 7H12z" clip-rule="evenodd"></path></svg>
-                                        +6.5%
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-white/5 transition-colors">
-                                <td class="py-3 px-2 font-medium text-white">USD/CAD</td>
-                                <td class="py-3 px-2 text-right text-accent-cyan font-bold">+13,400</td>
-                                <td class="py-3 px-2 text-right">
-                                    <span class="inline-flex items-center gap-1 text-green-400 font-semibold">
-                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414-1.414L13.586 7H12z" clip-rule="evenodd"></path></svg>
-                                        +4.2%
-                                    </span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <p class="text-xs text-gray-500 mt-4 pt-4 border-t border-white/5">
-                    Source: CFTC Commitment of Traders Report | Data as of Friday EOD, June 19, 2026
+            <div class="pt-8 border-t border-white/5 flex flex-col gap-6">
+                <p class="text-[10px] text-gray-600 font-mono uppercase tracking-widest leading-loose text-center">
+                    ForexMax Research provides institutional-grade data and opinions. We do not provide financial advice. Trading involves substantial risk.
                 </p>
-            </div>
-
-            <!-- Economic Calendar Highlights -->
-            <div class="bg-card-grad premium-border rounded-2xl p-8 reveal delay-350">
-                <h3 class="text-lg font-bold mb-6 flex items-center gap-2">
-                    <span class="w-1 h-6 bg-accent-cyan rounded-full"></span>
-                    FOMC & Upcoming Events
-                </h3>
-                <div class="space-y-4">
-                    <div class="pb-4 border-b border-white/5">
-                        <div class="flex items-start justify-between mb-2">
-                            <div>
-                                <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Wednesday, June 17 (Released)</p>
-                                <p class="font-bold text-white">FOMC Decision & Statement</p>
-                            </div>
-                            <span class="inline-flex items-center px-2 py-1 rounded-full bg-accent-gold/10 border border-accent-gold/30 text-xs font-bold text-accent-gold">
-                                Major Event
-                            </span>
-                        </div>
-                        <div class="grid grid-cols-2 gap-2 text-xs">
-                            <div>
-                                <p class="text-gray-500 mb-1">Action</p>
-                                <p class="font-semibold text-accent-gold">Hold 3.50-3.75%</p>
-                            </div>
-                            <div>
-                                <p class="text-gray-500 mb-1">Vote</p>
-                                <p class="font-semibold text-green-400">Unanimous (12-0)</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pb-4 border-b border-white/5">
-                        <div class="flex items-start justify-between mb-2">
-                            <div>
-                                <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Friday, June 19</p>
-                                <p class="font-bold text-white">Retail Sales (May)</p>
-                            </div>
-                            <span class="inline-flex items-center px-2 py-1 rounded-full bg-yellow-500/10 border border-yellow-500/30 text-xs font-bold text-yellow-400">
-                                Medium Impact
-                            </span>
-                        </div>
-                        <div class="grid grid-cols-3 gap-2 text-xs">
-                            <div>
-                                <p class="text-gray-500 mb-1">Forecast</p>
-                                <p class="font-semibold text-gray-300">+0.3%</p>
-                            </div>
-                            <div>
-                                <p class="text-gray-500 mb-1">Previous</p>
-                                <p class="font-semibold text-gray-300">+0.2%</p>
-                            </div>
-                            <div>
-                                <p class="text-gray-500 mb-1">Actual</p>
-                                <p class="font-bold text-white">+0.4%</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex items-start justify-between mb-2">
-                            <div>
-                                <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Tuesday, July 29 (Upcoming)</p>
-                                <p class="font-bold text-white">Next FOMC Meeting</p>
-                            </div>
-                            <span class="inline-flex items-center px-2 py-1 rounded-full bg-gray-500/10 border border-gray-500/30 text-xs font-bold text-gray-400">
-                                Watch
-                            </span>
-                        </div>
-                        <div class="grid grid-cols-2 gap-2 text-xs">
-                            <div>
-                                <p class="text-gray-500 mb-1">Hold Probability</p>
-                                <p class="font-semibold text-accent-gold">88.3%</p>
-                            </div>
-                            <div>
-                                <p class="text-gray-500 mb-1">Cut Probability</p>
-                                <p class="font-semibold text-blue-400">11.7%</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <p class="text-xs text-gray-500 mt-4 pt-4 border-t border-white/5">
-                    Source: Federal Reserve & Trading Economics | Data as of June 19, 2026 22:00 UTC
-                </p>
-            </div>
-        </div>
-
-        <!-- Summary Insights -->
-        <div class="mt-8 bg-surface premium-border rounded-2xl p-8 reveal delay-400">
-            <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
-                <span class="w-1 h-6 bg-accent-gold rounded-full"></span>
-                Weekly Institutional Insights
-            </h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div>
-                    <p class="text-xs text-gray-500 uppercase tracking-wider mb-2">Policy Direction</p>
-                    <p class="text-sm text-gray-300 leading-relaxed">
-                        Fed maintained hawkish stance with unanimous hold at 3.50-3.75%. Dot plot signals minimal cuts through 2026. Yield curve moderately steep (+37 bps 2Y/10Y) reflects market confidence in sustained rates. Next decision July 29.
-                    </p>
-                </div>
-                <div>
-                    <p class="text-xs text-gray-500 uppercase tracking-wider mb-2">Macro Momentum</p>
-                    <p class="text-sm text-gray-300 leading-relaxed">
-                        Inflation remains sticky at 4.2% YoY, supporting Fed's cautious stance. Labor market resilience confirmed (172K NFP prior week). Retail sales beat expectations (+0.4% vs +0.3% forecast), signaling consumer strength despite higher rates.
-                    </p>
-                </div>
-                <div>
-                    <p class="text-xs text-gray-500 uppercase tracking-wider mb-2">Positioning & Risk</p>
-                    <p class="text-sm text-gray-300 leading-relaxed">
-                        Institutional long USD positioning strengthens (EUR/USD +25.3K, USD/JPY +18.9K). VIX moderated to 17.04 (-12.3% weekly) post-FOMC clarity. Watch for volatility if inflation data deteriorates or Fed signals policy shift in Q3.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- End Market Intelligence Section -->
-<footer class="py-12 border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p class="text-sm text-gray-500">© 2026 ForexMax. All rights reserved.</p>
-            <div class="flex gap-8">
-                <a href="mailto:djamal@forexmax.com" class="text-sm text-gray-500 hover:text-white transition-colors">Contact</a>
-                <a href="terms-of-service.html" class="text-sm text-gray-500 hover:text-white transition-colors">Terms</a>
-                <a href="privacy-policy.html" class="text-sm text-gray-500 hover:text-white transition-colors">Privacy</a>
-                <a href="risk-disclosure.html" class="text-sm text-gray-500 hover:text-white transition-colors">Risk Disclosure</a>
+                <p class="text-xs text-gray-500 text-center">© 2026 ForexMax Research Group. All rights reserved. System Time: 2026-06-19 22:00 UTC</p>
             </div>
         </div>
     </footer>
