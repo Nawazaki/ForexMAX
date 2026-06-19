@@ -15,15 +15,68 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: #050507; color: #f8fafc; font-family: 'Inter', sans-serif; line-height: 1.6; }
-        .premium-border { border: 1px solid rgba(255, 255, 255, 0.06); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); }
-        .section-header { font-size: 3.5rem; font-weight: 800; letter-spacing: -0.04em; background: linear-gradient(135deg, #D4AF37 0%, #F3E5AB 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 2rem; text-transform: uppercase; }
-        .nav-link { position: relative; transition: color 0.3s ease; }
-        .nav-link:hover { color: #D4AF37; }
-        .sticky-nav { position: sticky; top: 0; z-index: 50; background: rgba(5, 5, 7, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
-        .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 0.75rem 1.5rem; background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%); color: #050507; font-weight: 800; font-size: 0.875rem; border-radius: 0.75rem; text-decoration: none; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: none; cursor: pointer; white-space: nowrap; }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3); filter: brightness(1.1); }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #050507;
+            color: #f8fafc;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+        }
+        .premium-border {
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+        .section-header {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            background: linear-gradient(135deg, #D4AF37 0%, #F3E5AB 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #D4AF37;
+        }
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(5, 5, 7, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+            color: #050507;
+            font-weight: 800;
+            font-size: 0.875rem;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+            filter: brightness(1.1);
+        }
         .accent-gold { color: #D4AF37; }
         .bg-obsidian { background-color: #050507; }
         .bg-slateDark { background-color: #12141a; }
@@ -31,12 +84,16 @@
     </style>
 </head>
 <body>
+
+    <!-- Sticky Navigation -->
     <nav class="sticky-nav relative">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <a href="../index.html" class="flex items-center gap-2 group">
                 <img src="../assets/forexmax-logo.png" alt="ForexMax Logo" class="h-8 w-auto">
                 <span class="text-2xl font-black tracking-tighter text-white group-hover:text-accent-gold transition-colors hidden sm:inline">FOREXMAX</span>
             </a>
+            
+            <!-- Desktop Navigation -->
             <div class="hidden lg:flex gap-10">
                 <a href="../index.html#articles" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400">Articles</a>
                 <a href="../prop-firm-comparison.html" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400">Comparison</a>
@@ -44,18 +101,18 @@
                 <a href="../index.html#security" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400">Security</a>
                 <a href="../index.html#contact" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400">Contact</a>
             </div>
+            
+            <!-- Desktop CTA -->
             <a href="../prop-firm-comparison.html" class="btn-primary py-2 px-6 text-xs hidden lg:inline-flex">Compare Firms</a>
         </div>
     </nav>
 
     <main class="pt-24 pb-32">
         <div class="max-w-4xl mx-auto px-6">
+
             <a href="../index.html" class="inline-flex items-center gap-2 text-sm font-bold text-gray-400 hover:text-[#D4AF37] transition-colors mb-8 group">&larr; Back to Home</a>
 
-            <div class="bg-red-900/30 border border-red-500 rounded-2xl p-6 mb-12">
-                <h2 class="text-red-400 font-black text-2xl mb-2">🚨 COMMUNITY ALERT AGGREGATION</h2>
-                <p class="text-gray-200">ForexMax is compiling recent user-submitted reports regarding Finotive Funding. The following information includes unverified community claims and our independent technical analysis.</p>
-            </div>
+            <div class="bg-red-900/20 border border-red-500/40 text-red-200 p-4 rounded-xl mb-6 border">🚨 COMMUNITY ALERT AGGREGATION: ForexMax is compiling recent user-submitted reports regarding Finotive Funding. The following information includes unverified community claims and our independent technical analysis.</div>
 
             <article class="bg-slateDark premium-border rounded-3xl p-8 md:p-12 lg:p-16 mb-16">
                 <header class="text-center mb-12">
@@ -74,44 +131,32 @@
 
                 <section class="mb-12">
                     <h2 class="text-3xl font-bold text-white mb-8">1. Aggregated Community Reports (Unverified)</h2>
+                    <p class="text-gray-300 leading-relaxed mb-6">Recently, several users within trading communities have shared communications alleging operational issues at Finotive Funding. According to screenshots provided by these users, there are claims that a recent mass email exposed client addresses by utilizing the CC field instead of BCC. Furthermore, we have aggregated multiple anecdotal reports from users claiming their payouts were denied due to 'HFT usage'. Please note that ForexMax cannot independently verify the backend trading data of these individual accounts, and we present these community submissions for informational purposes.</p>
                     
-                    <div class="space-y-12">
-                        <div>
-                            <p class="text-gray-300 leading-relaxed mb-6">Recently, several users within trading communities have shared communications alleging operational issues at Finotive Funding. According to screenshots provided by these users (see below), there are claims that a recent mass email exposed client addresses by utilizing the CC field instead of BCC. Furthermore, we have aggregated multiple anecdotal reports from users claiming their payouts were denied due to 'HFT usage'. Please note that ForexMax cannot independently verify the backend trading data of these individual accounts, and we present these community submissions for informational purposes.</p>
-                            <img src="../assets/finotive-data-breach-cc-error.png" alt="Finotive Data Breach Error" class="w-full aspect-video object-cover rounded-2xl border border-surface/50 shadow-lg mb-2 hover:scale-[1.02] transition-transform duration-300">
-                            <p class="text-xs text-gray-500 italic mt-2">Disclaimer: This image is a redacted community submission/email report. The claims and terminology (e.g., 'scam') represent the user's personal opinion and do not reflect the official legal stance of ForexMax Research.</p>
-                        </div>
-
-                        <div>
-                            <h3 class="text-xl font-bold text-red-400 mb-4">2. Reported Payout Disputes</h3>
-                            <img src="../assets/finotive-payout-denial-complaints.png" alt="Finotive Payout Denial Complaints" class="w-full aspect-video object-cover rounded-2xl border border-surface/50 shadow-lg mb-2 hover:scale-[1.02] transition-transform duration-300">
-                            <p class="text-xs text-gray-500 italic mt-2">Disclaimer: This image is a redacted community submission/email report. The claims and terminology (e.g., 'scam') represent the user's personal opinion and do not reflect the official legal stance of ForexMax Research.</p>
-                        </div>
-
-                        <div>
-                            <h3 class="text-xl font-bold text-accent-gold mb-4">3. Technical Execution</h3>
-                            <p class="text-gray-300 leading-relaxed mb-6">Our independent testing of the base MT5 execution shows stable performance for standard forex pairs. However, users should factor the commission structure into their risk models. In our simulated environment, we observed a commission equivalent to $80 on a 20-lot ADAUSD trade.</p>
-                            <img src="../assets/finotive-crypto-commissions-mt5.jpg" alt="Finotive Crypto Commissions MT5" class="w-full aspect-video object-cover rounded-2xl border border-surface/50 shadow-lg mb-6 hover:scale-[1.02] transition-transform duration-300">
-                        </div>
-
-                        <div>
-                            <h3 class="text-xl font-bold text-accent-gold mb-4">4. Historical Context</h3>
-                            <p class="text-gray-300 leading-relaxed mb-6">Finotive Funding has a history of successful payout processing. Current assessments are based on recent developments and community feedback which are being actively monitored.</p>
-                            <img src="../assets/finotive-verified-payout-certificate.jpg" alt="Finotive Verified Payout Certificate" class="w-full aspect-video object-cover rounded-2xl border border-surface/50 shadow-lg mb-6 hover:scale-[1.02] transition-transform duration-300">
-                        </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-2">
+                        <img src="../assets/finotive-data-breach-cc-error.png" alt="Finotive Data Breach CC Error" class="w-full aspect-video object-cover rounded-2xl border border-surface/50 shadow-lg hover:scale-[1.02] transition-transform duration-300">
+                        <img src="../assets/finotive-payout-denial-complaints.png" alt="Finotive Payout Denial Complaints" class="w-full aspect-video object-cover rounded-2xl border border-surface/50 shadow-lg hover:scale-[1.02] transition-transform duration-300">
                     </div>
+                    <p class="text-xs text-gray-500 italic mt-2 mb-6">Disclaimer: This image is a redacted community submission/email report. The claims and terminology (e.g., 'scam') represent the user's personal opinion and do not reflect the official legal stance or absolute factual claims of ForexMax Research.</p>
                 </section>
 
-                <section class="p-6 bg-surface rounded-2xl premium-border">
-                    <h2 class="text-2xl font-bold text-white mb-4">The Notional Volume Mechanism</h2>
-                    <p class="text-gray-300 leading-relaxed mb-6">
-                        Traders should also be aware of the 'Notional Volume' mechanism. Finotive calculates the maximum position limit based on the total notional value of open trades, rather than a standard lot-size cap...
-                    </p>
-                    <h2 class="text-2xl font-bold text-white mb-4">ForexMax Editorial Opinion</h2>
-                    <p class="text-gray-300 leading-relaxed">
-                        Our editorial stance, based on the intersection of our technical observations (such as the Notional Volume limits and specific asset commissions) and the influx of negative community sentiment, is to exercise caution. We classify the current environment as Elevated Risk from an editorial perspective. We strongly encourage traders to conduct their own due diligence, review the official terms, and monitor the firm's responses to these community allegations.
-                    </p>
+                <section class="mb-12">
+                    <h2 class="text-3xl font-bold text-white mb-8">2. Execution & Tech Reality</h2>
+                    <p class="text-gray-300 leading-relaxed mb-6">Our independent testing of the base MT5 execution shows stable performance for standard forex pairs. However, users should factor the commission structure into their risk models. In our simulated environment, we observed a commission equivalent to $80 on a 20-lot ADAUSD trade.</p>
+                    <img src="../assets/finotive-crypto-commissions-mt5.jpg" alt="Finotive Crypto Commissions MT5" class="w-full aspect-video object-cover rounded-2xl border border-surface/50 shadow-lg mb-6 hover:scale-[1.02] transition-transform duration-300">
                 </section>
+
+                <section class="mb-12">
+                    <h2 class="text-3xl font-bold text-white mb-8">3. The Notional Volume Mechanism</h2>
+                    <p class="text-gray-300 leading-relaxed mb-6">Traders should also be aware of the 'Notional Volume' mechanism embedded in the firm's trading rules. Finotive calculates the maximum position limit based on the total notional value of open trades, rather than a standard lot-size cap. This technical parameter requires strict monitoring by the trader, as exceeding it—especially during volatile market conditions—can trigger an automatic account breach.</p>
+                </section>
+
+                <section class="mb-12">
+                    <h2 class="text-3xl font-bold text-white mb-8">4. Historical Context & Editorial Opinion</h2>
+                    <p class="text-gray-300 leading-relaxed mb-6">Our historical data confirms that Finotive Funding has successfully processed payouts in the past. However, the recent influx of community complaints regarding data privacy and payout consistency introduces a new layer of uncertainty. Our editorial stance, based on the intersection of our technical observations and the influx of negative community sentiment, is to exercise caution. We classify the current environment as Elevated Risk from an editorial perspective. We strongly encourage traders to conduct their own due diligence, review the official terms, and monitor the firm's responses to these community allegations.</p>
+                    <img src="../assets/finotive-verified-payout-certificate.jpg" alt="Finotive Verified Payout Certificate" class="w-full aspect-video object-cover rounded-2xl border border-surface/50 shadow-lg mb-6 hover:scale-[1.02] transition-transform duration-300">
+                </section>
+
             </article>
         </div>
     </main>
