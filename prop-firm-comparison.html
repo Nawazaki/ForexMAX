@@ -217,14 +217,14 @@
             <!-- Desktop Navigation -->
             <div class="hidden lg:flex gap-10">
                 <a href="#articles" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400">Articles</a>
-                <a href="#comparison" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400">Comparison</a>
+                <a href="#comparison-engine" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400">Compare</a>
                 <a href="#brokers" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400">Brokers</a>
                 <a href="#security" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400">Security</a>
                 <a href="#contact" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400">Contact</a>
             </div>
             
             <!-- Desktop CTA -->
-            <a href="#comparison" class="btn-primary py-2 px-6 text-xs hidden lg:inline-flex">Compare Now</a>
+            <a href="#comparison-engine" class="btn-primary py-2 px-6 text-xs hidden lg:inline-flex">Compare Now</a>
 
             <!-- Mobile Menu Toggle -->
             <input type="checkbox" id="mobile-menu-toggle" class="hidden" />
@@ -240,11 +240,11 @@
             <div id="mobile-menu" class="absolute top-full left-0 right-0 bg-obsidian/95 backdrop-blur-md border-b border-white/5 lg:hidden">
                 <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-4">
                     <a href="#articles" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400 py-2" onclick="document.getElementById(\'mobile-menu-toggle\').checked = false;">Articles</a>
-                    <a href="#comparison" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400 py-2" onclick="document.getElementById(\'mobile-menu-toggle\').checked = false;">Comparison</a>
+                    <a href="#comparison-engine" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400 py-2" onclick="document.getElementById(\'mobile-menu-toggle\').checked = false;">Compare</a>
                     <a href="#brokers" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400 py-2" onclick="document.getElementById(\'mobile-menu-toggle\').checked = false;">Brokers</a>
                     <a href="#security" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400 py-2" onclick="document.getElementById(\'mobile-menu-toggle\').checked = false;">Security</a>
                     <a href="#contact" class="nav-link text-xs font-bold uppercase tracking-widest text-gray-400 py-2" onclick="document.getElementById(\'mobile-menu-toggle\').checked = false;">Contact</a>
-                    <a href="#comparison" class="btn-primary py-2 px-6 text-xs mt-2" onclick="document.getElementById(\'mobile-menu-toggle\').checked = false;">Compare Now</a>
+                    <a href="#comparison-engine" class="btn-primary py-2 px-6 text-xs mt-2" onclick="document.getElementById(\'mobile-menu-toggle\').checked = false;">Compare Now</a>
                 </div>
             </div>
         </div>
@@ -270,6 +270,26 @@
             <div class="max-w-3xl mx-auto mb-16 p-5 rounded-2xl border border-accent-gold/30 bg-accent-gold/5 text-gray-300 text-sm leading-relaxed">
                 ForexMax is an independent research and comparison publication. The firms and brokers below are third-party providers; ForexMax does not operate their platforms, manage client funds, or provide brokerage services. Some links may be referral links; see the <a href="affiliate-disclosure.html" class="text-accent-gold underline">Affiliate Disclosure</a>.
             </div>
+
+
+            <!-- ===== INTERACTIVE COMPARISON ENGINE ===== -->
+            <section id="comparison-engine" class="mb-24 scroll-mt-32">
+                <div class="max-w-4xl mb-10">
+                    <div class="inline-block px-3 py-1 mb-4 rounded-full border border-accent-gold/30 bg-accent-gold/5 text-accent-gold text-xs font-bold tracking-widest uppercase">Static comparison engine</div>
+                    <h2 class="text-3xl md:text-5xl font-black tracking-tighter text-white mb-4">Compare rules before you compare promises.</h2>
+                    <p class="text-gray-400 leading-relaxed">Filter the published baseline by market and search the provider name. Fields marked “Verify current terms” are intentionally not treated as facts until a current primary source is checked. This is a ForexMax Research comparison, not a regulatory ranking.</p>
+                </div>
+                <div class="table-container premium-border rounded-3xl bg-surface/50 backdrop-blur-sm p-6">
+                    <div class="flex flex-col lg:flex-row gap-4 mb-6">
+                        <label class="flex-1"><span class="sr-only">Search providers</span><input id="firm-query" class="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3 text-white" type="search" placeholder="Search provider, market, platform…"></label>
+                        <label><span class="sr-only">Filter market</span><select id="firm-type" class="w-full lg:w-48 bg-black/20 border border-white/10 rounded-xl px-4 py-3 text-white"><option value="">All markets</option><option value="Futures">Futures</option><option value="Forex">Forex / CFD</option></select></label>
+                        <label><span class="sr-only">Sort comparison</span><select id="firm-sort" class="w-full lg:w-48 bg-black/20 border border-white/10 rounded-xl px-4 py-3 text-white"><option value="name">Sort by provider</option><option value="type">Sort by market</option><option value="fee">Sort by fee text</option><option value="split">Sort by split</option></select></label>
+                    </div>
+                    <p id="firm-count" class="text-xs text-gray-500 uppercase tracking-widest mb-4">Loading comparison records…</p>
+                    <div class="overflow-x-auto"><table class="w-full min-w-[1250px] text-left text-sm"><thead><tr class="border-b border-white/10 text-accent-gold uppercase tracking-widest text-[10px]"><th class="p-3">Provider</th><th class="p-3">Market</th><th class="p-3">Challenge fee</th><th class="p-3">Profit split</th><th class="p-3">Drawdown / loss</th><th class="p-3">Payout / news</th><th class="p-3">EA / rules / scaling</th><th class="p-3">Platform / type</th><th class="p-3">Research assessment</th></tr></thead><tbody id="comparison-rows"></tbody></table></div>
+                    <p class="text-xs text-gray-500 mt-6">Baseline fields are sourced from the existing ForexMax comparison page and provider audit links. Prices and rules can change; verify terms at the provider before any financial commitment.</p>
+                </div>
+            </section>
 
             <!-- ===== CATEGORY 1: ARTICLES ===== -->
             <section id="articles" class="mb-48 scroll-mt-32">
@@ -828,5 +848,6 @@
             }
         });
     </script>
+<script src="assets/prop-comparison.js" defer></script>
 </body>
 </html>

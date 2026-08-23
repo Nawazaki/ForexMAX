@@ -1,0 +1,22 @@
+[
+  {"title":"ForexMax Research Home","category":"Research","url":"index.html","description":"Independent financial research, trading intelligence, technical audits, and macro analysis."},
+  {"title":"Prop Firm & Broker Research","category":"Comparison","url":"prop-firm-comparison.html","description":"Third-party provider comparison with rules, platforms, costs, and research assessments."},
+  {"title":"ForexMax Research Methodology","category":"Trust","url":"methodology.html","description":"How ForexMax verifies sources, compares providers, assesses risk, and updates research."},
+  {"title":"Market Tools","category":"Tools","url":"tools.html","description":"Position sizing, risk/reward, and trading session tools built for research and education."},
+  {"title":"Risk Intelligence Engine","category":"Tools","url":"risk-intelligence.html","description":"A transparent ForexMax Research Assessment framework for provider risk evidence."},
+  {"title":"Trading Education Hub","category":"Education","url":"education.html","description":"Curated ForexMax learning paths for market structure, risk, futures, and macro research."},
+  {"title":"Earn2Trade Gauntlet Mini Audit","category":"Audit","url":"audits/earn2trade-gauntlet-mini.html","description":"Technical audit of evaluation rules, execution observations, and drawdown mechanics."},
+  {"title":"Finotive Funding Audit","category":"Audit","url":"audits/finotive-funding.html","description":"Research assessment covering community reports, execution, and funding mechanics."},
+  {"title":"Central Banks and Gold Buying","category":"Gold","url":"articles/central-banks-gold-buying.html","description":"Research on central-bank reserve activity and the role of gold in macro analysis."},
+  {"title":"Central Banks Gold Buying — April","category":"Gold","url":"articles/central-banks-gold-buying-april.html","description":"Updated research note on official-sector gold demand and market context."},
+  {"title":"Gold Price Drop: Opportunity or Trap?","category":"Gold","url":"articles/gold-price-drop-opportunity-or-trap.html","description":"A structured framework for interpreting gold pullbacks and macro risk."},
+  {"title":"XAU/USD Liquidity Shock","category":"Gold","url":"articles/xau-usd-liquidity-shock.html","description":"Research on liquidity conditions and shock behavior in the gold market."},
+  {"title":"Institutional FX Market Report","category":"FX","url":"articles/institutional-fx-market-report-2026-06-05.html","description":"Macro and market intelligence for institutional FX themes."},
+  {"title":"High Inflation Institutional FX Strategies","category":"FX","url":"articles/high-inflation-institutional-fx-strategies.html","description":"Educational analysis of FX positioning and risk during high inflation regimes."},
+  {"title":"Trading Sessions","category":"Education","url":"articles/trading_sessions.html","description":"A practical guide to market sessions and timing considerations."},
+  {"title":"US Market Opening Range Strategy","category":"Education","url":"articles/us-market-opening-range-strategy.html","description":"Educational framework for studying the US session opening range."},
+  {"title":"VWAP Standard Deviation Bands","category":"Education","url":"articles/vwap-sd-bands-institutional-secrets.html","description":"Research notes on VWAP bands and market structure; not investment advice."},
+  {"title":"Post-CFTC Prop Firm Era","category":"Prop Firms","url":"articles/post-cftc-prop-firm-era.html","description":"Research on regulatory context and the evolving proprietary trading model."},
+  {"title":"Geopolitics and Liquidity Sweeps","category":"Macro","url":"articles/geopolitics-liquidity-sweeps.html","description":"Macro research connecting geopolitical risk and liquidity behavior."},
+  {"title":"The Randomness Trap","category":"Education","url":"articles/the-randomness-trap.html","description":"Educational notes on randomness, process, and trading performance interpretation."}
+]
