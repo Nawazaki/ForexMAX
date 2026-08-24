@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { z } from "zod";
 import { articleFormErrorCode, articleFormErrorMessage } from "@/lib/article-form-errors";
 
 describe("article form errors", () => {
@@ -10,6 +11,12 @@ describe("article form errors", () => {
   it("maps publish validation failures to an actionable form message", () => {
     expect(articleFormErrorCode(new Error("PUBLISHED_CONTENT_REQUIRES_SOURCE_AND_REVIEW_DATE"))).toBe("publish-requires-source");
     expect(articleFormErrorMessage("publish-requires-source")).toContain("last-reviewed date");
+  });
+
+  it("maps Zod form parsing failures to an actionable form message", () => {
+    const parseError = z.string().uuid().safeParse("not-a-uuid");
+    if (parseError.success) throw new Error("Expected a Zod parse failure");
+    expect(articleFormErrorCode(parseError.error)).toBe("invalid-input");
   });
 
   it("does not mask unexpected errors", () => {

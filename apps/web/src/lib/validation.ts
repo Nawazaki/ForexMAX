@@ -1,15 +1,17 @@
 import { z } from "zod";
 
 export const publicationStatusSchema = z.enum(["DRAFT", "REVIEW", "PUBLISHED", "UNPUBLISHED"]);
+const relationIdSchema = z.string().trim().refine((value) => z.string().cuid().safeParse(value).success || z.string().uuid().safeParse(value).success, "Expected a CUID or UUID");
+export const isRelationId = (value: string) => relationIdSchema.safeParse(value).success;
 
 export const articleInputSchema = z.object({
   title: z.string().trim().min(3).max(180),
   slug: z.string().trim().min(3).max(160).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
   excerpt: z.string().trim().max(500).optional().nullable(),
   contentMarkdown: z.string().trim().min(1),
-  categoryId: z.string().cuid().optional().nullable(),
-  authorId: z.string().cuid().optional().nullable(),
-  featuredMediaId: z.string().cuid().optional().nullable(),
+  categoryId: relationIdSchema.optional().nullable(),
+  authorId: relationIdSchema.optional().nullable(),
+  featuredMediaId: relationIdSchema.optional().nullable(),
   status: publicationStatusSchema,
   seoTitle: z.string().trim().max(180).optional().nullable(),
   seoDescription: z.string().trim().max(320).optional().nullable(),

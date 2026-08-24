@@ -6,7 +6,7 @@ import { marked } from "marked";
 import { requireDatabase, requireEditor } from "@/lib/admin";
 import { assertPublishable } from "@/lib/editorial";
 import { sanitizeRichHtml } from "@/lib/sanitize";
-import { articleInputSchema } from "@/lib/validation";
+import { articleInputSchema, isRelationId } from "@/lib/validation";
 import { articleFormErrorCode } from "@/lib/article-form-errors";
 
 function nullable(value: FormDataEntryValue | null) { const string = String(value ?? "").trim(); return string || null; }
@@ -16,7 +16,7 @@ async function contentPayload(formData: FormData) {
   const input = articleInputSchema.parse({ title: formData.get("title"), slug: formData.get("slug"), excerpt: nullable(formData.get("excerpt")), contentMarkdown: formData.get("contentMarkdown"), categoryId: nullable(formData.get("categoryId")), authorId: nullable(formData.get("authorId")), featuredMediaId: nullable(formData.get("featuredMediaId")), status: formData.get("status"), seoTitle: nullable(formData.get("seoTitle")), seoDescription: nullable(formData.get("seoDescription")), canonical: nullable(formData.get("canonical")), ogImage: nullable(formData.get("ogImage")) });
   const source = sourceInput(formData); validatePublication(input.status, source);
   const html = sanitizeRichHtml(await marked.parse(input.contentMarkdown));
-  const tagIds = formData.getAll("tagIds").map(String).filter((id) => /^c[a-z0-9]+$/i.test(id)).slice(0, 20);
+  const tagIds = formData.getAll("tagIds").map(String).filter(isRelationId).slice(0, 20);
   return { input, source, html, tagIds };
 }
 function sourceRelation(source: ReturnType<typeof sourceInput>) { if (!source.name || !source.url) return undefined; return { create: { source: { connectOrCreate: { where: { url: source.url }, create: { name: source.name, url: source.url, sourceType: source.sourceType, accessedAt: source.lastReviewedAt ? new Date(source.lastReviewedAt) : null } } } } }; }
