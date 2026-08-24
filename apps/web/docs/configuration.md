@@ -6,7 +6,6 @@
 | `DIRECT_URL` | Prisma CLI migrations and controlled seed operations | Use the Supabase session pooler/direct connection; configure in Vercel only. |
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase SSR browser and server clients | Public project URL; do not hardcode it in source. |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Supabase SSR browser and server clients | Publishable key only; it is safe for the browser when RLS remains enabled. |
-| `SUPABASE_SECRET_KEY` | Controlled server-side administration, if later required | Never expose to a browser bundle, Git, logs, or client actions. |
 | `NEXT_PUBLIC_SITE_URL` | Canonical metadata and production URLs | Set to the verified production domain at cutover. |
 | `BOOTSTRAP_ADMIN_ID` | Controlled profile promotion during seed | A Supabase Auth UUID, never a password or email credential. |
 
