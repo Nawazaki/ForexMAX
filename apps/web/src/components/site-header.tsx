@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 const links = [
+  ["Sources", "/sources"],
   ["Research", "/articles"],
   ["Compare", "/prop-firm-comparison"],
   ["Risk", "/risk-intelligence"],
