@@ -1,0 +1,264 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  VIEWER
+  ADMIN
+  EDITOR
+}
+
+enum PublicationStatus {
+  DRAFT
+  REVIEW
+  PUBLISHED
+  UNPUBLISHED
+}
+
+enum AuditType {
+  TECHNICAL
+  RESEARCH
+  RISK
+}
+
+model User {
+  id           String    @id @db.Uuid
+  email        String    @unique
+  name         String?
+  role         UserRole  @default(VIEWER)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  articles     Article[] @relation("ArticleEditor")
+  audits       Audit[]   @relation("AuditEditor")
+  pages        ContentPage[] @relation("ContentPageEditor")
+
+  @@map("profiles")
+}
+
+model Author {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  bio         String?   @db.Text
+  role        String?
+  avatarId    String?
+  socialLinks Json?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  avatar      Media?    @relation(fields: [avatarId], references: [id], onDelete: SetNull)
+  articles    Article[]
+  audits      Audit[]
+
+  @@map("authors")
+}
+
+model Category {
+  id             String    @id @default(cuid())
+  name           String
+  slug           String    @unique
+  description    String?   @db.Text
+  seoTitle       String?
+  seoDescription String?   @db.Text
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  articles       Article[]
+
+  @@map("categories")
+}
+
+model Tag {
+  id       String    @id @default(cuid())
+  name     String
+  slug     String    @unique
+  articles Article[] @relation("ArticleTags")
+
+  @@map("tags")
+}
+
+model Media {
+  id        String    @id @default(cuid())
+  key       String    @unique
+  url       String
+  filename  String
+  mimeType  String
+  sizeBytes Int
+  width     Int?
+  height    Int?
+  altText   String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  authors   Author[]
+  articles  Article[] @relation("ArticleFeaturedMedia")
+  audits    Audit[]   @relation("AuditFeaturedMedia")
+
+  @@map("media")
+}
+
+model ResearchSource {
+  id          String      @id @default(cuid())
+  name        String
+  url         String      @unique
+  sourceType  String
+  accessedAt  DateTime?
+  note        String?     @db.Text
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  articleRefs ArticleSource[]
+  auditRefs   AuditSource[]
+  firmRefs    PropFirmSource[]
+
+  @@map("sources")
+}
+
+model Article {
+  id             String            @id @default(cuid())
+  title          String
+  slug           String            @unique
+  excerpt        String?           @db.Text
+  contentMarkdown String            @db.Text
+  contentHtml    String?           @db.Text
+  status         PublicationStatus @default(DRAFT)
+  publishedAt    DateTime?
+  lastReviewedAt DateTime?
+  authorId       String?
+  categoryId     String?
+  featuredMediaId String?
+  seoTitle       String?
+  seoDescription String?           @db.Text
+  canonical      String?
+  ogImage        String?
+  readingMinutes Int?
+  legacyUrl      String?           @unique
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  editorId       String?             @db.Uuid
+  author         Author?           @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  category       Category?         @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  featuredMedia  Media?            @relation("ArticleFeaturedMedia", fields: [featuredMediaId], references: [id], onDelete: SetNull)
+  editor         User?             @relation("ArticleEditor", fields: [editorId], references: [id], onDelete: SetNull)
+  tags           Tag[]             @relation("ArticleTags")
+  sources        ArticleSource[]
+
+  @@index([status, publishedAt])
+  @@index([categoryId, status])
+  @@map("articles")
+}
+
+model ContentPage {
+  id              String            @id @default(cuid())
+  title           String
+  slug            String            @unique
+  excerpt         String?           @db.Text
+  contentHtml     String?           @db.Text
+  status          PublicationStatus @default(DRAFT)
+  publishedAt     DateTime?
+  lastReviewedAt  DateTime?
+  seoTitle        String?
+  seoDescription  String?           @db.Text
+  canonical       String?
+  ogImage         String?
+  legacyUrl       String?           @unique
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  editorId        String?           @db.Uuid
+  editor          User?             @relation("ContentPageEditor", fields: [editorId], references: [id], onDelete: SetNull)
+
+  @@index([status, publishedAt])
+  @@map("content_pages")
+}
+
+model Audit {
+  id              String            @id @default(cuid())
+  title           String
+  slug            String            @unique
+  entity          String
+  auditType       AuditType
+  riskLevel       String?
+  status          PublicationStatus @default(DRAFT)
+  summary         String?           @db.Text
+  evidence        String?           @db.Text
+  contentMarkdown String             @db.Text
+  contentHtml     String?           @db.Text
+  publishedAt     DateTime?
+  lastReviewedAt  DateTime?
+  authorId        String?
+  featuredMediaId String?
+  seoTitle        String?
+  seoDescription  String?           @db.Text
+  canonical       String?
+  ogImage         String?
+  legacyUrl       String?           @unique
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  editorId        String?            @db.Uuid
+  author          Author?           @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  featuredMedia   Media?            @relation("AuditFeaturedMedia", fields: [featuredMediaId], references: [id], onDelete: SetNull)
+  editor          User?             @relation("AuditEditor", fields: [editorId], references: [id], onDelete: SetNull)
+  sources         AuditSource[]
+
+  @@index([status, publishedAt])
+  @@map("audits")
+}
+
+model PropFirm {
+  id                String    @id @default(cuid())
+  name              String
+  slug              String    @unique
+  country           String?
+  challengeFee      String?
+  profitTarget      String?
+  profitSplit       String?
+  dailyDrawdown     String?
+  maximumDrawdown   String?
+  payout            String?
+  newsTrading       String?
+  weekendHolding    String?
+  expertAdvisor     String?
+  consistency       String?
+  scaling           String?
+  platform          String?
+  evaluationType    String?
+  assessment        String?   @db.Text
+  lastReviewedAt    DateTime?
+  status            String?   @default("EVIDENCE_PENDING")
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  sources           PropFirmSource[]
+
+  @@map("prop_firms")
+}
+
+model ArticleSource {
+  articleId String
+  sourceId  String
+  article   Article        @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  source    ResearchSource @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+
+  @@id([articleId, sourceId])
+  @@map("article_sources")
+}
+
+model AuditSource {
+  auditId  String
+  sourceId String
+  audit    Audit          @relation(fields: [auditId], references: [id], onDelete: Cascade)
+  source   ResearchSource @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+
+  @@id([auditId, sourceId])
+  @@map("audit_sources")
+}
+
+model PropFirmSource {
+  propFirmId String
+  sourceId   String
+  propFirm   PropFirm       @relation(fields: [propFirmId], references: [id], onDelete: Cascade)
+  source     ResearchSource @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+
+  @@id([propFirmId, sourceId])
+  @@map("prop_firm_sources")
+}

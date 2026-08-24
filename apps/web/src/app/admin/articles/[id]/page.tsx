@@ -1,0 +1,7 @@
+import Link from "next/link";
+import { ArticleForm } from "@/app/admin/articles/article-form";
+import { deleteArticleAction, updateArticleAction } from "@/app/admin/articles/actions";
+import { requireDatabase, requireEditor } from "@/lib/admin";
+
+export const dynamic = "force-dynamic";
+export default async function EditArticlePage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ error?: string }> }) { await requireEditor(); const { id } = await params; const db = requireDatabase(); const [{ error }, article, categories, authors, tags, media] = await Promise.all([searchParams, db.article.findUnique({ where: { id }, include: { sources: { include: { source: true } }, tags: true } }), db.category.findMany({ orderBy: { name: "asc" } }), db.author.findMany({ orderBy: { name: "asc" } }), db.tag.findMany({ orderBy: { name: "asc" } }), db.media.findMany({ orderBy: { filename: "asc" }, take: 200 })]); if (!article) return <main className="admin-shell"><p>Article not found.</p></main>; return <main className="admin-shell"><header className="admin-header"><div><p className="eyebrow">CONTENT</p><h1>Edit article</h1></div><Link href="/admin/articles" className="button button-quiet">Back to articles</Link></header><ArticleForm article={article} options={{ categories, authors, tags, media }} action={updateArticleAction.bind(null, id)} error={error} /><form action={deleteArticleAction.bind(null, id)}><button className="button admin-danger" type="submit">Delete article</button></form></main>; }
