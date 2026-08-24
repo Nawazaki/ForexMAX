@@ -1,0 +1,17 @@
+"use server";
+
+import { marked } from "marked";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { requireDatabase, requireEditor } from "@/lib/admin";
+import { assertPublishable } from "@/lib/editorial";
+import { sanitizeRichHtml } from "@/lib/sanitize";
+import { auditInputSchema } from "@/lib/validation";
+
+function nullable(value: FormDataEntryValue | null) { const string = String(value ?? "").trim(); return string || null; }
+function sourceInput(formData: FormData) { return { name: nullable(formData.get("sourceName")), url: nullable(formData.get("sourceUrl")), sourceType: nullable(formData.get("sourceType")) ?? "WEB", lastReviewedAt: nullable(formData.get("lastReviewedAt")) }; }
+async function payload(formData: FormData) { const input = auditInputSchema.parse({ title: formData.get("title"), slug: formData.get("slug"), entity: formData.get("entity"), auditType: formData.get("auditType"), riskLevel: nullable(formData.get("riskLevel")), summary: nullable(formData.get("summary")), evidence: nullable(formData.get("evidence")), contentMarkdown: formData.get("contentMarkdown"), status: formData.get("status"), seoTitle: nullable(formData.get("seoTitle")), seoDescription: nullable(formData.get("seoDescription")), canonical: nullable(formData.get("canonical")), ogImage: nullable(formData.get("ogImage")) }); const source = sourceInput(formData); assertPublishable(input.status, source); return { input, source, contentHtml: sanitizeRichHtml(await marked.parse(input.contentMarkdown)) }; }
+function sourceRelation(source: ReturnType<typeof sourceInput>) { if (!source.name || !source.url) return undefined; return { create: { source: { connectOrCreate: { where: { url: source.url }, create: { name: source.name, url: source.url, sourceType: source.sourceType, accessedAt: source.lastReviewedAt ? new Date(source.lastReviewedAt) : null } } } } }; }
+export async function createAuditAction(formData: FormData) { const session = await requireEditor(); const db = requireDatabase(); const { input, source, contentHtml } = await payload(formData); const audit = await db.audit.create({ data: { ...input, contentHtml, editorId: session.user.id, publishedAt: input.status === "PUBLISHED" ? new Date() : null, lastReviewedAt: source.lastReviewedAt ? new Date(source.lastReviewedAt) : null, sources: sourceRelation(source) } }); revalidatePath("/audits"); revalidatePath("/admin/audits"); redirect(`/admin/audits/${audit.id}`); }
+export async function updateAuditAction(id: string, formData: FormData) { const session = await requireEditor(); const db = requireDatabase(); const { input, source, contentHtml } = await payload(formData); await db.audit.update({ where: { id }, data: { ...input, contentHtml, editorId: session.user.id, publishedAt: input.status === "PUBLISHED" ? new Date() : null, lastReviewedAt: source.lastReviewedAt ? new Date(source.lastReviewedAt) : null, sources: source.name && source.url ? { deleteMany: {}, ...sourceRelation(source) } : { deleteMany: {} } } }); revalidatePath("/audits"); revalidatePath(`/audits/${input.slug}`); revalidatePath("/admin/audits"); revalidatePath(`/admin/audits/${id}`); }
+export async function deleteAuditAction(id: string) { await requireEditor(); const db = requireDatabase(); await db.audit.delete({ where: { id } }); revalidatePath("/audits"); revalidatePath("/admin/audits"); redirect("/admin/audits"); }

@@ -1,0 +1,5 @@
+import Link from "next/link";
+import { requireDatabase, requireEditor } from "@/lib/admin";
+
+export const dynamic = "force-dynamic";
+export default async function AuditsAdminPage() { await requireEditor(); const db = requireDatabase(); const audits = await db.audit.findMany({ orderBy: { updatedAt: "desc" }, take: 100 }); return <main className="admin-shell"><header className="admin-header"><div><p className="eyebrow">RESEARCH</p><h1>Audits</h1></div><Link href="/admin/audits/new" className="button button-primary">New audit</Link></header><nav className="admin-nav"><Link href="/admin">Overview</Link><Link href="/admin/articles">Articles</Link><Link href="/admin/audits">Audits</Link><Link href="/admin/prop-firms">Prop firms</Link></nav><div className="admin-table"><table><thead><tr><th>Title</th><th>Type</th><th>Status</th><th /></tr></thead><tbody>{audits.map((audit) => <tr key={audit.id}><td>{audit.title}<small>{audit.entity}</small></td><td>{audit.auditType}</td><td>{audit.status}</td><td><Link className="text-link" href={`/admin/audits/${audit.id}`}>Edit</Link></td></tr>)}</tbody></table></div></main>; }
