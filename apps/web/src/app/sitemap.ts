@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
 import { legacyRecords } from "@/lib/content";
 import { getPrisma } from "@/lib/prisma";
+import { getCanonicalSiteUrl } from "@/lib/site-url";
 
-const site = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forexmax.com";
+const site = getCanonicalSiteUrl();
 export const dynamic = "force-dynamic";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages = [...legacyRecords.filter((record) => record.kind === "page" && record.slug !== "search").map((record) => ({ url: new URL(record.route, site).toString(), lastModified: new Date(record.migratedAt) })), { url: new URL("/sources", site).toString(), lastModified: new Date("2026-08-24T00:00:00.000Z") }];

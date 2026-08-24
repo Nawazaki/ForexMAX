@@ -22,7 +22,7 @@ Add the following in `Project → Settings → Environment Variables` for **Prev
 | `DIRECT_URL` | Supabase **session pooler/direct** connection on port `5432` | Prisma CLI migrations and controlled seed execution. |
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL for `xvhjsbakmokmgymwrldo` | Supabase SSR auth and Storage client. |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Supabase `Project Settings → API Keys → Publishable key` | Browser and SSR auth client. |
-| `NEXT_PUBLIC_SITE_URL` | `https://forexmax.com` | Canonical metadata; do not replace with a Preview URL. |
+| `NEXT_PUBLIC_SITE_URL` | `https://www.forexmax.com` | Canonical metadata; do not replace with a Preview URL. The apex redirects here. |
 
 The Supabase schema and imported content already exist in the target project. Therefore a Preview must not run destructive resets, fresh `prisma migrate dev`, or arbitrary seed scripts. The verified migrations are retained in `supabase/migrations/`, and the generated idempotent content seed is retained in `supabase/seed/`.
 
