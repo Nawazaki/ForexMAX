@@ -7,6 +7,7 @@ import { requireDatabase, requireEditor } from "@/lib/admin";
 import { assertPublishable } from "@/lib/editorial";
 import { sanitizeRichHtml } from "@/lib/sanitize";
 import { articleInputSchema } from "@/lib/validation";
+import { articleFormErrorCode } from "@/lib/article-form-errors";
 
 function nullable(value: FormDataEntryValue | null) { const string = String(value ?? "").trim(); return string || null; }
 function sourceInput(formData: FormData) { return { name: nullable(formData.get("sourceName")), url: nullable(formData.get("sourceUrl")), sourceType: nullable(formData.get("sourceType")) ?? "WEB", lastReviewedAt: nullable(formData.get("lastReviewedAt")) }; }
@@ -19,6 +20,30 @@ async function contentPayload(formData: FormData) {
   return { input, source, html, tagIds };
 }
 function sourceRelation(source: ReturnType<typeof sourceInput>) { if (!source.name || !source.url) return undefined; return { create: { source: { connectOrCreate: { where: { url: source.url }, create: { name: source.name, url: source.url, sourceType: source.sourceType, accessedAt: source.lastReviewedAt ? new Date(source.lastReviewedAt) : null } } } } }; }
-export async function createArticleAction(formData: FormData) { const session = await requireEditor(); const db = requireDatabase(); const { input, source, html, tagIds } = await contentPayload(formData); const article = await db.article.create({ data: { ...input, contentHtml: html, editorId: session.user.id, publishedAt: input.status === "PUBLISHED" ? new Date() : null, lastReviewedAt: source.lastReviewedAt ? new Date(source.lastReviewedAt) : null, tags: { connect: tagIds.map((id) => ({ id })) }, sources: sourceRelation(source) } }); revalidatePath("/articles"); revalidatePath("/admin/articles"); redirect(`/admin/articles/${article.id}`); }
-export async function updateArticleAction(id: string, formData: FormData) { const session = await requireEditor(); const db = requireDatabase(); const { input, source, html, tagIds } = await contentPayload(formData); await db.article.update({ where: { id }, data: { ...input, contentHtml: html, editorId: session.user.id, publishedAt: input.status === "PUBLISHED" ? new Date() : null, lastReviewedAt: source.lastReviewedAt ? new Date(source.lastReviewedAt) : null, tags: { set: tagIds.map((tagId) => ({ id: tagId })) }, sources: source.name && source.url ? { deleteMany: {}, ...sourceRelation(source) } : { deleteMany: {} } } }); revalidatePath("/articles"); revalidatePath(`/articles/${input.slug}`); revalidatePath("/admin/articles"); revalidatePath(`/admin/articles/${id}`); }
+export async function createArticleAction(formData: FormData) {
+  const session = await requireEditor(); const db = requireDatabase();
+  let article;
+  try {
+    const { input, source, html, tagIds } = await contentPayload(formData);
+    article = await db.article.create({ data: { ...input, contentHtml: html, editorId: session.user.id, publishedAt: input.status === "PUBLISHED" ? new Date() : null, lastReviewedAt: source.lastReviewedAt ? new Date(source.lastReviewedAt) : null, tags: { connect: tagIds.map((id) => ({ id })) }, sources: sourceRelation(source) } });
+  } catch (error) {
+    const code = articleFormErrorCode(error);
+    if (code) redirect(`/admin/articles/new?error=${code}`);
+    throw error;
+  }
+  revalidatePath("/articles"); revalidatePath("/admin/articles"); redirect(`/admin/articles/${article.id}`);
+}
+export async function updateArticleAction(id: string, formData: FormData) {
+  const session = await requireEditor(); const db = requireDatabase();
+  let inputSlug = "";
+  try {
+    const { input, source, html, tagIds } = await contentPayload(formData); inputSlug = input.slug;
+    await db.article.update({ where: { id }, data: { ...input, contentHtml: html, editorId: session.user.id, publishedAt: input.status === "PUBLISHED" ? new Date() : null, lastReviewedAt: source.lastReviewedAt ? new Date(source.lastReviewedAt) : null, tags: { set: tagIds.map((tagId) => ({ id: tagId })) }, sources: source.name && source.url ? { deleteMany: {}, ...sourceRelation(source) } : { deleteMany: {} } } });
+  } catch (error) {
+    const code = articleFormErrorCode(error);
+    if (code) redirect(`/admin/articles/${id}?error=${code}`);
+    throw error;
+  }
+  revalidatePath("/articles"); revalidatePath(`/articles/${inputSlug}`); revalidatePath("/admin/articles"); revalidatePath(`/admin/articles/${id}`);
+}
 export async function deleteArticleAction(id: string) { await requireEditor(); const db = requireDatabase(); await db.article.delete({ where: { id } }); revalidatePath("/articles"); revalidatePath("/admin/articles"); redirect("/admin/articles"); }
