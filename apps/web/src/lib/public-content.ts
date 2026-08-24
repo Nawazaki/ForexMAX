@@ -2,6 +2,7 @@ import { getLegacyArticles, getLegacyAudits, getLegacyRecord, type LegacyKind, t
 import { getPrisma } from "@/lib/prisma";
 
 export type PublicContent = { kind: "article" | "audit"; title: string; slug: string; route: string; description: string; contentHtml: string; ogImage?: string | null; updatedAt: Date; authorName?: string | null };
+export type PublicPage = { title: string; slug: string; route: string; description: string; contentHtml: string; ogImage?: string | null; updatedAt: Date };
 const asLegacy = (kind: "article" | "audit") => (record: LegacyRecord): PublicContent => ({ kind, title: record.title, slug: record.slug, route: record.route, description: record.description, contentHtml: record.contentHtml, ogImage: record.ogImage, updatedAt: new Date(record.migratedAt) });
 
 export async function getPublishedArticles(): Promise<PublicContent[]> {
@@ -22,4 +23,11 @@ export async function getPublishedContent(kind: "article" | "audit", slug: strin
   if (kind === "article") { const article = await db.article.findFirst({ where: { slug, status: "PUBLISHED" }, include: { author: true } }); return article ? { kind, title: article.title, slug: article.slug, route: `/articles/${article.slug}`, description: article.excerpt ?? article.seoDescription ?? "", contentHtml: article.contentHtml ?? "", ogImage: article.ogImage, updatedAt: article.updatedAt, authorName: article.author?.name } : undefined; }
   const audit = await db.audit.findFirst({ where: { slug, status: "PUBLISHED" }, include: { author: true } });
   return audit ? { kind, title: audit.title, slug: audit.slug, route: `/audits/${audit.slug}`, description: audit.summary ?? audit.seoDescription ?? "", contentHtml: audit.contentHtml ?? "", ogImage: audit.ogImage, updatedAt: audit.updatedAt, authorName: audit.author?.name } : undefined;
+}
+
+export async function getPublishedPage(slug: string): Promise<PublicPage | undefined> {
+  const db = getPrisma();
+  if (!db) { const legacy = getLegacyRecord("page", slug); return legacy ? { title: legacy.title, slug: legacy.slug, route: legacy.route, description: legacy.description, contentHtml: legacy.contentHtml, ogImage: legacy.ogImage, updatedAt: new Date(legacy.migratedAt) } : undefined; }
+  const page = await db.contentPage.findFirst({ where: { slug, status: "PUBLISHED" } });
+  return page ? { title: page.title, slug: page.slug, route: `/${page.slug}`, description: page.excerpt ?? page.seoDescription ?? "", contentHtml: page.contentHtml ?? "", ogImage: page.ogImage, updatedAt: page.updatedAt } : undefined;
 }

@@ -1,5 +1,4 @@
 import "dotenv/config";
-import bcrypt from "bcryptjs";
 import legacyContent from "../src/content/legacy-content.json";
 import { legacyPropFirms } from "../src/lib/prop-firms";
 import { getPrisma } from "../src/lib/prisma";
@@ -18,8 +17,8 @@ async function main() {
     else await db.audit.upsert({ where: { slug: record.slug }, update: base, create: { ...base, slug: record.slug, entity: record.title, auditType: "RESEARCH", sources: { create: { sourceId: source.id } } } });
   }
   for (const firm of legacyPropFirms) await db.propFirm.upsert({ where: { slug: firm.slug }, update: {}, create: { name: firm.name, slug: firm.slug, challengeFee: firm.challengeFee, profitSplit: firm.profitSplit, dailyDrawdown: firm.dailyDrawdown, maximumDrawdown: firm.maximumDrawdown, payout: firm.payout, newsTrading: firm.newsTrading, weekendHolding: firm.weekendHolding, expertAdvisor: firm.expertAdvisor, consistency: firm.consistency, scaling: firm.scaling, platform: firm.platform, evaluationType: firm.evaluationType, assessment: firm.assessment, status: "EVIDENCE_PENDING" } });
-  const email = process.env.BOOTSTRAP_ADMIN_EMAIL; const password = process.env.BOOTSTRAP_ADMIN_PASSWORD;
-  if (email && password) await db.user.upsert({ where: { email }, update: { role: "ADMIN", passwordHash: await bcrypt.hash(password, 12) }, create: { email, name: "ForexMax Administrator", role: "ADMIN", passwordHash: await bcrypt.hash(password, 12) } });
-  console.log(JSON.stringify({ importedArticles: legacyContent.filter((record) => record.kind === "article").length, importedAudits: legacyContent.filter((record) => record.kind === "audit").length, importedFirms: legacyPropFirms.length, bootstrapAdminCreated: Boolean(email && password) }));
+  const bootstrapAdminId = process.env.BOOTSTRAP_ADMIN_ID;
+  if (bootstrapAdminId) { const profile = await db.user.findUnique({ where: { id: bootstrapAdminId } }); if (!profile) throw new Error("BOOTSTRAP_ADMIN_ID does not match an existing Supabase Auth profile."); await db.user.update({ where: { id: bootstrapAdminId }, data: { role: "ADMIN" } }); }
+  console.log(JSON.stringify({ importedArticles: legacyContent.filter((record) => record.kind === "article").length, importedAudits: legacyContent.filter((record) => record.kind === "audit").length, importedFirms: legacyPropFirms.length, bootstrapAdminPromoted: Boolean(bootstrapAdminId) }));
 }
 main().finally(async () => { await db.$disconnect(); });

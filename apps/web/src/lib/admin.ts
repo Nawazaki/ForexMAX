@@ -1,11 +1,15 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/auth";
 import { getPrisma } from "@/lib/prisma";
+import { createClient } from "@/lib/supabase/server";
 
 export async function requireEditor() {
-  const session = await getServerSession(authOptions);
-  if (!session?.user?.id || !["ADMIN", "EDITOR"].includes(session.user.role)) throw new Error("UNAUTHORIZED");
-  return session;
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.getClaims();
+  const userId = typeof data?.claims.sub === "string" ? data.claims.sub : null;
+  if (error || !userId) throw new Error("UNAUTHORIZED");
+  const db = requireDatabase();
+  const profile = await db.user.findUnique({ where: { id: userId } });
+  if (!profile || !["ADMIN", "EDITOR"].includes(profile.role)) throw new Error("UNAUTHORIZED");
+  return { user: { id: profile.id, email: profile.email, name: profile.name, role: profile.role } };
 }
 
 export function requireDatabase() {

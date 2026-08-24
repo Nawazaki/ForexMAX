@@ -10,6 +10,7 @@
 */
 
 export const UserRole = {
+  VIEWER: 'VIEWER',
   ADMIN: 'ADMIN',
   EDITOR: 'EDITOR'
 } as const

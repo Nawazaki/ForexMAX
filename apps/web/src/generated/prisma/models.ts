@@ -9,15 +9,13 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/User'
-export type * from './models/Account'
-export type * from './models/Session'
-export type * from './models/VerificationToken'
 export type * from './models/Author'
 export type * from './models/Category'
 export type * from './models/Tag'
 export type * from './models/Media'
 export type * from './models/ResearchSource'
 export type * from './models/Article'
+export type * from './models/ContentPage'
 export type * from './models/Audit'
 export type * from './models/PropFirm'
 export type * from './models/ArticleSource'

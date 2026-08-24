@@ -343,7 +343,7 @@ export type ArticleWhereInput = {
   legacyUrl?: Prisma.StringNullableFilter<"Article"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Article"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Article"> | Date | string
-  editorId?: Prisma.StringNullableFilter<"Article"> | string | null
+  editorId?: Prisma.UuidNullableFilter<"Article"> | string | null
   author?: Prisma.XOR<Prisma.AuthorNullableScalarRelationFilter, Prisma.AuthorWhereInput> | null
   category?: Prisma.XOR<Prisma.CategoryNullableScalarRelationFilter, Prisma.CategoryWhereInput> | null
   featuredMedia?: Prisma.XOR<Prisma.MediaNullableScalarRelationFilter, Prisma.MediaWhereInput> | null
@@ -406,7 +406,7 @@ export type ArticleWhereUniqueInput = Prisma.AtLeast<{
   readingMinutes?: Prisma.IntNullableFilter<"Article"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Article"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Article"> | Date | string
-  editorId?: Prisma.StringNullableFilter<"Article"> | string | null
+  editorId?: Prisma.UuidNullableFilter<"Article"> | string | null
   author?: Prisma.XOR<Prisma.AuthorNullableScalarRelationFilter, Prisma.AuthorWhereInput> | null
   category?: Prisma.XOR<Prisma.CategoryNullableScalarRelationFilter, Prisma.CategoryWhereInput> | null
   featuredMedia?: Prisma.XOR<Prisma.MediaNullableScalarRelationFilter, Prisma.MediaWhereInput> | null
@@ -468,7 +468,7 @@ export type ArticleScalarWhereWithAggregatesInput = {
   legacyUrl?: Prisma.StringNullableWithAggregatesFilter<"Article"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Article"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Article"> | Date | string
-  editorId?: Prisma.StringNullableWithAggregatesFilter<"Article"> | string | null
+  editorId?: Prisma.UuidNullableWithAggregatesFilter<"Article"> | string | null
 }
 
 export type ArticleCreateInput = {
@@ -1062,7 +1062,7 @@ export type ArticleScalarWhereInput = {
   legacyUrl?: Prisma.StringNullableFilter<"Article"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Article"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Article"> | Date | string
-  editorId?: Prisma.StringNullableFilter<"Article"> | string | null
+  editorId?: Prisma.UuidNullableFilter<"Article"> | string | null
 }
 
 export type ArticleCreateWithoutAuthorInput = {

@@ -1,18 +1,22 @@
 # Required production configuration
 
-| Variable | Required for | Notes |
+| Variable | Used by | Handling |
 |---|---|---|
-| `DATABASE_URL` | Prisma migrations, CMS, authentication and search | PostgreSQL connection string; it is never committed. |
-| `AUTH_SECRET` | Session signing and route proxy | Generate a long random value and set it in every Vercel environment. |
-| `NEXTAUTH_URL` | Credentials login callback URLs | The exact Vercel preview or production origin. |
-| `BLOB_READ_WRITE_TOKEN` | Media upload | Vercel Blob token. The upload endpoint responds with a configuration error without it. |
-| `BOOTSTRAP_ADMIN_EMAIL` / `BOOTSTRAP_ADMIN_PASSWORD` | One-time admin provisioning in `prisma db seed` | Supply only during the controlled seed operation; never commit either value. |
+| `DATABASE_URL` | Prisma application queries | Use the Supabase transaction pooler; configure in Vercel only. |
+| `DIRECT_URL` | Prisma CLI migrations and controlled seed operations | Use the Supabase session pooler/direct connection; configure in Vercel only. |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase SSR browser and server clients | Public project URL; do not hardcode it in source. |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Supabase SSR browser and server clients | Publishable key only; it is safe for the browser when RLS remains enabled. |
+| `SUPABASE_SECRET_KEY` | Controlled server-side administration, if later required | Never expose to a browser bundle, Git, logs, or client actions. |
+| `NEXT_PUBLIC_SITE_URL` | Canonical metadata and production URLs | Set to the verified production domain at cutover. |
+| `BOOTSTRAP_ADMIN_ID` | Controlled profile promotion during seed | A Supabase Auth UUID, never a password or email credential. |
 
-Run migrations and seeding only after PostgreSQL is available:
+The repository does not store connection strings, passwords, or service keys. Prisma CLI commands expect `DIRECT_URL`; the application runtime expects `DATABASE_URL` through the Supabase pooler.
 
 ```bash
-pnpm db:migrate
-pnpm db:seed
+pnpm db:generate
+pnpm seed:sql
 ```
 
-No migration or seed is executed by this repository while `DATABASE_URL` is absent.
+Apply schema and seed SQL to Supabase only through the controlled migration workflow. Supabase Auth owns passwords and sessions; the `profiles` table records editorial roles. Supabase Storage owns image bytes; the application records only media metadata and object paths in PostgreSQL.
+
+For API filtering, pagination, and search-indexing behavior, see [Supabase operations](./supabase-operations.md#search-contract).

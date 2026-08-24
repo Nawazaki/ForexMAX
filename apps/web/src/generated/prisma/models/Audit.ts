@@ -325,7 +325,7 @@ export type AuditWhereInput = {
   legacyUrl?: Prisma.StringNullableFilter<"Audit"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Audit"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Audit"> | Date | string
-  editorId?: Prisma.StringNullableFilter<"Audit"> | string | null
+  editorId?: Prisma.UuidNullableFilter<"Audit"> | string | null
   author?: Prisma.XOR<Prisma.AuthorNullableScalarRelationFilter, Prisma.AuthorWhereInput> | null
   featuredMedia?: Prisma.XOR<Prisma.MediaNullableScalarRelationFilter, Prisma.MediaWhereInput> | null
   editor?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
@@ -388,7 +388,7 @@ export type AuditWhereUniqueInput = Prisma.AtLeast<{
   ogImage?: Prisma.StringNullableFilter<"Audit"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Audit"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Audit"> | Date | string
-  editorId?: Prisma.StringNullableFilter<"Audit"> | string | null
+  editorId?: Prisma.UuidNullableFilter<"Audit"> | string | null
   author?: Prisma.XOR<Prisma.AuthorNullableScalarRelationFilter, Prisma.AuthorWhereInput> | null
   featuredMedia?: Prisma.XOR<Prisma.MediaNullableScalarRelationFilter, Prisma.MediaWhereInput> | null
   editor?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
@@ -450,7 +450,7 @@ export type AuditScalarWhereWithAggregatesInput = {
   legacyUrl?: Prisma.StringNullableWithAggregatesFilter<"Audit"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Audit"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Audit"> | Date | string
-  editorId?: Prisma.StringNullableWithAggregatesFilter<"Audit"> | string | null
+  editorId?: Prisma.UuidNullableWithAggregatesFilter<"Audit"> | string | null
 }
 
 export type AuditCreateInput = {
@@ -977,7 +977,7 @@ export type AuditScalarWhereInput = {
   legacyUrl?: Prisma.StringNullableFilter<"Audit"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Audit"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Audit"> | Date | string
-  editorId?: Prisma.StringNullableFilter<"Audit"> | string | null
+  editorId?: Prisma.UuidNullableFilter<"Audit"> | string | null
 }
 
 export type AuditCreateWithoutAuthorInput = {

@@ -8,6 +8,7 @@ datasource db {
 }
 
 enum UserRole {
+  VIEWER
   ADMIN
   EDITOR
 }
@@ -26,51 +27,17 @@ enum AuditType {
 }
 
 model User {
-  id           String    @id @default(cuid())
+  id           String    @id @db.Uuid
   email        String    @unique
   name         String?
-  passwordHash String?
-  role         UserRole  @default(EDITOR)
+  role         UserRole  @default(VIEWER)
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
-  accounts     Account[]
-  sessions     Session[]
   articles     Article[] @relation("ArticleEditor")
   audits       Audit[]   @relation("AuditEditor")
-}
+  pages        ContentPage[] @relation("ContentPageEditor")
 
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
-  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-}
-
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
+  @@map("profiles")
 }
 
 model Author {
@@ -86,6 +53,8 @@ model Author {
   avatar      Media?    @relation(fields: [avatarId], references: [id], onDelete: SetNull)
   articles    Article[]
   audits      Audit[]
+
+  @@map("authors")
 }
 
 model Category {
@@ -98,6 +67,8 @@ model Category {
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
   articles       Article[]
+
+  @@map("categories")
 }
 
 model Tag {
@@ -105,6 +76,8 @@ model Tag {
   name     String
   slug     String    @unique
   articles Article[] @relation("ArticleTags")
+
+  @@map("tags")
 }
 
 model Media {
@@ -122,6 +95,8 @@ model Media {
   authors   Author[]
   articles  Article[] @relation("ArticleFeaturedMedia")
   audits    Audit[]   @relation("AuditFeaturedMedia")
+
+  @@map("media")
 }
 
 model ResearchSource {
@@ -136,6 +111,8 @@ model ResearchSource {
   articleRefs ArticleSource[]
   auditRefs   AuditSource[]
   firmRefs    PropFirmSource[]
+
+  @@map("sources")
 }
 
 model Article {
@@ -159,7 +136,7 @@ model Article {
   legacyUrl      String?           @unique
   createdAt      DateTime          @default(now())
   updatedAt      DateTime          @updatedAt
-  editorId       String?
+  editorId       String?             @db.Uuid
   author         Author?           @relation(fields: [authorId], references: [id], onDelete: SetNull)
   category       Category?         @relation(fields: [categoryId], references: [id], onDelete: SetNull)
   featuredMedia  Media?            @relation("ArticleFeaturedMedia", fields: [featuredMediaId], references: [id], onDelete: SetNull)
@@ -169,6 +146,30 @@ model Article {
 
   @@index([status, publishedAt])
   @@index([categoryId, status])
+  @@map("articles")
+}
+
+model ContentPage {
+  id              String            @id @default(cuid())
+  title           String
+  slug            String            @unique
+  excerpt         String?           @db.Text
+  contentHtml     String?           @db.Text
+  status          PublicationStatus @default(DRAFT)
+  publishedAt     DateTime?
+  lastReviewedAt  DateTime?
+  seoTitle        String?
+  seoDescription  String?           @db.Text
+  canonical       String?
+  ogImage         String?
+  legacyUrl       String?           @unique
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  editorId        String?           @db.Uuid
+  editor          User?             @relation("ContentPageEditor", fields: [editorId], references: [id], onDelete: SetNull)
+
+  @@index([status, publishedAt])
+  @@map("content_pages")
 }
 
 model Audit {
@@ -194,13 +195,14 @@ model Audit {
   legacyUrl       String?           @unique
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
-  editorId        String?
+  editorId        String?            @db.Uuid
   author          Author?           @relation(fields: [authorId], references: [id], onDelete: SetNull)
   featuredMedia   Media?            @relation("AuditFeaturedMedia", fields: [featuredMediaId], references: [id], onDelete: SetNull)
   editor          User?             @relation("AuditEditor", fields: [editorId], references: [id], onDelete: SetNull)
   sources         AuditSource[]
 
   @@index([status, publishedAt])
+  @@map("audits")
 }
 
 model PropFirm {
@@ -227,6 +229,8 @@ model PropFirm {
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
   sources           PropFirmSource[]
+
+  @@map("prop_firms")
 }
 
 model ArticleSource {
@@ -236,6 +240,7 @@ model ArticleSource {
   source    ResearchSource @relation(fields: [sourceId], references: [id], onDelete: Cascade)
 
   @@id([articleId, sourceId])
+  @@map("article_sources")
 }
 
 model AuditSource {
@@ -245,6 +250,7 @@ model AuditSource {
   source   ResearchSource @relation(fields: [sourceId], references: [id], onDelete: Cascade)
 
   @@id([auditId, sourceId])
+  @@map("audit_sources")
 }
 
 model PropFirmSource {
@@ -254,4 +260,5 @@ model PropFirmSource {
   source     ResearchSource @relation(fields: [sourceId], references: [id], onDelete: Cascade)
 
   @@id([propFirmId, sourceId])
+  @@map("prop_firm_sources")
 }

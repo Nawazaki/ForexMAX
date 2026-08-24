@@ -52,15 +52,13 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
-  Account: 'Account',
-  Session: 'Session',
-  VerificationToken: 'VerificationToken',
   Author: 'Author',
   Category: 'Category',
   Tag: 'Tag',
   Media: 'Media',
   ResearchSource: 'ResearchSource',
   Article: 'Article',
+  ContentPage: 'ContentPage',
   Audit: 'Audit',
   PropFirm: 'PropFirm',
   ArticleSource: 'ArticleSource',
@@ -88,50 +86,12 @@ export const UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
   name: 'name',
-  passwordHash: 'passwordHash',
   role: 'role',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
-
-
-export const AccountScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  type: 'type',
-  provider: 'provider',
-  providerAccountId: 'providerAccountId',
-  refresh_token: 'refresh_token',
-  access_token: 'access_token',
-  expires_at: 'expires_at',
-  token_type: 'token_type',
-  scope: 'scope',
-  id_token: 'id_token',
-  session_state: 'session_state'
-} as const
-
-export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
-
-
-export const SessionScalarFieldEnum = {
-  id: 'id',
-  sessionToken: 'sessionToken',
-  userId: 'userId',
-  expires: 'expires'
-} as const
-
-export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
-
-
-export const VerificationTokenScalarFieldEnum = {
-  identifier: 'identifier',
-  token: 'token',
-  expires: 'expires'
-} as const
-
-export type VerificationTokenScalarFieldEnum = (typeof VerificationTokenScalarFieldEnum)[keyof typeof VerificationTokenScalarFieldEnum]
 
 
 export const AuthorScalarFieldEnum = {
@@ -228,6 +188,28 @@ export const ArticleScalarFieldEnum = {
 } as const
 
 export type ArticleScalarFieldEnum = (typeof ArticleScalarFieldEnum)[keyof typeof ArticleScalarFieldEnum]
+
+
+export const ContentPageScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  excerpt: 'excerpt',
+  contentHtml: 'contentHtml',
+  status: 'status',
+  publishedAt: 'publishedAt',
+  lastReviewedAt: 'lastReviewedAt',
+  seoTitle: 'seoTitle',
+  seoDescription: 'seoDescription',
+  canonical: 'canonical',
+  ogImage: 'ogImage',
+  legacyUrl: 'legacyUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  editorId: 'editorId'
+} as const
+
+export type ContentPageScalarFieldEnum = (typeof ContentPageScalarFieldEnum)[keyof typeof ContentPageScalarFieldEnum]
 
 
 export const AuditScalarFieldEnum = {
