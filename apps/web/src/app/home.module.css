@@ -1,0 +1,204 @@
+.hero {
+  padding: clamp(56px, 8vw, 110px) 0 44px;
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(290px, 0.65fr);
+  gap: clamp(36px, 7vw, 92px);
+  align-items: end;
+}
+
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--gold);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  margin: 0 0 18px;
+}
+
+.kicker::before {
+  content: "";
+  display: block;
+  width: 26px;
+  height: 1px;
+  background: currentColor;
+}
+
+.headline {
+  max-width: 11ch;
+  margin: 0;
+  font-size: clamp(3.1rem, 7.3vw, 7.1rem);
+  line-height: 0.91;
+  letter-spacing: -0.075em;
+}
+
+.headline span { color: var(--cyan); }
+
+.lede {
+  max-width: 62ch;
+  margin: 28px 0 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.deskStatus {
+  position: relative;
+  padding: 28px;
+  border-left: 1px solid var(--gold);
+  background: linear-gradient(160deg, rgba(24, 30, 40, 0.94), rgba(9, 12, 17, 0.96));
+}
+
+.deskStatus h2 {
+  margin: 0;
+  font-size: 1.6rem;
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+}
+
+.deskStatus > p:not(.kicker) {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.statusList {
+  display: grid;
+  gap: 0;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.statusList li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.statusList strong { color: var(--ink); font-weight: 700; text-align: right; }
+
+.section {
+  padding: 52px 0;
+}
+
+.sectionTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.sectionTop h2 {
+  max-width: 16ch;
+  margin: 0;
+  font-size: clamp(2rem, 4.2vw, 3.8rem);
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+}
+
+.sectionTop > p {
+  max-width: 45ch;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.pulseTable {
+  border-top: 1px solid var(--line);
+}
+
+.pulseRow {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.75fr) minmax(220px, 1.3fr) minmax(160px, 0.75fr) minmax(200px, 1fr);
+  gap: 20px;
+  align-items: center;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.pulseRow > strong { font-size: 1.02rem; letter-spacing: -0.025em; }
+.pulseRow > span { color: var(--muted); font-size: 0.9rem; line-height: 1.45; }
+
+.availability {
+  width: fit-content;
+  padding: 5px 9px;
+  border: 1px solid var(--line);
+  color: var(--gold) !important;
+  font-size: 0.71rem !important;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.researchLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(245px, 0.5fr);
+  gap: 32px;
+  align-items: start;
+}
+
+.researchGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  border: 1px solid var(--line);
+  background: var(--line);
+}
+
+.researchGrid :global(.content-card) {
+  min-height: 250px;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: var(--bg-soft);
+}
+
+.methodPanel {
+  padding: 25px;
+  border: 1px solid var(--line);
+  background: rgba(215, 181, 90, 0.055);
+}
+
+.methodPanel h3 {
+  margin: 0;
+  font-size: 1.45rem;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.methodPanel p { color: var(--muted); line-height: 1.65; }
+.methodPanel ul { display: grid; gap: 10px; margin: 22px 0; padding: 0; list-style: none; color: var(--muted); font-size: 0.9rem; }
+.methodPanel li { padding-left: 15px; position: relative; }
+.methodPanel li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 5px; height: 5px; border-radius: 50%; background: var(--cyan); }
+
+@media (max-width: 840px) {
+  .heroGrid, .researchLayout { grid-template-columns: 1fr; }
+  .pulseRow { grid-template-columns: 1fr 1.35fr; gap: 9px 18px; }
+  .pulseRow .availability { grid-column: 1; }
+  .researchGrid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .hero { padding-top: 56px; }
+  .headline { font-size: clamp(3rem, 16vw, 4.6rem); }
+  .sectionTop { display: block; }
+  .sectionTop > p { margin-top: 18px; }
+  .pulseRow { grid-template-columns: 1fr; }
+}
