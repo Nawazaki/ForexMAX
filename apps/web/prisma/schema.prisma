@@ -26,16 +26,108 @@ enum AuditType {
   RISK
 }
 
+enum MarketKind {
+  FOREX
+  COMMODITIES
+  INDICES
+  CRYPTO
+  MACRO
+  RATES
+  ECONOMY
+  COMPANIES
+}
+
+enum AssetClass {
+  FX_PAIR
+  METAL
+  ENERGY
+  EQUITY_INDEX
+  CRYPTO_ASSET
+  ECONOMIC_SERIES
+  EQUITY
+  OTHER
+}
+
+enum DataQualityStatus {
+  VERIFIED
+  DELAYED
+  STALE
+  UNAVAILABLE
+  REQUIRES_REVIEW
+}
+
+enum SourceDocumentStatus {
+  INGESTED
+  RETRIEVED
+  VERIFIED
+  REJECTED
+  STALE
+}
+
+enum ResearchEventStatus {
+  INGESTED
+  PROCESSING
+  REQUIRES_REVIEW
+  VERIFIED
+  PUBLISHED
+  REJECTED
+  STALE
+  ARCHIVED
+}
+
+enum EvidenceVerificationStatus {
+  UNVERIFIED
+  VERIFYING
+  VERIFIED
+  CONFLICTED
+  REJECTED
+}
+
+enum ResearchAssessmentStatus {
+  DRAFT
+  REVIEW
+  APPROVED
+  PUBLISHED
+  SUPERSEDED
+  REJECTED
+}
+
+enum DriverDirection {
+  UPSIDE
+  DOWNSIDE
+  RISK
+  CATALYST
+  INVALIDATION
+}
+
+enum IngestionJobStatus {
+  QUEUED
+  RUNNING
+  SUCCEEDED
+  FAILED
+  SKIPPED
+}
+
+enum EditorialDecision {
+  APPROVED
+  REJECTED
+  CHANGES_REQUESTED
+}
+
 model User {
-  id           String    @id @db.Uuid
-  email        String    @unique
-  name         String?
-  role         UserRole  @default(VIEWER)
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  articles     Article[] @relation("ArticleEditor")
-  audits       Audit[]   @relation("AuditEditor")
-  pages        ContentPage[] @relation("ContentPageEditor")
+  id                    String                 @id @db.Uuid
+  email                 String                 @unique
+  name                  String?
+  role                  UserRole               @default(VIEWER)
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+  articles              Article[]              @relation("ArticleEditor")
+  audits                Audit[]                @relation("AuditEditor")
+  pages                 ContentPage[]          @relation("ContentPageEditor")
+  evidenceVerifications ResearchEvidence[]     @relation("EvidenceVerifier")
+  authoredAssessments   ResearchAssessment[]   @relation("AssessmentAuthor")
+  reviewedAssessments   ResearchAssessment[]   @relation("AssessmentReviewer")
+  editorialReviews      EditorialReview[]      @relation("EditorialReviewer")
 
   @@map("profiles")
 }
@@ -100,49 +192,60 @@ model Media {
 }
 
 model ResearchSource {
-  id          String      @id @default(cuid())
-  name        String
-  url         String      @unique
-  sourceType  String
-  accessedAt  DateTime?
-  note        String?     @db.Text
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  articleRefs ArticleSource[]
-  auditRefs   AuditSource[]
-  firmRefs    PropFirmSource[]
+  id                 String            @id @default(cuid())
+  name               String
+  url                String            @unique
+  sourceType         String
+  organization       String?
+  jurisdiction       String?
+  isPrimary          Boolean           @default(false)
+  reliabilityTier    Int               @default(0)
+  verificationStatus DataQualityStatus @default(REQUIRES_REVIEW)
+  lastVerifiedAt     DateTime?
+  accessPolicy       String?
+  isActive           Boolean           @default(true)
+  accessedAt         DateTime?
+  note               String?           @db.Text
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  articleRefs        ArticleSource[]
+  auditRefs          AuditSource[]
+  firmRefs           PropFirmSource[]
+  documents          SourceDocument[]
+  ingestionJobs      IngestionJob[]
 
   @@map("sources")
 }
 
 model Article {
-  id             String            @id @default(cuid())
-  title          String
-  slug           String            @unique
-  excerpt        String?           @db.Text
-  contentMarkdown String            @db.Text
-  contentHtml    String?           @db.Text
-  status         PublicationStatus @default(DRAFT)
-  publishedAt    DateTime?
-  lastReviewedAt DateTime?
-  authorId       String?
-  categoryId     String?
-  featuredMediaId String?
-  seoTitle       String?
-  seoDescription String?           @db.Text
-  canonical      String?
-  ogImage        String?
-  readingMinutes Int?
-  legacyUrl      String?           @unique
-  createdAt      DateTime          @default(now())
-  updatedAt      DateTime          @updatedAt
-  editorId       String?             @db.Uuid
-  author         Author?           @relation(fields: [authorId], references: [id], onDelete: SetNull)
-  category       Category?         @relation(fields: [categoryId], references: [id], onDelete: SetNull)
-  featuredMedia  Media?            @relation("ArticleFeaturedMedia", fields: [featuredMediaId], references: [id], onDelete: SetNull)
-  editor         User?             @relation("ArticleEditor", fields: [editorId], references: [id], onDelete: SetNull)
-  tags           Tag[]             @relation("ArticleTags")
-  sources        ArticleSource[]
+  id                 String            @id @default(cuid())
+  title              String
+  slug               String            @unique
+  excerpt            String?           @db.Text
+  contentMarkdown    String            @db.Text
+  contentHtml        String?           @db.Text
+  status             PublicationStatus @default(DRAFT)
+  publishedAt        DateTime?
+  lastReviewedAt     DateTime?
+  authorId           String?
+  categoryId         String?
+  featuredMediaId    String?
+  seoTitle           String?
+  seoDescription     String?           @db.Text
+  canonical          String?
+  ogImage            String?
+  readingMinutes     Int?
+  legacyUrl          String?           @unique
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  editorId           String?           @db.Uuid
+  author             Author?           @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  category           Category?         @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  featuredMedia      Media?            @relation("ArticleFeaturedMedia", fields: [featuredMediaId], references: [id], onDelete: SetNull)
+  editor             User?             @relation("ArticleEditor", fields: [editorId], references: [id], onDelete: SetNull)
+  tags               Tag[]             @relation("ArticleTags")
+  sources            ArticleSource[]
+  researchAssessment ResearchAssessment? @relation("AssessmentArticle")
 
   @@index([status, publishedAt])
   @@index([categoryId, status])
@@ -182,7 +285,7 @@ model Audit {
   status          PublicationStatus @default(DRAFT)
   summary         String?           @db.Text
   evidence        String?           @db.Text
-  contentMarkdown String             @db.Text
+  contentMarkdown String            @db.Text
   contentHtml     String?           @db.Text
   publishedAt     DateTime?
   lastReviewedAt  DateTime?
@@ -195,7 +298,7 @@ model Audit {
   legacyUrl       String?           @unique
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
-  editorId        String?            @db.Uuid
+  editorId        String?           @db.Uuid
   author          Author?           @relation(fields: [authorId], references: [id], onDelete: SetNull)
   featuredMedia   Media?            @relation("AuditFeaturedMedia", fields: [featuredMediaId], references: [id], onDelete: SetNull)
   editor          User?             @relation("AuditEditor", fields: [editorId], references: [id], onDelete: SetNull)
@@ -261,4 +364,296 @@ model PropFirmSource {
 
   @@id([propFirmId, sourceId])
   @@map("prop_firm_sources")
+}
+
+model Market {
+  id                 String            @id @default(cuid())
+  slug               String            @unique
+  name               String
+  kind               MarketKind
+  description        String?           @db.Text
+  isPublic           Boolean           @default(false)
+  availabilityStatus DataQualityStatus @default(UNAVAILABLE)
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  assets             Asset[]
+  events             ResearchEvent[]
+
+  @@index([kind, isPublic])
+  @@map("markets")
+}
+
+model Asset {
+  id                 String            @id @default(cuid())
+  marketId           String
+  slug               String
+  symbol             String?
+  displayName        String
+  assetClass         AssetClass
+  isPublic           Boolean           @default(false)
+  isActive           Boolean           @default(true)
+  availabilityStatus DataQualityStatus @default(UNAVAILABLE)
+  dataUpdatedAt      DateTime?
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  market             Market            @relation(fields: [marketId], references: [id], onDelete: Restrict)
+  eventLinks         ResearchEventAsset[]
+  assessments        ResearchAssessment[]
+
+  @@unique([marketId, slug])
+  @@index([marketId, isPublic])
+  @@map("assets")
+}
+
+model Country {
+  id                   String               @id @default(cuid())
+  isoCode              String               @unique
+  name                 String
+  region               String?
+  createdAt            DateTime             @default(now())
+  updatedAt            DateTime             @updatedAt
+  centralBank          CentralBank?
+  events               ResearchEvent[]
+  economicIndicators   EconomicIndicator[]
+
+  @@map("countries")
+}
+
+model CentralBank {
+  id          String   @id @default(cuid())
+  countryId   String   @unique
+  name        String
+  slug        String   @unique
+  officialUrl String
+  isPublic    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  country     Country  @relation(fields: [countryId], references: [id], onDelete: Restrict)
+
+  @@map("central_banks")
+}
+
+model SourceDocument {
+  id            String               @id @default(cuid())
+  sourceId      String
+  url           String               @unique
+  headline      String?
+  author        String?
+  publishedAt   DateTime?
+  retrievedAt   DateTime             @default(now())
+  contentHash   String?
+  status        SourceDocumentStatus @default(INGESTED)
+  isPublic      Boolean              @default(false)
+  metadata      Json?
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+  source        ResearchSource       @relation(fields: [sourceId], references: [id], onDelete: Restrict)
+  evidence      ResearchEvidence[]
+  releases      EconomicRelease[]
+  qualityChecks DataQualityCheck[]
+  ingestionJobs IngestionJob[]
+
+  @@index([sourceId, publishedAt])
+  @@index([status, retrievedAt])
+  @@map("source_documents")
+}
+
+model ResearchEvent {
+  id             String              @id @default(cuid())
+  slug           String              @unique
+  title          String
+  summary        String?             @db.Text
+  marketId       String?
+  countryId      String?
+  importance     Int                 @default(0)
+  status         ResearchEventStatus @default(INGESTED)
+  isPublic       Boolean             @default(false)
+  observedAt     DateTime?
+  verifiedAt     DateTime?
+  publishedAt    DateTime?
+  lastReviewedAt DateTime?
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+  market         Market?             @relation(fields: [marketId], references: [id], onDelete: SetNull)
+  country        Country?            @relation(fields: [countryId], references: [id], onDelete: SetNull)
+  assetLinks     ResearchEventAsset[]
+  evidence       ResearchEvidence[]
+  assessments    ResearchAssessment[]
+  releases       EconomicRelease[]
+
+  @@index([status, isPublic, publishedAt])
+  @@index([marketId, status])
+  @@map("research_events")
+}
+
+model ResearchEventAsset {
+  eventId String
+  assetId String
+  event   ResearchEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  asset   Asset         @relation(fields: [assetId], references: [id], onDelete: Cascade)
+
+  @@id([eventId, assetId])
+  @@index([assetId])
+  @@map("research_event_assets")
+}
+
+model ResearchEvidence {
+  id                 String                     @id @default(cuid())
+  eventId            String
+  sourceDocumentId   String
+  statement          String                     @db.Text
+  evidenceType       String
+  verificationStatus EvidenceVerificationStatus @default(UNVERIFIED)
+  verifiedAt         DateTime?
+  verifierId         String?                    @db.Uuid
+  isPublic           Boolean                    @default(false)
+  createdAt          DateTime                   @default(now())
+  updatedAt          DateTime                   @updatedAt
+  event              ResearchEvent              @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  sourceDocument     SourceDocument             @relation(fields: [sourceDocumentId], references: [id], onDelete: Restrict)
+  verifier           User?                      @relation("EvidenceVerifier", fields: [verifierId], references: [id], onDelete: SetNull)
+  drivers            ResearchDriver[]
+
+  @@index([eventId, verificationStatus])
+  @@index([sourceDocumentId, verificationStatus])
+  @@map("research_evidence")
+}
+
+model ResearchAssessment {
+  id               String                   @id @default(cuid())
+  eventId          String?
+  assetId          String?
+  articleId        String?                  @unique
+  title            String
+  thesis           String                   @db.Text
+  methodology      String?                  @db.Text
+  status           ResearchAssessmentStatus @default(DRAFT)
+  authorId         String?                  @db.Uuid
+  reviewerId       String?                  @db.Uuid
+  reviewedAt       DateTime?
+  publishedAt      DateTime?
+  createdAt        DateTime                 @default(now())
+  updatedAt        DateTime                 @updatedAt
+  event            ResearchEvent?           @relation(fields: [eventId], references: [id], onDelete: SetNull)
+  asset            Asset?                   @relation(fields: [assetId], references: [id], onDelete: SetNull)
+  article          Article?                 @relation("AssessmentArticle", fields: [articleId], references: [id], onDelete: SetNull)
+  author           User?                    @relation("AssessmentAuthor", fields: [authorId], references: [id], onDelete: SetNull)
+  reviewer         User?                    @relation("AssessmentReviewer", fields: [reviewerId], references: [id], onDelete: SetNull)
+  drivers          ResearchDriver[]
+  editorialReviews EditorialReview[]
+
+  @@index([status, publishedAt])
+  @@index([assetId, status])
+  @@map("research_assessments")
+}
+
+model ResearchDriver {
+  id           String             @id @default(cuid())
+  assessmentId String
+  evidenceId   String?
+  direction    DriverDirection
+  detail       String             @db.Text
+  isPublic     Boolean            @default(false)
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+  assessment   ResearchAssessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  evidence     ResearchEvidence?  @relation(fields: [evidenceId], references: [id], onDelete: SetNull)
+
+  @@index([assessmentId, direction])
+  @@map("research_drivers")
+}
+
+model EconomicIndicator {
+  id                   String   @id @default(cuid())
+  countryId            String?
+  slug                 String   @unique
+  name                 String
+  unit                 String?
+  methodologySourceUrl String?
+  isPublic             Boolean  @default(false)
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  country              Country? @relation(fields: [countryId], references: [id], onDelete: SetNull)
+  releases             EconomicRelease[]
+
+  @@index([countryId, isPublic])
+  @@map("economic_indicators")
+}
+
+model EconomicRelease {
+  id               String            @id @default(cuid())
+  indicatorId      String
+  eventId          String?
+  sourceDocumentId String?
+  releaseAt        DateTime
+  previousValue    Decimal?          @db.Decimal(24, 8)
+  forecastValue    Decimal?          @db.Decimal(24, 8)
+  actualValue      Decimal?          @db.Decimal(24, 8)
+  surpriseValue    Decimal?          @db.Decimal(24, 8)
+  dataStatus       DataQualityStatus @default(UNAVAILABLE)
+  isPublic         Boolean           @default(false)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  indicator        EconomicIndicator @relation(fields: [indicatorId], references: [id], onDelete: Restrict)
+  event            ResearchEvent?    @relation(fields: [eventId], references: [id], onDelete: SetNull)
+  sourceDocument   SourceDocument?   @relation(fields: [sourceDocumentId], references: [id], onDelete: SetNull)
+
+  @@index([indicatorId, releaseAt])
+  @@index([dataStatus, isPublic])
+  @@map("economic_releases")
+}
+
+model DataQualityCheck {
+  id               String            @id @default(cuid())
+  sourceDocumentId String?
+  scopeType        String
+  scopeId          String
+  checkType        String
+  status           DataQualityStatus
+  observedAt       DateTime          @default(now())
+  resolvedAt       DateTime?
+  resolution       String?           @db.Text
+  isPublic         Boolean           @default(false)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  sourceDocument   SourceDocument?   @relation(fields: [sourceDocumentId], references: [id], onDelete: SetNull)
+
+  @@index([scopeType, scopeId, observedAt])
+  @@index([status, observedAt])
+  @@map("data_quality_checks")
+}
+
+model IngestionJob {
+  id               String             @id @default(cuid())
+  sourceId         String?
+  sourceDocumentId String?
+  jobType          String
+  status           IngestionJobStatus @default(QUEUED)
+  dedupeKey        String?
+  payload          Json?
+  errorSummary     String?            @db.Text
+  startedAt        DateTime?
+  finishedAt       DateTime?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  source           ResearchSource?    @relation(fields: [sourceId], references: [id], onDelete: SetNull)
+  sourceDocument   SourceDocument?    @relation(fields: [sourceDocumentId], references: [id], onDelete: SetNull)
+
+  @@index([status, createdAt])
+  @@index([dedupeKey])
+  @@map("ingestion_jobs")
+}
+
+model EditorialReview {
+  id           String             @id @default(cuid())
+  assessmentId String
+  reviewerId   String?            @db.Uuid
+  decision     EditorialDecision
+  rationale    String?            @db.Text
+  createdAt    DateTime           @default(now())
+  assessment   ResearchAssessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  reviewer     User?              @relation("EditorialReviewer", fields: [reviewerId], references: [id], onDelete: SetNull)
+
+  @@index([assessmentId, createdAt])
+  @@map("editorial_reviews")
 }
