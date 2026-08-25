@@ -1,0 +1,58 @@
+.directory { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; padding-top: 38px; border: 1px solid var(--line); background: var(--line); }
+
+.card {
+  min-height: 370px;
+  padding: 26px;
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+}
+
+.card h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+}
+
+.organization {
+  min-height: 3em;
+  margin: 12px 0 20px;
+  color: var(--blue);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.card dl {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+}
+
+.card dl div {
+  display: grid;
+  gap: 4px;
+}
+
+.card dt {
+  color: #9f6d29;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.card dd {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.card :global(.text-link) {
+  margin-top: auto; padding-top: 26px;
+}
+
+@media (max-width: 800px) {
+  .directory { grid-template-columns: 1fr; }
+}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import { getCanonicalSiteUrl } from "@/lib/site-url";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forexmax.com";
+const siteUrl = getCanonicalSiteUrl();
 
 export function buildMetadata(input: {
   title: string;

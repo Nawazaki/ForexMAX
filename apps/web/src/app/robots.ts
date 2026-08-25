@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { getCanonicalSiteUrl } from "@/lib/site-url";
 
-const site = process.env.NEXT_PUBLIC_SITE_URL ?? "https://forexmax.com";
+const site = getCanonicalSiteUrl();
 export default function robots(): MetadataRoute.Robots { return { rules: [{ userAgent: "*", allow: "/", disallow: ["/admin/", "/admin/login", "/preview/", "/drafts/", "/private/"] }], sitemap: new URL("/sitemap.xml", site).toString() }; }

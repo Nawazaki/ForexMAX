@@ -1,0 +1,24 @@
+.page { padding-bottom: 78px; }
+.header { display: grid; grid-template-columns: minmax(0,1fr) minmax(210px,.34fr); gap: clamp(32px,6vw,92px); padding-top: clamp(46px,6vw,82px); padding-bottom: 38px; border-bottom: 2px solid var(--navy); }
+.kicker { margin: 0 0 13px; color: var(--accent); font-size: .66rem; font-weight: 800; letter-spacing: .16em; }
+.header>div h1,.sectionHeading h2,.yieldPanel h2,.protocol h2,.sources h2 { margin: 0; color: var(--navy); font-family: Georgia,"Times New Roman",serif; font-weight: 600; letter-spacing: -.065em; line-height: .92; }
+.header>div h1 { max-width: 10ch; font-size: clamp(3.5rem,6.5vw,6.4rem); }
+.header>div>p { max-width: 59ch; margin: 23px 0 0; color: var(--muted); line-height: 1.7; }
+.header aside { align-self: end; padding: 18px 0 0 23px; border-left: 1px solid var(--line-strong); }
+.header aside span,.header aside small { display: block; color: var(--muted); font-size: .68rem; font-weight: 800; letter-spacing: .08em; }
+.header aside strong { display: block; margin: 7px 0; color: var(--navy); font-family: Georgia,"Times New Roman",serif; font-size: 1.35rem; line-height: 1.05; }
+.observations { padding: 39px 0 52px; }
+.sectionHeading { display: grid; grid-template-columns: minmax(0,.7fr) minmax(260px,.5fr); gap: clamp(32px,6vw,90px); align-items: end; margin-bottom: 24px; }
+.sectionHeading h2,.yieldPanel h2,.protocol h2,.sources h2 { font-size: clamp(2.2rem,4vw,3.9rem); }
+.sectionHeading>p { margin: 0; color: var(--muted); line-height: 1.62; }
+.tableWrap { overflow-x: auto; border-top: 1px solid var(--line); }
+.tableWrap table { min-width: 820px; }
+.tableWrap th:first-child { min-width: 185px; }.tableWrap td:nth-child(2) { min-width: 145px; }.tableWrap td:nth-child(3) { min-width: 145px; }.tableWrap td:nth-child(4) { min-width: 190px; }.tableWrap td:last-child { min-width: 220px; color: var(--muted); }
+.tableWrap tbody th { color: var(--navy); font-size: .95rem; letter-spacing: 0; text-transform: none; }.tableWrap td strong { color: var(--blue); font-size: 1.08rem; }.tableWrap a { color: var(--blue); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.lowerGrid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); border-top: 2px solid var(--navy); border-bottom: 1px solid var(--line); }
+.yieldPanel,.protocol { min-height: 352px; padding: 30px; }.yieldPanel { background: var(--navy); color: var(--paper); }.yieldPanel .kicker { color: #d6ae62; }.yieldPanel h2 { color: var(--paper); font-size: clamp(2rem,3.4vw,3.2rem); }.yieldValue { display: flex; align-items: baseline; gap: 14px; margin-top: 30px; }.yieldValue strong { font-size: clamp(3.5rem,6vw,5.5rem); letter-spacing: -.08em; }.yieldValue span { color: #b9c4c7; font-size: .8rem; font-weight: 700; }.yieldPanel svg { display: block; width: 100%; height: 90px; margin: 20px 0 9px; color: #72c7c9; }.yieldPanel>p:not(.kicker) { max-width: 44ch; margin: 0; color: #b9c4c7; font-size: .86rem; line-height: 1.55; }
+.protocol { border-left: 1px solid var(--line); }.protocol h2 { max-width: 10ch; }.protocol ol { margin: 25px 0; padding-left: 20px; color: var(--muted); line-height: 1.65; }.protocol li+li { margin-top: 6px; }
+.sources { display: grid; grid-template-columns: minmax(0,.8fr) minmax(280px,.55fr); gap: clamp(30px,6vw,90px); align-items: end; padding: 56px 0; border-bottom: 2px solid var(--navy); }.sources h2 { max-width: 10ch; }.sources>div:last-child p { margin: 0 0 23px; color: var(--muted); line-height: 1.7; }
+.status { display: flex; gap: 14px; padding: 16px 0 0; color: var(--muted); font-size: .82rem; line-height: 1.5; }.status strong { color: var(--navy); white-space: nowrap; }.failure { margin: 0; padding: 18px 0; color: var(--muted); line-height: 1.6; }
+@media (max-width: 820px) { .header,.sectionHeading,.sources { grid-template-columns: 1fr; }.header aside { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }.lowerGrid { grid-template-columns: 1fr; }.protocol { border-left: 0; border-top: 1px solid var(--line); }.yieldPanel,.protocol { min-height: auto; }.status { flex-direction: column; gap: 5px; } }
+@media (max-width: 560px) { .header>div h1 { font-size: clamp(3.25rem,15vw,4.65rem); }.observations { padding-top: 30px; }.yieldPanel,.protocol { padding: 24px 20px; }.sources { padding: 42px 0; } }

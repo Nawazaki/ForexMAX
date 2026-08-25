@@ -1,0 +1,148 @@
+export type SourceAccessMode = "OFFICIAL_PORTAL" | "OFFICIAL_API" | "SDMX_API" | "OFFICIAL_REPORTING";
+
+export type PrimarySource = {
+  id: string;
+  name: string;
+  organization: string;
+  url: string;
+  coverage: string;
+  access: string;
+  jurisdiction: string;
+  accessMode: SourceAccessMode;
+  activationRequirement: string;
+};
+
+export const primarySources: PrimarySource[] = [
+  {
+    id: "federal-reserve-fred",
+    name: "Federal Reserve Data & FRED",
+    organization: "Board of Governors of the Federal Reserve System / Federal Reserve Bank of St. Louis",
+    url: "https://www.federalreserve.gov/data/data-download-fred-information.htm",
+    coverage: "Federal Reserve releases and historical macroeconomic series.",
+    access: "Official data pages and FRED series reference links.",
+    jurisdiction: "United States",
+    accessMode: "OFFICIAL_API",
+    activationRequirement: "Document the requested series and API entitlement before any stored retrieval is enabled.",
+  },
+  {
+    id: "bls-cpi",
+    name: "Bureau of Labor Statistics — CPI",
+    organization: "U.S. Bureau of Labor Statistics",
+    url: "https://www.bls.gov/cpi/",
+    coverage: "Consumer prices, labor-market releases, and statistical release calendar links.",
+    access: "Official releases, data tables, charts, and subscriptions.",
+    jurisdiction: "United States",
+    accessMode: "OFFICIAL_API",
+    activationRequirement: "Pin a BLS series identifier, reference period policy, and validation rule before persistence.",
+  },
+  {
+    id: "bea",
+    name: "Bureau of Economic Analysis",
+    organization: "U.S. Bureau of Economic Analysis",
+    url: "https://www.bea.gov/",
+    coverage: "GDP, income, trade, and national economic accounts releases.",
+    access: "Official releases and data tools.",
+    jurisdiction: "United States",
+    accessMode: "OFFICIAL_API",
+    activationRequirement: "Register an approved API key and record methodology and release calendar before use.",
+  },
+  {
+    id: "us-treasury-fiscal-data",
+    name: "U.S. Treasury Fiscal Data",
+    organization: "U.S. Department of the Treasury, Bureau of the Fiscal Service",
+    url: "https://fiscaldata.treasury.gov/api-documentation/",
+    coverage: "Debt, revenue, spending, interest rates, savings bonds, and fiscal datasets.",
+    access: "Official REST API with dataset metadata, filters, pagination, and JSON/CSV/XML responses.",
+    jurisdiction: "United States",
+    accessMode: "OFFICIAL_API",
+    activationRequirement: "Approve one named endpoint and field contract; do not interpret values outside its dataset methodology.",
+  },
+  {
+    id: "cftc-public-reporting",
+    name: "CFTC Public Reporting",
+    organization: "U.S. Commodity Futures Trading Commission",
+    url: "https://publicreporting.cftc.gov/stories/s/User-s-Guide/p2fg-u73y/",
+    coverage: "Commitments of Traders, swaps, bank participation, margin, and related regulatory reports.",
+    access: "Official reporting portal with documented COT dataset API routes.",
+    jurisdiction: "United States",
+    accessMode: "OFFICIAL_REPORTING",
+    activationRequirement: "Select the exact COT report family and preserve report date, market name, and reporting methodology.",
+  },
+  {
+    id: "eia-open-data",
+    name: "EIA Open Data",
+    organization: "U.S. Energy Information Administration",
+    url: "https://www.eia.gov/opendata/",
+    coverage: "Energy statistics across electricity, natural gas, petroleum, crude oil, coal, nuclear, emissions, and international energy.",
+    access: "Official API, bulk files, and release tools subject to EIA API terms.",
+    jurisdiction: "United States",
+    accessMode: "OFFICIAL_API",
+    activationRequirement: "Register an API key, approve a series contract, and record its release cadence before use.",
+  },
+  {
+    id: "ecb-data-portal",
+    name: "ECB Data Portal",
+    organization: "European Central Bank",
+    url: "https://data.ecb.europa.eu/help/api/overview",
+    coverage: "Euro-area statistical data, metadata, exchange rates, monetary aggregates, and policy-relevant datasets.",
+    access: "Official SDMX 2.1 REST data and metadata discovery service.",
+    jurisdiction: "Euro area",
+    accessMode: "SDMX_API",
+    activationRequirement: "Record the dataflow, dimensions, attributes, and units before a series can be displayed.",
+  },
+  {
+    id: "bank-of-england-database",
+    name: "Bank of England Database",
+    organization: "Bank of England",
+    url: "https://www.bankofengland.co.uk/boeapps/database/",
+    coverage: "Bank Rate history, interest and exchange rates, yield curves, monetary and credit statistics.",
+    access: "Official searchable and exportable data-series database.",
+    jurisdiction: "United Kingdom",
+    accessMode: "OFFICIAL_PORTAL",
+    activationRequirement: "Approve the series code, observation frequency, and export method before retrieval is automated.",
+  },
+  {
+    id: "bank-of-japan-time-series",
+    name: "BOJ Time-Series Data Search",
+    organization: "Bank of Japan",
+    url: "https://www.stat-search.boj.or.jp/info/nme_aphelp_en.html",
+    coverage: "Japanese rates, FX, money, prices, balance of payments, TANKAN, and other Bank of Japan time series.",
+    access: "Official JSON/CSV API, portal tables, metadata, and flat-file downloads.",
+    jurisdiction: "Japan",
+    accessMode: "OFFICIAL_API",
+    activationRequirement: "Select the official series code and retain the source metadata and update timestamp with every observation.",
+  },
+  {
+    id: "imf-data-api",
+    name: "IMF Data APIs",
+    organization: "International Monetary Fund",
+    url: "https://data.imf.org/en/Resource-Pages/IMF-API",
+    coverage: "IMF datasets, release calendar, and international macroeconomic indicators.",
+    access: "Official SDMX APIs and API portal documentation.",
+    jurisdiction: "International",
+    accessMode: "SDMX_API",
+    activationRequirement: "Confirm the dataset, API access requirements, unit, and release provenance before adding a source contract.",
+  },
+  {
+    id: "world-bank-open-data",
+    name: "World Bank Open Data",
+    organization: "World Bank",
+    url: "https://data.worldbank.org/",
+    coverage: "World Development Indicators, country/economy data, and global development datasets.",
+    access: "Official open-data portal and linked data resources.",
+    jurisdiction: "International",
+    accessMode: "OFFICIAL_PORTAL",
+    activationRequirement: "Approve the indicator definition, geography, period, and revision treatment before persistence.",
+  },
+  {
+    id: "oecd-data-api",
+    name: "OECD Data API",
+    organization: "Organisation for Economic Co-operation and Development",
+    url: "https://www.oecd.org/en/data/insights/data-explainers/2024/09/api.html",
+    coverage: "OECD statistical datasets, structural metadata, and internationally comparable indicators.",
+    access: "Official SDMX API, subject to OECD terms and documented rate limits.",
+    jurisdiction: "International",
+    accessMode: "SDMX_API",
+    activationRequirement: "Document the dataflow, dimensions, API version, and responsible-query policy before activation.",
+  },
+];
