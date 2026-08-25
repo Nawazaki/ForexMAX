@@ -1,5 +1,7 @@
+import { createMarketObservation, type MarketObservation, type ObservationAsset } from "@/lib/market-observation";
+
 export type MarketTapeGroup = "RATES" | "USD_FX" | "ENERGY" | "EQUITIES" | "RISK";
-export type MarketTapeState = "CURRENT" | "STALE" | "UNAVAILABLE";
+export type MarketTapeState = "LATEST_OFFICIAL" | "STALE" | "UNAVAILABLE";
 export type MarketTapePoint = { date: string; value: number };
 
 type TapeDefinition = {
@@ -14,9 +16,12 @@ type TapeDefinition = {
   note: string;
 };
 
-export type MarketTapeItem = Omit<TapeDefinition, "seriesId" | "precision"> & {
+export type MarketTapeItem = Omit<TapeDefinition, "seriesId" | "precision"> & MarketObservation & {
   latest: MarketTapePoint;
   previous: MarketTapePoint;
+  historical: MarketTapePoint | null;
+  historicalChange: number | null;
+  historicalChangeLabel: string | null;
   change: number;
   changeLabel: string;
   valueLabel: string;
@@ -85,12 +90,47 @@ function formatChange(change: number, definition: TapeDefinition) {
   return signed;
 }
 
+function observationAsset(definition: TapeDefinition): ObservationAsset {
+  if (definition.group === "RATES") return "RATES";
+  if (definition.group === "ENERGY") return "OIL";
+  if (definition.group === "EQUITIES") return "EQUITIES";
+  if (definition.group === "RISK") return "VOLATILITY";
+  return definition.id === "broad-usd" ? "USD" : "FX";
+}
+
 export function marketTapeItemFromPoints(definition: TapeDefinition, points: MarketTapePoint[], retrievedAt = new Date().toISOString()): MarketTapeItem {
   const latest = points.at(-1);
   const previous = points.at(-2);
   if (!latest || !previous) throw new Error(`${definition.seriesId} needs two valid observations`);
-  const ageInDays = Math.floor((new Date(retrievedAt).getTime() - new Date(`${latest.date}T00:00:00Z`).getTime()) / 86_400_000);
-  return { ...definition, latest, previous, change: latest.value - previous.value, changeLabel: formatChange(latest.value - previous.value, definition), valueLabel: formatValue(latest.value, definition), state: ageInDays > DEFAULT_STALE_AFTER_DAYS ? "STALE" : "CURRENT", staleAfterDays: DEFAULT_STALE_AFTER_DAYS };
+  const observation = createMarketObservation({
+    id: definition.id,
+    asset: observationAsset(definition),
+    metric: definition.label,
+    value: latest.value,
+    previousValue: previous.value,
+    calculateChangePercent: definition.unit !== "PERCENT",
+    referencePeriod: latest.date,
+    publishedAt: null,
+    retrievedAt,
+    source: definition.sourceName,
+    sourceUrl: definition.sourceUrl,
+    staleAfterDays: DEFAULT_STALE_AFTER_DAYS,
+  });
+  const historical = points.length > 2 ? points[Math.max(0, points.length - 21)] : null;
+  const historicalChange = historical ? latest.value - historical.value : null;
+  return {
+    ...definition,
+    ...observation,
+    latest,
+    previous,
+    historical,
+    historicalChange,
+    historicalChangeLabel: historicalChange === null ? null : formatChange(historicalChange, definition),
+    change: observation.change ?? 0,
+    changeLabel: formatChange(observation.change ?? 0, definition),
+    valueLabel: formatValue(latest.value, definition),
+    state: observation.freshness === "FRESH" ? "LATEST_OFFICIAL" : "STALE",
+  };
 }
 
 export async function getMarketTapeSnapshot(): Promise<MarketTapeSnapshot> {

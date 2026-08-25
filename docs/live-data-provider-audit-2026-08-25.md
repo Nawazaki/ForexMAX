@@ -30,6 +30,20 @@ These readers do not persist values, create research assessments, run cron jobs,
 
 The official FRED graph endpoint for `NASDAQCOM` returned published daily observations dated **2026-08-21** and **2026-08-24** in a bounded check on 2026-08-25. The next code increment therefore treats it strictly as a dated closing observation from the named FRED series, not as an intraday quote, a forecast, or an investable performance claim. A guessed silver series identifier returned HTTP 404 and was deliberately excluded.
 
+## Preview-only five-asset observation extension
+
+The `migration/nextjs-platform` branch now applies a unified observation contract to five priority research pages. It reads the existing official adapters at request time, preserves the latest and prior valid source records, computes only reversible changes, and shows the source reference date, retrieval timestamp, freshness and status. It does not add persistent storage, a scheduler, market bias, or automatic publication.
+
+| Priority page | Connected observations actually used | Important boundary |
+|---|---|---|
+| Gold macro drivers | FRED DGS10, DFII10 and DTWEXBGS; BLS CPI-U and unemployment | No active eligible gold-price series. The historic FRED LBMA daily gold series was removed; no replacement price, return or directional label is shown. |
+| EUR/USD | FRED DEXUSEU, DTWEXBGS, DGS10 and DFII10; BLS CPI-U | No ECB event or euro-area macro data is connected. |
+| USD/JPY | FRED DEXJPUS, DTWEXBGS, DGS10 and DFII10; BLS CPI-U | No Bank of Japan event or Japanese macro data is connected. |
+| U.S. 10Y | FRED DGS10, DFII10 and DTWEXBGS; BLS CPI-U/unemployment; Treasury debt record | Not a complete yield curve, auction record, rate forecast or term-premium model. |
+| S&P 500 | FRED SP500, VIXCLS, DGS10 and DFII10; BLS CPI-U/unemployment | No earnings, valuation, breadth, constituent, options-flow or real-time equity feed is connected. |
+
+The user interface calls retrieved daily records **“Latest official observation (source-dated)”**, not live/current prices. A stale publisher date remains visible as stale and is never substituted.
+
 ## Explicit non-activation decisions
 
 1. No source is labelled **LIVE** merely because it is fetched. Freshness must be calculated from the publisher observation date and retrieval time.
@@ -56,3 +70,4 @@ The official FRED graph endpoint for `NASDAQCOM` returned published daily observ
 [7]: https://data.ecb.europa.eu/help/api/overview "ECB Data Portal API overview"
 [8]: https://www.ecb.europa.eu/stats/accessing-our-data/html/index.en.html "ECB all data services"
 [9]: https://fred.stlouisfed.org/series/NASDAQCOM "FRED NASDAQ Composite series"
+[10]: https://news.research.stlouisfed.org/2022/01/ice-benchmark-administration-ltd-iba-data-to-be-removed-from-fred/ "FRED — ICE Benchmark Administration data removal"

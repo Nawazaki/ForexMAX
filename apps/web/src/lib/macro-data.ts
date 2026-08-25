@@ -1,12 +1,11 @@
-export type MacroObservation = {
+import { createMarketObservation, type MarketObservation } from "@/lib/market-observation";
+
+export type MacroObservation = MarketObservation & {
   id: "us-cpi" | "us-unemployment" | "us-10y" | "us-public-debt";
   label: string;
-  value: number;
   valueLabel: string;
   compactValueLabel?: string;
-  referencePeriod: string;
   sourceName: string;
-  sourceUrl: string;
   sourceApiUrl: string;
   note: string;
 };
@@ -19,10 +18,10 @@ export type MacroSnapshot = {
   failures: string[];
 };
 
-const BLS_CPI_URL = "https://api.bls.gov/publicAPI/v2/timeseries/data/CUUR0000SA0?latest=true";
-const BLS_UNEMPLOYMENT_URL = "https://api.bls.gov/publicAPI/v2/timeseries/data/LNS14000000?latest=true";
+const BLS_CPI_SERIES_ID = "CUUR0000SA0";
+const BLS_UNEMPLOYMENT_SERIES_ID = "LNS14000000";
 const FRED_DGS10_URL = "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10";
-const TREASURY_DEBT_URL = "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v2/accounting/od/debt_to_penny?fields=record_date,tot_pub_debt_out_amt&sort=-record_date&page%5Bsize%5D=1";
+const TREASURY_DEBT_URL = "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v2/accounting/od/debt_to_penny?fields=record_date,tot_pub_debt_out_amt&sort=-record_date&page%5Bsize%5D=2";
 
 type BlsPoint = { year?: string; period?: string; periodName?: string; value?: string; footnotes?: Array<{ code?: string; text?: string }> };
 type BlsPayload = { status?: string; Results?: { series?: Array<{ data?: BlsPoint[] }> } };
@@ -40,13 +39,24 @@ async function readText(url: string) {
   }
 }
 
-function latestBlsPoint(payload: BlsPayload) {
+function blsSeriesUrl(seriesId: string, referenceDate = new Date()) {
+  const endYear = referenceDate.getUTCFullYear();
+  return `https://api.bls.gov/publicAPI/v2/timeseries/data/${seriesId}?startyear=${endYear - 1}&endyear=${endYear}`;
+}
+
+function latestBlsPoints(payload: BlsPayload) {
   if (payload.status !== "REQUEST_SUCCEEDED") throw new Error("BLS request was not successful");
-  const point = payload.Results?.series?.[0]?.data?.[0];
-  if (!point?.value || !point.year || !point.periodName) throw new Error("BLS response did not include a latest observation");
-  const value = Number(point.value);
-  if (!Number.isFinite(value)) throw new Error("BLS observation value was not numeric");
-  return { value, period: `${point.periodName} ${point.year}`, footnote: point.footnotes?.find((item) => item.text)?.text };
+  const points = (payload.Results?.series?.[0]?.data ?? []).map((point) => {
+    const value = Number(point.value);
+    const month = point.period?.match(/^M(\d{2})$/)?.[1];
+    if (!Number.isFinite(value) || !point.year || !month) return null;
+    return { value, period: `${point.year}-${month}`, footnote: point.footnotes?.find((item) => item.text)?.text };
+  }).filter((point): point is { value: number; period: string; footnote: string | undefined } => point !== null)
+    .sort((a, b) => a.period.localeCompare(b.period));
+  const latest = points.at(-1);
+  const previous = points.at(-2);
+  if (!latest || !previous) throw new Error("BLS response did not include two valid observations");
+  return { latest, previous };
 }
 
 function formatExactUsd(raw: string) {
@@ -66,6 +76,10 @@ export function parseTreasuryDebtPayload(payload: TreasuryDebtPayload) {
   return { date: point.record_date, value, rawValue };
 }
 
+export function parseTreasuryDebtRecords(payload: TreasuryDebtPayload) {
+  return (payload.data ?? []).map((record) => parseTreasuryDebtPayload({ data: [record] }));
+}
+
 export function parseFredYieldCsv(csv: string): YieldObservation[] {
   return csv.split(/\r?\n/).slice(1).map((line) => {
     const [date, rawValue] = line.split(",");
@@ -80,9 +94,11 @@ function asFailure(source: string, error: unknown) {
 
 export async function getMacroSnapshot(): Promise<MacroSnapshot> {
   const retrievedAt = new Date().toISOString();
+  const cpiUrl = blsSeriesUrl(BLS_CPI_SERIES_ID);
+  const unemploymentUrl = blsSeriesUrl(BLS_UNEMPLOYMENT_SERIES_ID);
   const [cpiResponse, unemploymentResponse, yieldResponse, treasuryDebtResponse] = await Promise.allSettled([
-    readText(BLS_CPI_URL),
-    readText(BLS_UNEMPLOYMENT_URL),
+    readText(cpiUrl),
+    readText(unemploymentUrl),
     readText(FRED_DGS10_URL),
     readText(TREASURY_DEBT_URL),
   ]);
@@ -92,15 +108,21 @@ export async function getMacroSnapshot(): Promise<MacroSnapshot> {
 
   if (cpiResponse.status === "fulfilled") {
     try {
-      const point = latestBlsPoint(JSON.parse(cpiResponse.value) as BlsPayload);
-      observations.push({ id: "us-cpi", label: "U.S. CPI-U", value: point.value, valueLabel: point.value.toFixed(3), referencePeriod: point.period, sourceName: "U.S. Bureau of Labor Statistics", sourceUrl: "https://www.bls.gov/cpi/", sourceApiUrl: BLS_CPI_URL, note: point.footnote ?? "All items, U.S. city average; index level." });
+      const points = latestBlsPoints(JSON.parse(cpiResponse.value) as BlsPayload);
+      observations.push({
+        ...createMarketObservation({ id: "us-cpi", asset: "MACRO", metric: "U.S. CPI-U", value: points.latest.value, previousValue: points.previous.value, calculateChangePercent: true, referencePeriod: points.latest.period, publishedAt: null, retrievedAt, source: "U.S. Bureau of Labor Statistics", sourceUrl: "https://www.bls.gov/cpi/", staleAfterDays: 75 }),
+        id: "us-cpi", label: "U.S. CPI-U", valueLabel: points.latest.value.toFixed(3), sourceName: "U.S. Bureau of Labor Statistics", sourceApiUrl: cpiUrl, note: points.latest.footnote ?? "All items, U.S. city average; index level.",
+      });
     } catch (error) { failures.push(asFailure("BLS CPI", error)); }
   } else { failures.push(asFailure("BLS CPI", cpiResponse.reason)); }
 
   if (unemploymentResponse.status === "fulfilled") {
     try {
-      const point = latestBlsPoint(JSON.parse(unemploymentResponse.value) as BlsPayload);
-      observations.push({ id: "us-unemployment", label: "U.S. unemployment rate", value: point.value, valueLabel: `${point.value.toFixed(1)}%`, referencePeriod: point.period, sourceName: "U.S. Bureau of Labor Statistics", sourceUrl: "https://www.bls.gov/cps/", sourceApiUrl: BLS_UNEMPLOYMENT_URL, note: point.footnote ?? "Civilian unemployment rate, seasonally adjusted." });
+      const points = latestBlsPoints(JSON.parse(unemploymentResponse.value) as BlsPayload);
+      observations.push({
+        ...createMarketObservation({ id: "us-unemployment", asset: "MACRO", metric: "U.S. unemployment rate", value: points.latest.value, previousValue: points.previous.value, calculateChangePercent: false, referencePeriod: points.latest.period, publishedAt: null, retrievedAt, source: "U.S. Bureau of Labor Statistics", sourceUrl: "https://www.bls.gov/cps/", staleAfterDays: 75 }),
+        id: "us-unemployment", label: "U.S. unemployment rate", valueLabel: `${points.latest.value.toFixed(1)}%`, sourceName: "U.S. Bureau of Labor Statistics", sourceApiUrl: unemploymentUrl, note: points.latest.footnote ?? "Civilian unemployment rate, seasonally adjusted.",
+      });
     } catch (error) { failures.push(asFailure("BLS unemployment", error)); }
   } else { failures.push(asFailure("BLS unemployment", unemploymentResponse.reason)); }
 
@@ -108,15 +130,23 @@ export async function getMacroSnapshot(): Promise<MacroSnapshot> {
     try {
       tenYearSeries = parseFredYieldCsv(yieldResponse.value);
       const latest = tenYearSeries.at(-1);
-      if (!latest) throw new Error("FRED response did not include a numeric DGS10 observation");
-      observations.push({ id: "us-10y", label: "U.S. 10-year Treasury rate", value: latest.value, valueLabel: `${latest.value.toFixed(2)}%`, referencePeriod: latest.date, sourceName: "Federal Reserve Bank of St. Louis / FRED", sourceUrl: "https://fred.stlouisfed.org/series/DGS10", sourceApiUrl: FRED_DGS10_URL, note: "Daily 10-year Treasury constant-maturity-rate observation." });
+      const previous = tenYearSeries.at(-2);
+      if (!latest || !previous) throw new Error("FRED response did not include two numeric DGS10 observations");
+      observations.push({
+        ...createMarketObservation({ id: "us-10y", asset: "RATES", metric: "U.S. 10-year Treasury rate", value: latest.value, previousValue: previous.value, calculateChangePercent: false, referencePeriod: latest.date, publishedAt: null, retrievedAt, source: "Federal Reserve Bank of St. Louis / FRED", sourceUrl: "https://fred.stlouisfed.org/series/DGS10", staleAfterDays: 10 }),
+        id: "us-10y", label: "U.S. 10-year Treasury rate", valueLabel: `${latest.value.toFixed(2)}%`, sourceName: "Federal Reserve Bank of St. Louis / FRED", sourceApiUrl: FRED_DGS10_URL, note: "Daily 10-year Treasury constant-maturity-rate observation.",
+      });
     } catch (error) { failures.push(asFailure("FRED DGS10", error)); }
   } else { failures.push(asFailure("FRED DGS10", yieldResponse.reason)); }
 
   if (treasuryDebtResponse.status === "fulfilled") {
     try {
-      const point = parseTreasuryDebtPayload(JSON.parse(treasuryDebtResponse.value) as TreasuryDebtPayload);
-      observations.push({ id: "us-public-debt", label: "U.S. total public debt outstanding", value: point.value, valueLabel: formatExactUsd(point.rawValue), compactValueLabel: `USD ${(point.value / 1_000_000_000_000).toFixed(2)}T`, referencePeriod: point.date, sourceName: "U.S. Treasury Fiscal Data", sourceUrl: "https://fiscaldata.treasury.gov/datasets/debt-to-the-penny/debt-to-the-penny", sourceApiUrl: TREASURY_DEBT_URL, note: "Treasury fiscal balance-sheet record; not a Treasury yield, price, policy forecast or market signal." });
+      const [latest, previous] = parseTreasuryDebtRecords(JSON.parse(treasuryDebtResponse.value) as TreasuryDebtPayload);
+      if (!latest || !previous) throw new Error("Treasury response did not include two valid debt records");
+      observations.push({
+        ...createMarketObservation({ id: "us-public-debt", asset: "FISCAL", metric: "U.S. total public debt outstanding", value: latest.value, previousValue: previous.value, calculateChangePercent: false, referencePeriod: latest.date, publishedAt: null, retrievedAt, source: "U.S. Treasury Fiscal Data", sourceUrl: "https://fiscaldata.treasury.gov/datasets/debt-to-the-penny/debt-to-the-penny", staleAfterDays: 10 }),
+        id: "us-public-debt", label: "U.S. total public debt outstanding", valueLabel: formatExactUsd(latest.rawValue), compactValueLabel: `USD ${(latest.value / 1_000_000_000_000).toFixed(2)}T`, sourceName: "U.S. Treasury Fiscal Data", sourceApiUrl: TREASURY_DEBT_URL, note: "Treasury fiscal balance-sheet record; not a Treasury yield, price, policy forecast or market signal.",
+      });
     } catch (error) { failures.push(asFailure("Treasury public debt", error)); }
   } else { failures.push(asFailure("Treasury public debt", treasuryDebtResponse.reason)); }
 

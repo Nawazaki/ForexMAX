@@ -13,7 +13,7 @@ describe("market tape", () => {
     expect(item.valueLabel).toBe("4.74%");
     expect(item.change).toBeCloseTo(0.09);
     expect(item.changeLabel).toBe("+0.09 percentage points");
-    expect(item.state).toBe("CURRENT");
+    expect(item.state).toBe("LATEST_OFFICIAL");
   });
 
   it("marks an observation stale instead of substituting a new value", () => {
