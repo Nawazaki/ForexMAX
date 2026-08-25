@@ -49,6 +49,10 @@ The Research Desk and the authenticated Research Control Center were visually re
 
 Mobile captures at 390px (`/research`) and 430px (`/sources`) confirmed that neither page had horizontal document overflow. The Research Desk stacks its methodology, archive, and publication-boundary sections. The source directory stacks the 12 official source contracts and their activation gates without reducing them to untraceable abbreviations.
 
+### Preview validation — 25 August 2026
+
+Commit `a08ed19` (`feat: add preview-safe research control center`) built successfully as Vercel deployment `dpl_F1qSWR8NgRJEMD288ybYEZZt8wxY` on the `migration/nextjs-platform` branch. The deployment reported `READY`; the route is protected by the existing Vercel SSO policy and direct fetches correctly received an authentication redirect with `X-Robots-Tag: noindex`. No Vercel runtime errors were reported in the one-hour window after the deployment. Local quality checks passed: 46 tests across 20 files, TypeScript, ESLint, production build, local HTTP smoke checks, and the 390px/430px responsive captures.
+
 ## Source references
 
 1. [BLS Public Data API v2](https://www.bls.gov/developers/api_signature_v2.htm)
