@@ -35,6 +35,12 @@ On 25 August 2026, the local Phase 2 preview was reviewed at `/` and `/macro` us
 
 The responsive layouts were then captured at 390px (`/`) and 430px (`/macro`). Both checks reported no horizontal document overflow. The homepage stacked the official observations, rate panel, research feed, and source rail into readable modules; the Macro page retained an intentionally horizontally scrollable data table while keeping the surrounding content legible.
 
+## Preview validation record
+
+The Phase 2 Vercel Preview for commit `75e1d62` returned `HTTP 200` for `/macro` on 25 August 2026. Its canonical URL was `https://www.forexmax.com/macro`; Vercel applies `noindex` to the protected Preview response while the page metadata retains `index, follow` for the eventual approved canonical deployment.
+
+At retrieval time, the Preview rendered these source-labelled observations: BLS CPI-U index `333.918` for July 2026; BLS civilian unemployment rate `4.1%` for July 2026; and FRED DGS10 `4.74%` for 21 August 2026. These values are a validation record, not a persistent database snapshot or an assessment.
+
 ## Source references
 
 1. [BLS Public Data API v2](https://www.bls.gov/developers/api_signature_v2.htm)
