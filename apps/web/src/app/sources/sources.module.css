@@ -1,16 +1,9 @@
-.directory {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-  padding-top: 38px;
-}
+.directory { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; padding-top: 38px; border: 1px solid var(--line); background: var(--line); }
 
 .card {
-  min-height: 340px;
+  min-height: 370px;
   padding: 26px;
-  border: 1px solid var(--line);
-  background: linear-gradient(145deg, rgba(25, 30, 41, 0.94), rgba(10, 12, 17, 0.94));
-  box-shadow: var(--shadow);
+  background: var(--paper);
   display: flex;
   flex-direction: column;
 }
@@ -25,7 +18,7 @@
 .organization {
   min-height: 3em;
   margin: 12px 0 20px;
-  color: var(--cyan);
+  color: var(--blue);
   font-size: 0.9rem;
   line-height: 1.45;
 }
@@ -42,7 +35,7 @@
 }
 
 .card dt {
-  color: var(--gold);
+  color: #9f6d29;
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.12em;
@@ -57,8 +50,7 @@
 }
 
 .card :global(.text-link) {
-  margin-top: auto;
-  padding-top: 26px;
+  margin-top: auto; padding-top: 26px;
 }
 
 @media (max-width: 800px) {

@@ -1,6 +1,7 @@
 import { PageShell } from "@/components/page-shell";
 import { primarySources } from "@/lib/primary-sources";
 import { buildMetadata, jsonLd } from "@/lib/seo";
+import { getCanonicalSiteUrl } from "@/lib/site-url";
 import styles from "./sources.module.css";
 
 export const metadata = buildMetadata({
@@ -10,12 +11,13 @@ export const metadata = buildMetadata({
 });
 
 export default function SourcesPage() {
+  const siteUrl = getCanonicalSiteUrl();
   const schema = {
     "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    name: "ForexMax Primary Research Sources",
-    url: "https://forexmax.com/sources",
-    description: "Official primary sources used as starting points for ForexMax research.",
+    "@graph": [
+      { "@type": "CollectionPage", name: "ForexMax Primary Research Sources", url: `${siteUrl}/sources`, description: "Official primary sources used as starting points for ForexMax research." },
+      { "@type": "ItemList", name: "ForexMax official source contracts", numberOfItems: primarySources.length, itemListElement: primarySources.map((source, index) => ({ "@type": "ListItem", position: index + 1, item: { "@type": "Organization", name: source.organization, url: source.url } })) },
+    ],
   };
 
   return (
@@ -29,12 +31,13 @@ export default function SourcesPage() {
       <section className={`shell section ${styles.directory}`} aria-label="Primary research sources">
         {primarySources.map((source) => (
           <article className={styles.card} key={source.id}>
-            <p className="eyebrow">{source.jurisdiction}</p>
+            <p className="eyebrow">{source.jurisdiction} / {source.accessMode.replaceAll("_", " ")}</p>
             <h2>{source.name}</h2>
             <p className={styles.organization}>{source.organization}</p>
             <dl>
               <div><dt>Coverage</dt><dd>{source.coverage}</dd></div>
               <div><dt>Access</dt><dd>{source.access}</dd></div>
+              <div><dt>Activation gate</dt><dd>{source.activationRequirement}</dd></div>
             </dl>
             <a className="text-link" href={source.url} rel="noopener noreferrer" target="_blank">Open official source ↗</a>
           </article>

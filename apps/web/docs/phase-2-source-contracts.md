@@ -41,8 +41,26 @@ The Phase 2 Vercel Preview for commit `75e1d62` returned `HTTP 200` for `/macro`
 
 At retrieval time, the Preview rendered these source-labelled observations: BLS CPI-U index `333.918` for July 2026; BLS civilian unemployment rate `4.1%` for July 2026; and FRED DGS10 `4.74%` for 21 August 2026. These values are a validation record, not a persistent database snapshot or an assessment.
 
+## Read-only research control preparation
+
+The public source directory now contains source contracts for the Federal Reserve/FRED, BLS, BEA, U.S. Treasury Fiscal Data, CFTC, EIA, ECB, Bank of England, BOJ, IMF, World Bank, and OECD. Each record exposes an official URL, an access type, coverage boundary, and an activation requirement. It is not a statement that the source is actively fetched or that its data is available in the application.
+
+The Research Desk and the authenticated Research Control Center were visually reviewed locally on 25 August 2026. The public desk presents existing published records alongside a publication boundary. The control center labels every persistence-dependent operation as blocked by `PREVIEW_DATABASE_REQUIRED`; it holds no example sources, events, evidence records, assessments, or editorial reviews in place of a Preview database.
+
+Mobile captures at 390px (`/research`) and 430px (`/sources`) confirmed that neither page had horizontal document overflow. The Research Desk stacks its methodology, archive, and publication-boundary sections. The source directory stacks the 12 official source contracts and their activation gates without reducing them to untraceable abbreviations.
+
 ## Source references
 
 1. [BLS Public Data API v2](https://www.bls.gov/developers/api_signature_v2.htm)
-2. [FRED series-observation API documentation](https://fred.stlouisfed.org/docs/api/fred/series_observations.html)
+2. [FRED series observations](https://fred.stlouisfed.org/docs/api/fred/series_observations.html)
+3. [BEA Data API](https://apps.bea.gov/api/signup/)
+4. [U.S. Treasury Fiscal Data API](https://fiscaldata.treasury.gov/api-documentation/)
+5. [CFTC Public Reporting API guidance](https://publicreporting.cftc.gov/stories/s/User-s-Guide/p2fg-u73y/)
+6. [EIA Open Data](https://www.eia.gov/opendata/)
+7. [ECB Data Portal API](https://data.ecb.europa.eu/help/api/overview)
+8. [Bank of England Database](https://www.bankofengland.co.uk/boeapps/database/)
+9. [BOJ Time-Series Data Search API guidance](https://www.stat-search.boj.or.jp/info/nme_aphelp_en.html)
+10. [IMF Data APIs](https://data.imf.org/en/Resource-Pages/IMF-API)
+11. [World Bank Open Data](https://data.worldbank.org/)
+12. [OECD Data API](https://www.oecd.org/en/data/insights/data-explainers/2024/09/api.html)
 3. [U.S. Treasury Fiscal Data API documentation](https://fiscaldata.treasury.gov/api-documentation/)
