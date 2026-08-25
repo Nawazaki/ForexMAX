@@ -8,6 +8,9 @@ export type MarketDirectoryEntry = {
   coverage: string;
   availability: DataQualityState;
   sourceFocus: string;
+  sourceIds: string[];
+  publicationBoundary: string;
+  deskRoute?: "/macro";
 };
 
 export const marketDirectory: MarketDirectoryEntry[] = [
@@ -15,46 +18,57 @@ export const marketDirectory: MarketDirectoryEntry[] = [
     slug: "forex",
     title: "Foreign exchange",
     eyebrow: "FX",
-    description: "Currency-market research should link macro releases, central-bank context and original source records before any interpretation is published.",
-    coverage: "EUR/USD, GBP/USD and USD/JPY coverage is not yet connected to a verified live-price contract.",
+    description: "Currency-market research begins with macro releases and central-bank context. ForexMax does not present this coverage as a live FX-price service.",
+    coverage: "Research framing for EUR/USD, GBP/USD and USD/JPY is available; a verified live-price contract is deliberately not activated.",
     availability: "UNAVAILABLE",
-    sourceFocus: "Central banks, official statistics and documented market-data contracts.",
+    sourceFocus: "Central-bank publications, official statistics and named market-data contracts.",
+    sourceIds: ["federal-reserve-fred", "ecb-data-portal", "bank-of-england-database", "bank-of-japan-time-series"],
+    publicationBoundary: "A public FX assessment needs linked releases, the reference period, a documented price-data basis where used, and editorial review."
   },
   {
     slug: "commodities",
     title: "Commodities",
     eyebrow: "COMMODITIES",
-    description: "Gold, energy and related research will use source-backed drivers, event records and declared freshness before figures or charts are shown.",
-    coverage: "No verified live gold or oil feed is currently connected to this research surface.",
+    description: "Commodity research separates regulated positioning and energy statistics from price charts or directional calls.",
+    coverage: "Official energy and positioning-source contracts are mapped; no verified live gold or oil feed is presented on this research surface.",
     availability: "UNAVAILABLE",
-    sourceFocus: "Official releases, energy agencies and documented market-data contracts.",
+    sourceFocus: "Official energy releases, CFTC reporting and documented market-data contracts.",
+    sourceIds: ["eia-open-data", "cftc-public-reporting"],
+    publicationBoundary: "A commodity record must identify its report family, report date, unit and source methodology before evidence can support publication."
   },
   {
     slug: "indices",
     title: "Indices",
     eyebrow: "INDICES",
-    description: "Index coverage requires a traceable market-data basis and clear separation between constituent facts, market data and editorial interpretation.",
-    coverage: "No verified index snapshot or historical-series contract is currently connected.",
+    description: "Index coverage requires a traceable market-data basis and separation between constituent facts, market data and editorial interpretation.",
+    coverage: "The coverage model is defined, but no official index-provider or exchange snapshot contract is active in this version.",
     availability: "UNAVAILABLE",
-    sourceFocus: "Exchange data, index providers and source-backed research records.",
+    sourceFocus: "Named exchange data, index-provider methodology and source-backed research records.",
+    sourceIds: [],
+    publicationBoundary: "No index level, chart or performance statement is published until an exact provider, symbol, frequency and freshness policy are documented."
   },
   {
     slug: "crypto",
     title: "Digital assets",
     eyebrow: "CRYPTO",
-    description: "Digital-asset pages will not imply a feed, price, liquidity measure or probability until their methodology and source contract are recorded.",
-    coverage: "No verified digital-asset market-data contract is currently connected.",
+    description: "Digital-asset research keeps protocol disclosures, regulatory records, market data and opinion distinct.",
+    coverage: "The research protocol is available; no verified digital-asset market-data contract is active on the public desk.",
     availability: "UNAVAILABLE",
-    sourceFocus: "Documented data providers, official protocol disclosures and regulated-source records where relevant.",
+    sourceFocus: "Documented providers, official protocol disclosures and regulated-source records where relevant.",
+    sourceIds: [],
+    publicationBoundary: "No price, liquidity, probability or directional statement appears without a named dataset, retrieval time, evidence record and editorial review."
   },
   {
     slug: "macro",
     title: "Macro and policy",
     eyebrow: "MACRO",
-    description: "This coverage begins with original records from statistical agencies and central banks, then connects verified releases to research events.",
-    coverage: "The official-source registry is available; structured event and release records require editorial workflow activation.",
+    description: "Macro coverage begins with original records from statistical agencies and central banks, then connects verified releases to research events.",
+    coverage: "The public desk reads limited current BLS, FRED and Treasury observations; structured event and release records still require editorial workflow activation.",
     availability: "REQUIRES_REVIEW",
-    sourceFocus: "Federal Reserve/FRED, BLS, BEA and additional official releases subject to verification.",
+    sourceFocus: "Federal Reserve/FRED, BLS, U.S. Treasury Fiscal Data and BEA releases subject to documented verification.",
+    sourceIds: ["federal-reserve-fred", "bls-cpi", "us-treasury-fiscal-data", "bea"],
+    publicationBoundary: "An observation is not a policy path or market reaction. Research publication requires a preserved source record, evidence and human review.",
+    deskRoute: "/macro"
   },
 ];
 

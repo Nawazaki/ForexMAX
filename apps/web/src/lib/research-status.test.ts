@@ -6,7 +6,7 @@ describe("research publication guardrails", () => {
     for (const status of ["UNAVAILABLE", "DELAYED", "STALE", "REQUIRES_REVIEW"] as const) {
       expect(presentDataQuality(status).canPresentAsFact).toBe(false);
     }
-    expect(presentDataQuality("UNAVAILABLE").label).toBe("Data unavailable");
+    expect(presentDataQuality("UNAVAILABLE").label).toBe("Source contract pending");
   });
 
   it("permits public assessment output only at the explicit published state", () => {
