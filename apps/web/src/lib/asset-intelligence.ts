@@ -1,5 +1,5 @@
 export type AssetIntelligenceProfile = {
-  slug: "gold-macro-drivers" | "eurusd" | "us-10y" | "sp500" | "wti";
+  slug: "gold-macro-drivers" | "eurusd" | "us-10y" | "sp500" | "nasdaq-composite" | "wti";
   title: string;
   eyebrow: string;
   description: string;
@@ -39,6 +39,13 @@ export const assetIntelligenceProfiles: AssetIntelligenceProfile[] = [
     overview: "The page holds a dated S&P 500 index observation alongside a dated VIX observation and U.S. rate context. It does not infer equity-market causes, returns, valuation, or a risk-on/risk-off regime from these limited records.",
     tapeIds: ["sp500", "vix", "us-10y", "us-10y-real"], macroIds: ["us-cpi", "us-unemployment", "us-10y"], eventIds: ["us-cpi", "us-employment-situation", "fed-policy"],
     limitations: "The public desk does not yet contain earnings, sector composition, breadth, options-flow or real-time equity data contracts."
+  },
+  {
+    slug: "nasdaq-composite", title: "NASDAQ Composite context", eyebrow: "EQUITIES / NASDAQ",
+    description: "Published NASDAQ Composite, S&P 500 and VIX observations with U.S. rates and official macro-release context.",
+    overview: "The page presents the latest published NASDAQ Composite closing observation from the named FRED series alongside dated broad-equity, volatility and rate context. It is not an intraday quote, earnings analysis, valuation view or directional assessment.",
+    tapeIds: ["nasdaq-composite", "sp500", "vix", "us-10y", "us-10y-real"], macroIds: ["us-cpi", "us-unemployment", "us-10y"], eventIds: ["us-cpi", "us-employment-situation", "fed-policy"],
+    limitations: "The public desk does not yet contain Nasdaq constituent data, earnings, sector composition, breadth, options-flow or real-time equity data contracts."
   },
   {
     slug: "wti", title: "WTI crude oil context", eyebrow: "ENERGY / WTI",

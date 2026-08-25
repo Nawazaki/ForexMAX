@@ -11,4 +11,10 @@ describe("asset intelligence profiles", () => {
   it("does not present an inactive gold price as a live input", () => {
     expect(getAssetIntelligenceProfile("gold-macro-drivers")?.overview).toContain("does not display a gold price");
   });
+
+  it("registers Nasdaq Composite only as dated source-backed market context", () => {
+    const nasdaq = getAssetIntelligenceProfile("nasdaq-composite");
+    expect(nasdaq?.tapeIds).toContain("nasdaq-composite");
+    expect(nasdaq?.overview).toContain("not an intraday quote");
+  });
 });
