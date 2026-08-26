@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from hashlib import sha256
 
-from .ai_provider import AIProvider
+from .ai_provider import AIProvider, normalize_plan_annotation
 
 
 @dataclass(frozen=True)
@@ -19,6 +19,7 @@ class ResearchPlan:
     failure_conditions: tuple[str, ...]
     provider_status: str
     notice: str
+    ai_annotation: tuple[str, ...]
 
     def serialize(self) -> dict[str, object]:
         return asdict(self)
@@ -59,4 +60,28 @@ def build_manual_research_plan(question: object, asset: str) -> ResearchPlan:
         ),
         provider_status=provider.status,
         notice="This is a deterministic review template, not an AI-generated conclusion. No AI provider is active.",
+        ai_annotation=(),
+    )
+
+
+def build_manus_review_plan(question: object, asset: str, annotation: dict[str, object]) -> ResearchPlan:
+    """Attach a validated AI framing without allowing it to alter execution or plan identity."""
+    manual = build_manual_research_plan(question, asset)
+    annotation = normalize_plan_annotation(annotation)
+    validation = annotation["validation_emphasis"]
+    limitations = annotation["limitation_emphasis"]
+    if not isinstance(validation, tuple) or not isinstance(limitations, tuple):
+        raise ValueError("AI annotation did not pass the approved structured-output boundary.")
+    notes = (
+        f"AI research framing: {annotation['research_intent']}",
+        f"Neutral testable hypothesis: {annotation['testable_hypothesis']}",
+        *(f"AI validation emphasis: {item}" for item in validation),
+        *(f"AI limitation emphasis: {item}" for item in limitations),
+        "Human review remains mandatory; the AI annotation cannot change the dataset, DSL, execution or run controls.",
+    )
+    return replace(
+        manual,
+        provider_status="ACTIVE_STRUCTURED_REVIEW",
+        notice="A Manus API structured annotation is available for review. It is not a conclusion, forecast, trade recommendation or executable instruction.",
+        ai_annotation=notes,
     )

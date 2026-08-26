@@ -5,6 +5,8 @@ from __future__ import annotations
 from dataclasses import asdict
 import json
 import sys
+import threading
+import time
 from http.server import BaseHTTPRequestHandler
 from pathlib import Path
 
@@ -14,12 +16,48 @@ if str(ROOT) not in sys.path:
 
 from quant_research.ai_provider import AIProvider
 from quant_research.datasets import DatasetRegistry
-from quant_research.plans import build_manual_research_plan
+from quant_research.plans import build_manual_research_plan, build_manus_review_plan
 from quant_research.service import run_research
 
 
 ALLOWED_PLAN_FIELDS = {"action", "question", "asset"}
 ALLOWED_RUN_FIELDS = {"action", "question", "reviewedPlanId", "provider", "periodYears", "capital", "strategy"}
+ALLOWED_AI_START_FIELDS = {"action", "question", "asset"}
+ALLOWED_AI_RESULT_FIELDS = {"action", "question", "asset", "taskId", "taskTicket"}
+
+
+class ManusTaskGate:
+    """Best-effort per-instance cap; durable enforcement needs authorized storage or edge controls."""
+
+    WINDOW_SECONDS = 15 * 60
+    MAX_STARTS_PER_CLIENT = 3
+    MAX_CONCURRENT_STARTS = 2
+    _lock = threading.Lock()
+    _starts_by_client: dict[str, list[float]] = {}
+    _active_starts = 0
+
+    @classmethod
+    def _client_key(cls, handler: BaseHTTPRequestHandler) -> str:
+        forwarded = handler.headers.get("x-forwarded-for", "").split(",", 1)[0].strip()
+        return forwarded or handler.client_address[0]
+
+    @classmethod
+    def acquire(cls, handler: BaseHTTPRequestHandler) -> None:
+        client = cls._client_key(handler)
+        now = time.monotonic()
+        with cls._lock:
+            starts = [started for started in cls._starts_by_client.get(client, []) if now - started < cls.WINDOW_SECONDS]
+            if len(starts) >= cls.MAX_STARTS_PER_CLIENT:
+                raise ValueError("AI plan creation is temporarily rate-limited. Use the deterministic plan or try again later.")
+            if cls._active_starts >= cls.MAX_CONCURRENT_STARTS:
+                raise ValueError("AI plan creation is temporarily busy. Use the deterministic plan or try again later.")
+            cls._starts_by_client[client] = [*starts, now]
+            cls._active_starts += 1
+
+    @classmethod
+    def release(cls) -> None:
+        with cls._lock:
+            cls._active_starts = max(0, cls._active_starts - 1)
 
 
 def capabilities() -> dict[str, object]:
@@ -73,6 +111,29 @@ class handler(BaseHTTPRequestHandler):
                     raise ValueError("Plan request fields do not match the approved Quant Research contract.")
                 self._respond(200, build_manual_research_plan(payload["question"], payload["asset"]).serialize())
                 return
+            if payload.get("action") == "AI_PLAN_START":
+                if set(payload) != ALLOWED_AI_START_FIELDS:
+                    raise ValueError("AI plan request fields do not match the approved Quant Research contract.")
+                validated_plan = build_manual_research_plan(payload["question"], payload["asset"])
+                ManusTaskGate.acquire(self)
+                try:
+                    response = AIProvider().start_plan_annotation(validated_plan.objective, validated_plan.asset)
+                finally:
+                    ManusTaskGate.release()
+                self._respond(202, response)
+                return
+            if payload.get("action") == "AI_PLAN_RESULT":
+                if set(payload) != ALLOWED_AI_RESULT_FIELDS:
+                    raise ValueError("AI review result fields do not match the approved Quant Research contract.")
+                result = AIProvider().get_plan_annotation(payload["taskId"], payload["taskTicket"])
+                if result.get("status") == "COMPLETED":
+                    annotation = result.get("annotation")
+                    if not isinstance(annotation, dict):
+                        raise ValueError("AI review result did not match the approved contract.")
+                    self._respond(200, {"status": "COMPLETED", "plan": build_manus_review_plan(payload["question"], payload["asset"], annotation).serialize()})
+                    return
+                self._respond(200, result)
+                return
             if payload.get("action") == "RUN":
                 if set(payload) != ALLOWED_RUN_FIELDS:
                     raise ValueError("Run request fields do not match the approved Quant Research contract.")
@@ -85,7 +146,7 @@ class handler(BaseHTTPRequestHandler):
                     strategy_payload=payload["strategy"],
                 ))
                 return
-            raise ValueError("Quant Research action must be PLAN or RUN.")
+            raise ValueError("Quant Research action must be PLAN, AI_PLAN_START, AI_PLAN_RESULT or RUN.")
         except ValueError as error:
             self._respond(400, {"error": str(error)})
         except Exception:
