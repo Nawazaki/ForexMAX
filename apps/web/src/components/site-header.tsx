@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const primaryLinks = [["Markets", "/markets"], ["Macro", "/macro"], ["Research", "/research"], ["Risk", "/risk-intelligence"], ["Prop Firms", "/prop-firm-comparison"], ["Tools", "/tools"], ["Education", "/education"], ["Sources", "/sources"]] as const;
+const primaryLinks = [["Markets", "/markets"], ["Macro", "/macro"], ["Research", "/research"], ["Backtest", "/backtest"], ["Risk", "/risk-intelligence"], ["Prop Firms", "/prop-firm-comparison"], ["Tools", "/tools"], ["Education", "/education"], ["Sources", "/sources"]] as const;
 const marketLinks = [["FX", "/markets/forex"], ["Gold & commodities", "/markets/commodities"], ["Indices", "/markets/indices"], ["Crypto", "/markets/crypto"], ["Rates", "/macro"], ["Economy", "/macro"], ["Central Banks", "/sources"]] as const;
 
 export function SiteHeader() {

@@ -1,0 +1,64 @@
+.workbench { margin-block: 2rem 5rem; }
+.modeBar { display: flex; align-items: center; gap: .4rem; border-block: 1px solid var(--line); padding: .65rem 0; margin-bottom: 1.75rem; }
+.modeBar button { border: 0; background: transparent; padding: .5rem .75rem; color: var(--muted); font: inherit; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; cursor: pointer; }
+.modeBar .activeMode { background: var(--ink); color: var(--paper); }
+.modeBar p { margin-left: auto; color: var(--muted); font-size: .78rem; }
+.grid { display: grid; grid-template-columns: minmax(270px, .82fr) minmax(0, 1.7fr); gap: 2rem; align-items: start; }
+.controls { background: #f0eee8; padding: 1.5rem; border-top: 3px solid var(--gold); display: grid; gap: 1rem; }
+.controls h2, .results h2, .researchMode h2 { font-size: clamp(1.65rem, 3vw, 2.65rem); line-height: .98; margin: .25rem 0 .7rem; }
+.controls label { display: grid; gap: .42rem; color: var(--muted); font-size: .73rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
+.controls input, .controls select { width: 100%; border: 1px solid var(--line); background: var(--paper); color: var(--ink); padding: .75rem; font: inherit; font-size: .95rem; border-radius: 0; }
+.twoCol { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+.inputHint, .muted { margin: -.65rem 0 0; color: var(--muted); font-size: .8rem; line-height: 1.5; }
+.runButton { appearance: none; border: 0; background: var(--ink); color: var(--paper); padding: .9rem 1rem; font: inherit; font-weight: 700; cursor: pointer; transition: transform 160ms cubic-bezier(.23,1,.32,1), background 160ms cubic-bezier(.23,1,.32,1); }
+.runButton:disabled { background: #85827c; cursor: not-allowed; }
+.runButton:not(:disabled):active { transform: scale(.97); }
+.results { min-height: 620px; border-top: 3px solid var(--ink); }
+.emptyResult { padding: 4.5rem 2rem; max-width: 650px; }
+.emptyResult p { max-width: 58ch; color: var(--muted); }
+.emptyResult dl, .detailGrid dl { margin-top: 2rem; }
+.emptyResult dl div, .detailGrid dl div { display: grid; grid-template-columns: 150px 1fr; gap: 1rem; border-top: 1px solid var(--line); padding: .75rem 0; }
+.emptyResult dt, .detailGrid dt { color: var(--accent); font-size: .72rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
+.emptyResult dd, .detailGrid dd { margin: 0; font-size: .9rem; }
+.resultBody { padding: 1.4rem 0 0; }
+.resultHeader { display: flex; justify-content: space-between; gap: 1rem; align-items: start; border-bottom: 1px solid var(--line); padding-bottom: 1.25rem; }
+.resultHeader h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); }
+.resultHeader p, .tradeSection > p { color: var(--muted); font-size: .83rem; }
+.resultHeader a, .forensics a { color: var(--blue); font-size: .83rem; font-weight: 700; white-space: nowrap; }
+.metricGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-bottom: 1px solid var(--line); }
+.metric { padding: 1rem .75rem 1rem 0; border-right: 1px solid var(--line); margin-right: .75rem; }
+.metric:nth-child(4n) { border-right: 0; }
+.metric span { display: block; color: var(--muted); font-size: .7rem; letter-spacing: .05em; text-transform: uppercase; }
+.metric strong { display: block; font-family: var(--font-display); font-size: 1.35rem; margin-top: .3rem; }
+.curveFigure { margin: 1.75rem 0; padding: 1.15rem; background: #f5f3ef; }
+.curveFigure figcaption { display: flex; justify-content: space-between; margin-bottom: .75rem; }
+.curveFigure figcaption span { font-weight: 700; }
+.curveFigure figcaption small { color: var(--muted); }
+.curveFigure svg { width: 100%; height: 210px; overflow: visible; }
+.curveFigure line { stroke: #c6c1b8; stroke-width: .45; }
+.curveFigure polyline { fill: none; stroke: var(--blue); stroke-width: 1.4; vector-effect: non-scaling-stroke; }
+.curveAxis { display: flex; justify-content: space-between; color: var(--muted); font-size: .72rem; }
+.detailGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0; }
+.detailGrid h3, .tradeSection h3, .limitations h3 { margin: 0 0 .75rem; font-size: 1.1rem; }
+.detailGrid ul, .limitations ul, .blocker ul { margin: 0; padding-left: 1.1rem; color: var(--muted); font-size: .86rem; line-height: 1.6; }
+.detailGrid li + li, .limitations li + li, .blocker li + li { margin-top: .45rem; }
+.tradeSection { border-top: 1px solid var(--line); padding-top: 1.25rem; }
+.tradeSection > div:first-child { display: flex; justify-content: space-between; }
+.tradeTable { overflow-x: auto; border-top: 1px solid var(--line); }
+.tradeTable table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+.tradeTable th { color: var(--muted); text-align: left; font-size: .68rem; letter-spacing: .05em; text-transform: uppercase; }
+.tradeTable th, .tradeTable td { padding: .7rem .5rem; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.limitations { margin-top: 2rem; padding: 1.25rem; background: #fbf2e0; border-left: 3px solid var(--gold); }
+.error, .errorPanel { color: #a31515; font-size: .82rem; }
+.errorPanel { border-left: 3px solid #a31515; background: #fff4f3; padding: 1rem; margin: 1rem 0; }
+.errorPanel p { margin-bottom: 0; }
+.researchMode { max-width: 820px; padding: 4rem 0 5rem; }
+.researchMode > p:nth-of-type(2) { max-width: 68ch; color: var(--muted); }
+.researchMode .runButton { margin-top: 1rem; }
+.blocker { margin-top: 1.5rem; background: #fbf2e0; border-left: 3px solid var(--gold); padding: 1.2rem; }
+.blocker strong { color: var(--accent); font-size: .75rem; letter-spacing: .08em; }
+.forensics { display: grid; grid-template-columns: .7fr 1.4fr auto; gap: 2rem; align-items: start; padding: 2rem 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-bottom: 4rem; }
+.forensics h2 { margin: 0; font-size: clamp(1.4rem, 2.5vw, 2rem); }
+.forensics p { color: var(--muted); line-height: 1.6; }
+@media (max-width: 820px) { .modeBar { flex-wrap: wrap; } .modeBar p { width: 100%; margin: .3rem 0 0; } .grid, .detailGrid, .forensics { grid-template-columns: 1fr; } .results { min-height: 0; } .metricGrid { grid-template-columns: repeat(2, 1fr); } .metric:nth-child(2n) { border-right: 0; } .metric:nth-child(4n) { border-right: 0; } .resultHeader { flex-direction: column; } .forensics { gap: .75rem; } }
+@media (prefers-reduced-motion: reduce) { .runButton { transition: none; } }
