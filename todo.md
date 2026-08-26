@@ -63,3 +63,4 @@
 - [x] إضافة اختبارات robustness متاحة على نتائج حقيقية: split out-of-sample وparameter sensitivity وtransaction-cost sensitivity وtrade-order Monte Carlo، مع توضيح الحدود والمنهجية.
 - [x] إبقاء walk-forward وregime/event-study وcross-asset وintraday/multi-asset المتقدم محجوبة حتى توفر بيانات صالحة موثقة ولا تظهر كنتائج أو قدرات مكتملة.
 - [ ] تطوير Research Report قابل للتدقيق يعرض dataset provenance والافتراضات والقيود والنتائج التاريخية فقط، ثم فحص الجودة وبناء ونشر Preview فقط.
+- [x] مواءمة metadata وJSON-LD لمسار `/backtest` مع تسمية Quant Research الجديدة مع الاحتفاظ بـAlphaBacktest كمرجع fidelity منفصل.
