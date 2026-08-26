@@ -7,7 +7,6 @@ from datetime import UTC, datetime, timedelta
 from hashlib import sha256
 
 import pandas as pd
-from pandas_datareader import data as pdr
 import yfinance as yf
 
 from .contracts import Dataset, DatasetRef
@@ -47,6 +46,8 @@ class YahooDailyResearchProvider:
         fetch_end = (retrieved_at + timedelta(days=1)).date()
         provider_route = "Yahoo Finance via pandas_datareader"
         try:
+            from pandas_datareader import data as pdr
+
             raw = pdr.get_data_yahoo(asset.yahoo_symbol, start=fetch_start, end=fetch_end)
         except Exception:
             raw = yf.download(asset.yahoo_symbol, start=fetch_start, end=fetch_end, interval="1d", auto_adjust=False, progress=False, threads=False)
