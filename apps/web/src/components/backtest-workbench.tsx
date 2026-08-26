@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import styles from "./backtest-workbench.module.css";
+import { QuantResearchWorkspace } from "./quant-research-workspace";
 
-type Mode = "STRATEGY" | "RESEARCH_EVENT";
+type Mode = "QUANT_RESEARCH" | "STRATEGY";
 type Asset = "SP500" | "EURUSD" | "USDJPY";
 
 type EngineResult = {
@@ -20,8 +21,6 @@ type EngineResult = {
   assumptions: string[];
   limitations: string[];
 };
-
-type Capabilities = { engine: string; execution: string; strategies: Array<{ id: string; label: string }>; assets: Array<{ id: Asset; label: string; provider: string }>; originalIndicators: string[]; activeIndicators: string[]; researchMode: { status: string; reason: string } };
 
 const assetOptions: Array<{ id: Asset; label: string; detail: string }> = [
   { id: "SP500", label: "S&P 500", detail: "Yahoo Finance daily OHLCV reference series" },
@@ -42,7 +41,7 @@ function EquityCurve({ result }: { result: EngineResult }) {
 }
 
 export function BacktestWorkbench() {
-  const [mode, setMode] = useState<Mode>("STRATEGY");
+  const [mode, setMode] = useState<Mode>("QUANT_RESEARCH");
   const [asset, setAsset] = useState<Asset>("SP500");
   const [periodYears, setPeriodYears] = useState(1);
   const [fastWindow, setFastWindow] = useState(20);
@@ -53,12 +52,11 @@ export function BacktestWorkbench() {
   const [slippagePercent, setSlippagePercent] = useState(0.01);
   const [leverage, setLeverage] = useState(1);
   const [result, setResult] = useState<EngineResult | null>(null);
-  const [capabilities, setCapabilities] = useState<Capabilities | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isRunning, setIsRunning] = useState(false);
 
   async function runStrategy() {
-    setError(null); setResult(null); setCapabilities(null); setIsRunning(true);
+    setError(null); setResult(null); setIsRunning(true);
     try {
       const response = await fetch("/api/alphabacktest", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ asset, strategy: "SMA_CROSSOVER", periodYears, fastWindow, slowWindow, positionSize, capital, fees: feePercent / 100, slippage: slippagePercent / 100, leverage }) });
       const body = await response.json();
@@ -68,22 +66,11 @@ export function BacktestWorkbench() {
     finally { setIsRunning(false); }
   }
 
-  async function inspectResearchMode() {
-    setError(null); setResult(null); setIsRunning(true);
-    try {
-      const response = await fetch("/api/alphabacktest", { cache: "no-store" });
-      const body = await response.json();
-      if (!response.ok) throw new Error(body.error ?? "AlphaBacktest capabilities could not be retrieved.");
-      setCapabilities(body as Capabilities);
-    } catch (runError) { setError(runError instanceof Error ? runError.message : "Research-mode status could not be retrieved."); }
-    finally { setIsRunning(false); }
-  }
-
   return <>
-    <section className="shell page-intro"><p className="eyebrow">ALPHABACKTEST / PYTHON ENGINE / PREVIEW</p><h1>Preserved engine, bounded research interface.</h1><p>This lab calls the original AlphaBacktest Python Account → Portfolio → Trader → Broker → Engine flow behind a constrained API. It is historical research infrastructure, not personalized financial advice or a signal service.</p></section>
+    <section className="shell page-intro"><p className="eyebrow">QUANT RESEARCH / REVIEW-GATED / PREVIEW</p><h1>Question-led research, constrained execution.</h1><p>ForexMax turns a research question into a reviewable, source-aware plan before it runs a versioned Strategy DSL. It is historical research infrastructure, not personalized financial advice, a forecast, a trading signal or an execution service.</p></section>
     <section className={`shell ${styles.workbench}`}>
-      <div className={styles.modeBar} role="tablist" aria-label="Backtest mode"><button type="button" className={mode === "STRATEGY" ? styles.activeMode : ""} onClick={() => { setMode("STRATEGY"); setCapabilities(null); }}>Strategy Backtest</button><button type="button" className={mode === "RESEARCH_EVENT" ? styles.activeMode : ""} onClick={() => { setMode("RESEARCH_EVENT"); setResult(null); }}>Research Backtest</button><p>Python server-side · no file upload · no user code</p></div>
-      {mode === "STRATEGY" ? <div className={styles.grid}>
+      <div className={styles.modeBar} role="tablist" aria-label="Backtest mode"><button type="button" className={mode === "QUANT_RESEARCH" ? styles.activeMode : ""} onClick={() => setMode("QUANT_RESEARCH")}>Quant Research</button><button type="button" className={mode === "STRATEGY" ? styles.activeMode : ""} onClick={() => { setMode("STRATEGY"); setResult(null); }}>AlphaBacktest Reference</button><p>Python server-side · no file upload · no user code</p></div>
+      {mode === "QUANT_RESEARCH" ? <QuantResearchWorkspace /> : <div className={styles.grid}>
         <aside className={styles.controls}><div><p className="eyebrow">DEFINED ORIGINAL-ENGINE INPUTS</p><h2>Run a constrained strategy wrapper.</h2><p className={styles.muted}>The source engine is preserved. The only enabled wrapper strategy is SMA crossover; it places the original engine&apos;s delayed orders and uses its broker, leverage, fee, slippage, portfolio and PnL logic.</p></div>
           <label>Asset<select value={asset} onChange={(event) => setAsset(event.target.value as Asset)}>{assetOptions.map((option) => <option key={option.id} value={option.id}>{option.label}</option>)}</select></label>
           <p className={styles.inputHint}>{assetOptions.find((option) => option.id === asset)?.detail} · Provider is explicit in every result.</p>
@@ -95,9 +82,9 @@ export function BacktestWorkbench() {
           {fastWindow >= slowWindow ? <p className={styles.error}>Fast SMA must be smaller than slow SMA.</p> : null}
         </aside>
         <section className={styles.results} aria-live="polite">{error ? <div className={styles.errorPanel}><strong>Request not completed.</strong><p>{error}</p></div> : null}{result ? <StrategyResult result={result} /> : <ResultEmpty />}</section>
-      </div> : <ResearchMode capabilities={capabilities} isRunning={isRunning} onInspect={inspectResearchMode} error={error} />}
+      </div>}
     </section>
-    <section className={`shell ${styles.forensics}`}><p className="eyebrow">MARKET FORENSICS</p><div><h2>Event studies will wrap the same engine.</h2><p>Future CPI, FOMC, NFP and central-bank studies will require verified event time, release time, information cutoff, data version, source URL and timezone. ForexMax will pass those datasets to a wrapper; it will not edit the AlphaBacktest engine or fabricate a reaction study.</p></div><Link href="/methodology">Read the evidence methodology →</Link></section>
+    <section className={`shell ${styles.forensics}`}><p className="eyebrow">RESEARCH GOVERNANCE</p><div><h2>Methods are visible before conclusions.</h2><p>Each report exposes its provider, retrieval time, dataset version, adjustment policy, information cutoff, temporal split, assumptions and limits. Event studies, intraday data, multi-asset research and persisted strategy memory remain unavailable until their datasets and storage controls are verified.</p></div><Link href="/methodology">Read the evidence methodology →</Link></section>
   </>;
 }
 
@@ -106,7 +93,5 @@ function ResultEmpty() { return <div className={styles.emptyResult}><p className
 function StrategyResult({ result }: { result: EngineResult }) { const { metrics } = result; return <div className={styles.resultBody}><div className={styles.resultHeader}><div><p className="eyebrow">COMPLETED / ORIGINAL PYTHON ENGINE</p><h2>{result.dataset.label} · {result.configuration.strategy}</h2><p>{result.dataset.referencePeriodStart} to {result.dataset.referencePeriodEnd} · retrieved {new Date(result.dataset.retrievedAt).toLocaleString("en-GB", { timeZone: "UTC", timeZoneName: "short" })}</p></div><a href={result.dataset.sourceUrl} target="_blank" rel="noreferrer">Open provider ↗</a></div><div className={styles.metricGrid}><Metric label="Portfolio value" value={money(metrics.portfolioValue)} /><Metric label="Portfolio PnL" value={`${number(metrics.portfolioPnlPct)}%`} /><Metric label="Max drawdown" value={`${number(metrics.maxDrawdownPct)}%`} /><Metric label="Fees paid" value={money(metrics.feesPaid)} /><Metric label="Orders" value={String(metrics.orders)} /><Metric label="Executed trades" value={String(metrics.executedTrades)} /><Metric label="Closed positions" value={String(metrics.closedPositions)} /><Metric label="Open positions" value={String(metrics.openPositions)} /></div><EquityCurve result={result} /><div className={styles.detailGrid}><section><h3>Engine and data provenance</h3><dl><div><dt>Engine</dt><dd>{result.engine.name} {result.engine.version} · {result.engine.execution}</dd></div><div><dt>Provider</dt><dd>{result.dataset.provider}</dd></div><div><dt>Symbol</dt><dd>{result.dataset.symbol}</dd></div><div><dt>Frequency</dt><dd>{result.dataset.frequency}</dd></div><div><dt>Adjustment</dt><dd>{result.dataset.adjustment}</dd></div><div><dt>Version</dt><dd>{result.dataset.dataVersion}</dd></div></dl></section><section><h3>Original-engine assumptions</h3><ul>{result.assumptions.map((assumption) => <li key={assumption}>{assumption}</li>)}</ul></section></div><Ledger heading="TRADE LEDGER" title="Original broker trade records" rows={result.trades} columns={["Security", "Type", "Datetime", "Price", "Amount"]} empty="No executed trade was recorded for this run." /><Ledger heading="POSITION LEDGER" title="Original Portfolio entries and exits" rows={result.positions} columns={["Security", "ODate", "OPrice", "CDate", "CPrice", "Amount", "PNL", "Performance"]} empty="No position record was returned for this run." /><section className={styles.limitations}><h3>Limits that remain visible</h3><ul>{result.limitations.map((limitation) => <li key={limitation}>{limitation}</li>)}</ul></section></div>; }
 
 function Ledger({ heading, title, rows, columns, empty }: { heading: string; title: string; rows: Array<Record<string, string | number | null>>; columns: string[]; empty: string }) { return <section className={styles.tradeSection}><div><p className="eyebrow">{heading}</p><h3>{title}</h3></div><div className={styles.tradeTable}><table><thead><tr>{columns.map((column) => <th key={column}>{column}</th>)}</tr></thead><tbody>{rows.length ? rows.map((row) => <tr key={String(row.id)}>{columns.map((column) => <td key={column}>{row[column] ?? "—"}</td>)}</tr>) : <tr><td colSpan={columns.length}>{empty}</td></tr>}</tbody></table></div></section>; }
-
-function ResearchMode({ capabilities, isRunning, onInspect, error }: { capabilities: Capabilities | null; isRunning: boolean; onInspect: () => void; error: string | null }) { return <section className={styles.researchMode}><p className="eyebrow">RESEARCH BACKTEST / EVENT REACTION</p><h2>Historical reaction work has a provenance gate.</h2><p>The same AlphaBacktest Python engine will be available through a wrapper when a verified event dataset exists. ForexMax will not create reaction statistics from a chart alone.</p><button type="button" className={styles.runButton} onClick={onInspect} disabled={isRunning}>{isRunning ? "Checking Python service…" : "Inspect engine and research readiness"}</button>{error ? <p className={styles.error}>{error}</p> : null}{capabilities ? <div className={styles.blocker}><strong>{capabilities.researchMode.status}</strong><p>{capabilities.researchMode.reason}</p><p>Original source indicators: {capabilities.originalIndicators.join(", ")}. Active serverless indicators: {capabilities.activeIndicators.length ? capabilities.activeIndicators.join(", ") : "none until TA-Lib compatibility is verified"}.</p></div> : null}</section>; }
 
 function Metric({ label, value }: { label: string; value: string }) { return <div className={styles.metric}><span>{label}</span><strong>{value}</strong></div>; }

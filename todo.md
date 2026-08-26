@@ -55,3 +55,11 @@
 - [x] إضافة regression harness يقارن AlphaBacktest الأصلي مباشرة بالمحرك المندمج لبيانات واستراتيجية ومحفظة وتسلسل صفقات واحد على الأقل ضمن tolerance موثق.
 - [x] تحديث واجهة Backtest لتكشف فقط الاستراتيجيات والمؤشرات التي يثبت أنها مدعومة في AlphaBacktest الأصلي، مع الحفاظ على Research Backtest كطبقة wrapper محجوبة عند غياب provenance.
 - [x] اختبار تشغيل Python وخدمة API وواجهة Next.js وBuild وPreview، ثم توثيق الملفات المعاد استخدامها والملفات المحفوظة ونتائج fidelity والترخيص والقيود.
+- [x] استكمال تدقيق طلب AI Quant Research وتسجيل ما يؤجل بسبب بيانات أو صلاحيات أو بنية تشغيلية غير متاحة، مع منع أي توصية أو تنفيذ تداول.
+- [ ] إعادة هيكلة AlphaBacktest تدريجيًا إلى مكوّنات بيانات واستراتيجية وتنفيذ ومحفظة وتحليلات وطبقة AI/Research، مع الحفاظ على السلوك الذي اجتاز fidelity وتوثيق أي تغيير حسابي.
+- [x] تصميم Dataset Registry وData Quality Gate يسجل المصدر والتردد والمنطقة الزمنية والتغطية ووقت الجلب والنسخة وسياسة التعديلات وinformation cutoff قبل كل تشغيل.
+- [x] بناء Strategy DSL مقيدة وقابلة للإصدار والتحقق بدل أي كود AI حر، مع compiler متوافق مع محرك Backtest ودعم Long وShort والـposition/risk/exit/filter المتاح فعليًا.
+- [x] إنشاء Research Plan منظم وواجهة Natural-Language أولية تتطلب مراجعة المستخدم قبل أي تشغيل، دون تمكين نموذج AI أو استدعاء خارجي حتى اكتمال عقده ومفاتيحه الآمنة.
+- [x] إضافة اختبارات robustness متاحة على نتائج حقيقية: split out-of-sample وparameter sensitivity وtransaction-cost sensitivity وtrade-order Monte Carlo، مع توضيح الحدود والمنهجية.
+- [x] إبقاء walk-forward وregime/event-study وcross-asset وintraday/multi-asset المتقدم محجوبة حتى توفر بيانات صالحة موثقة ولا تظهر كنتائج أو قدرات مكتملة.
+- [ ] تطوير Research Report قابل للتدقيق يعرض dataset provenance والافتراضات والقيود والنتائج التاريخية فقط، ثم فحص الجودة وبناء ونشر Preview فقط.

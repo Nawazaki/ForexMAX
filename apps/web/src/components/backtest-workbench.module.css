@@ -4,6 +4,15 @@
 .modeBar .activeMode { background: var(--ink); color: var(--paper); }
 .modeBar p { margin-left: auto; color: var(--muted); font-size: .78rem; }
 .grid { display: grid; grid-template-columns: minmax(270px, .82fr) minmax(0, 1.7fr); gap: 2rem; align-items: start; }
+.quantGrid { display: grid; grid-template-columns: minmax(290px, .88fr) minmax(0, 1.7fr); gap: 2rem; align-items: start; }
+.questionPanel { background: #f0eee8; padding: 1.5rem; border-top: 3px solid var(--gold); display: grid; gap: 1rem; }
+.questionPanel h2 { font-size: clamp(1.65rem, 3vw, 2.35rem); line-height: .98; margin: .25rem 0 .7rem; }
+.questionPanel label, .advancedControls label { display: grid; gap: .42rem; color: var(--muted); font-size: .73rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
+.questionPanel textarea, .questionPanel select, .advancedControls input, .advancedControls select { width: 100%; min-height: 2.85rem; border: 1px solid var(--line); background: var(--paper); color: var(--ink); padding: .75rem; font: inherit; font-size: .95rem; border-radius: 0; }
+.questionPanel textarea { min-height: 10rem; resize: vertical; line-height: 1.55; }
+.aiStatus { border-left: 3px solid var(--gold); background: #fbf2e0; padding: .9rem; }
+.aiStatus strong, .statusTag { color: var(--accent); font-size: .7rem; letter-spacing: .08em; }
+.aiStatus p { margin: .5rem 0 0; color: var(--muted); font-size: .8rem; line-height: 1.5; }
 .controls { background: #f0eee8; padding: 1.5rem; border-top: 3px solid var(--gold); display: grid; gap: 1rem; }
 .controls h2, .results h2, .researchMode h2 { font-size: clamp(1.65rem, 3vw, 2.65rem); line-height: .98; margin: .25rem 0 .7rem; }
 .controls label { display: grid; gap: .42rem; color: var(--muted); font-size: .73rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
@@ -21,6 +30,19 @@
 .emptyResult dt, .detailGrid dt { color: var(--accent); font-size: .72rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
 .emptyResult dd, .detailGrid dd { margin: 0; font-size: .9rem; }
 .resultBody { padding: 1.4rem 0 0; }
+.planReview { padding: 1.4rem 0 0; }
+.statusTag { border: 1px solid var(--gold); padding: .45rem .55rem; font-weight: 700; white-space: nowrap; }
+.planObjective { margin: 1.25rem 0; padding: 1rem; border-left: 3px solid var(--blue); background: #f5f3ef; display: grid; gap: .3rem; }
+.planObjective span { color: var(--muted); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; }
+.planObjective strong { line-height: 1.45; }
+.planColumns, .robustnessGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; border-top: 1px solid var(--line); padding: 1.2rem 0; }
+.planColumns section, .robustnessTable { min-width: 0; }
+.planColumns ul, .detailGrid ul { margin: 0; padding-left: 1.1rem; color: var(--muted); font-size: .84rem; line-height: 1.55; }
+.planColumns li + li, .detailGrid li + li { margin-top: .45rem; }
+.advancedControls { padding: 1.1rem; margin: 1.25rem 0; background: #f5f3ef; border: 1px solid var(--line); }
+.advancedControls summary { cursor: pointer; font-weight: 700; }
+.advancedControls > p { color: var(--muted); font-size: .82rem; line-height: 1.5; }
+.reviewNotice { color: var(--muted); font-size: .8rem; line-height: 1.5; }
 .resultHeader { display: flex; justify-content: space-between; gap: 1rem; align-items: start; border-bottom: 1px solid var(--line); padding-bottom: 1.25rem; }
 .resultHeader h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); }
 .resultHeader p, .tradeSection > p { color: var(--muted); font-size: .83rem; }
@@ -39,6 +61,22 @@
 .curveFigure polyline { fill: none; stroke: var(--blue); stroke-width: 1.4; vector-effect: non-scaling-stroke; }
 .curveAxis { display: flex; justify-content: space-between; color: var(--muted); font-size: .72rem; }
 .detailGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0; }
+.datasetPanel { margin-top: 1.6rem; padding: 1.15rem; background: #f5f3ef; border-top: 2px solid var(--blue); }
+.datasetPanel h3, .splitPanel h3, .robustnessTable h3, .monteCarlo h3 { margin: .25rem 0 .75rem; font-size: 1.1rem; }
+.datasetPanel dl { margin: 0; }
+.datasetPanel dl div { display: grid; grid-template-columns: 150px 1fr; gap: 1rem; border-top: 1px solid var(--line); padding: .6rem 0; }
+.datasetPanel dt { color: var(--accent); font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+.datasetPanel dd { margin: 0; font-size: .85rem; overflow-wrap: anywhere; }
+.splitPanel { margin-top: 1.5rem; padding: 1.15rem; border-top: 2px solid var(--gold); background: #fbf2e0; }
+.splitPanel > div { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.splitPanel span { display: grid; gap: .2rem; font-size: .84rem; }
+.splitPanel small { color: var(--muted); line-height: 1.4; }
+.robustnessGrid { grid-template-columns: 1fr 1fr; margin-top: 1.5rem; }
+.robustnessTable > p:not(.eyebrow), .monteCarlo > p:not(.eyebrow) { color: var(--muted); font-size: .82rem; line-height: 1.5; }
+.robustnessTable table { width: 100%; border-collapse: collapse; font-size: .78rem; }
+.robustnessTable th, .robustnessTable td { padding: .55rem .35rem; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+.robustnessTable th { color: var(--muted); font-size: .67rem; text-transform: uppercase; letter-spacing: .05em; }
+.monteCarlo { margin-top: 1.5rem; padding: 1.15rem; border-left: 3px solid var(--blue); background: #f5f3ef; }
 .detailGrid h3, .tradeSection h3, .limitations h3 { margin: 0 0 .75rem; font-size: 1.1rem; }
 .detailGrid ul, .limitations ul, .blocker ul { margin: 0; padding-left: 1.1rem; color: var(--muted); font-size: .86rem; line-height: 1.6; }
 .detailGrid li + li, .limitations li + li, .blocker li + li { margin-top: .45rem; }
@@ -60,5 +98,5 @@
 .forensics { display: grid; grid-template-columns: .7fr 1.4fr auto; gap: 2rem; align-items: start; padding: 2rem 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin-bottom: 4rem; }
 .forensics h2 { margin: 0; font-size: clamp(1.4rem, 2.5vw, 2rem); }
 .forensics p { color: var(--muted); line-height: 1.6; }
-@media (max-width: 820px) { .modeBar { flex-wrap: wrap; } .modeBar p { width: 100%; margin: .3rem 0 0; } .grid, .detailGrid, .forensics { grid-template-columns: 1fr; } .results { min-height: 0; } .metricGrid { grid-template-columns: repeat(2, 1fr); } .metric:nth-child(2n) { border-right: 0; } .metric:nth-child(4n) { border-right: 0; } .resultHeader { flex-direction: column; } .forensics { gap: .75rem; } }
+@media (max-width: 820px) { .modeBar { flex-wrap: wrap; } .modeBar p { width: 100%; margin: .3rem 0 0; } .grid, .quantGrid, .detailGrid, .forensics, .planColumns, .robustnessGrid { grid-template-columns: 1fr; } .results { min-height: 0; } .metricGrid { grid-template-columns: repeat(2, 1fr); } .metric:nth-child(2n) { border-right: 0; } .metric:nth-child(4n) { border-right: 0; } .resultHeader { flex-direction: column; } .forensics { gap: .75rem; } .splitPanel > div { grid-template-columns: 1fr; } .datasetPanel dl div { grid-template-columns: 1fr; gap: .2rem; } }
 @media (prefers-reduced-motion: reduce) { .runButton { transition: none; } }
