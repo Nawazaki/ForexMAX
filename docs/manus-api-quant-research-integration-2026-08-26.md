@@ -1,6 +1,6 @@
 # Manus API × ForexMax Quant Research — Preview Integration
 
-**Status:** Preview-only implementation pending live credential validation  
+**Status:** Preview-only implementation validated at capability level
 **Scope:** structured research-plan annotation only  
 **Credential name:** `MANUS_API_KEY` in Vercel Preview only
 
@@ -41,7 +41,13 @@ If a task reports `waiting`, the function marks it `BLOCKED`; it will not submit
 
 ## Verification plan
 
-The Python contract suite validates schema strictness, no-secret status messages, prompt prohibitions, plan-ID preservation, and rate/concurrency bounds without a live API call. Live Preview validation consists of confirming `CONFIGURED`, creating one user-initiated structured annotation, receiving a validated plan, and proving that the historical run remains unavailable until the user reviews that plan.
+The Python contract suite validates schema strictness, no-secret status messages, prompt prohibitions, plan-ID preservation, and rate/concurrency bounds without a live API call. Live Preview validation first confirms `CONFIGURED`, then a user may explicitly create a structured annotation from the research workspace. The historical run remains unavailable until a plan is shown and reviewed.
+
+## Preview verification record
+
+The implementation first deployed in `91eca5d`, but Vercel Python 3.12 could not import `pandas_datareader` because that library tries to load the removed `distutils` package during function import. The package initializer and the `pandas_datareader` import were then deferred (`4dfa72a`, `7d4ba7e`) so the capability endpoint does not load historical-provider dependencies until an actual data fetch occurs.
+
+Deployment `dpl_8FAKeLae6y3SCUFt5Vn9QVUDxBvD` reached `READY` at `https://forex-nzz52j4xh-nawazakis-projects.vercel.app`. A protected, authorized GET to `/api/quant_research` returned `200`, exposed `aiProvider.status: "CONFIGURED"` and `provider: "MANUS_API_V2"`, and did not expose the credential value. No external Manus task was automatically created during validation; task creation remains an explicit user action in the workspace, preventing an automatic use of the configured API.
 
 ## References
 
