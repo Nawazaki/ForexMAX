@@ -2,6 +2,8 @@
 
 **Scope:** inspection-only review of user-supplied `alphabacktest-main.zip`, completed on 25 August 2026. No code, dependency or credential from the archive has been executed, installed, copied into ForexMax, or deployed.
 
+> **Superseded for Preview integration on 26 August 2026.** The initial inspection-only decision below was intentionally revised after an explicit requirement to use the original Python engine. The preserved MIT-licensed source is now vendored in `apps/web/alphabacktest_py/vendor/` without source edits, and is executed through a constrained Python wrapper. The current decision, compatibility change set and regression evidence are in `docs/alphabacktest-python-integration-decision-2026-08-26.md` and `apps/web/docs/alphabacktest-python-local-validation-2026-08-26.md`. The historical findings and risk table remain retained for traceability.
+
 ## Decision
 
 **Do not integrate AlphaBacktest as a production engine.** The package may inform the product vocabulary—next-observation execution, a trade ledger, explicit costs and result metrics—but its implementation and Dash interface will be replaced by a bounded, server-side, TypeScript-first engine that fits the existing Next.js service boundary. This avoids running Python in the browser and does not accept user-provided code or files.

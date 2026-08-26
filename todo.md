@@ -48,3 +48,10 @@
 - [x] تنفيذ نواة Backtest وResearch Backtest وEvent-Study قابلة لإعادة الحساب دون بيانات وهمية أو تسرب مستقبلي أو ادعاء تنفيذ واقعي بلا بيانات مناسبة.
 - [x] تطوير واجهة Backtest وMarket Forensics من دون تحويل النتائج التاريخية إلى توصيات أو إشارات تداول.
 - [x] إضافة اختبارات الحسابات والانحياز والأحداث والتحقق والصلاحيات ثم Build وPreview فقط وتقرير التكامل والقيود.
+- [x] إعادة فحص AlphaBacktest الأصلي لاستخراج classes والاستراتيجيات والمؤشرات والـportfolio/broker/order flow واعتماديات Python التي يمكن تشغيلها دون إعادة كتابة المحرك.
+- [x] نقل AlphaBacktest الأصلي كحزمة Python محفوظة إلى طبقة خدمة مع compatibility wrapper محدود للتوافق والأمن فقط، ومنع أي كود Python أو shell أو URL عشوائي من المستخدم.
+- [x] تنفيذ API server-side يمرر مدخلات Strategy وParameters محددة إلى محرك AlphaBacktest الأصلي ويعيد نتائج serializable مع provenance للمصدر والبيانات.
+- [x] إنشاء DataProvider interface واستعمال موفر المشروع الأصلي المتاح بصورة قابلة للضبط، مع إظهار provider والتردد وفترة البيانات ووقت الجلب وشروط التأخر.
+- [x] إضافة regression harness يقارن AlphaBacktest الأصلي مباشرة بالمحرك المندمج لبيانات واستراتيجية ومحفظة وتسلسل صفقات واحد على الأقل ضمن tolerance موثق.
+- [x] تحديث واجهة Backtest لتكشف فقط الاستراتيجيات والمؤشرات التي يثبت أنها مدعومة في AlphaBacktest الأصلي، مع الحفاظ على Research Backtest كطبقة wrapper محجوبة عند غياب provenance.
+- [ ] اختبار تشغيل Python وخدمة API وواجهة Next.js وBuild وPreview، ثم توثيق الملفات المعاد استخدامها والملفات المحفوظة ونتائج fidelity والترخيص والقيود.

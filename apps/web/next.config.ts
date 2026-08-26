@@ -14,6 +14,10 @@ const nextConfig: NextConfig = {
   async headers() {
     return [{ source: "/:path*", headers: [{ key: "X-Content-Type-Options", value: "nosniff" }, { key: "X-Frame-Options", value: "DENY" }, { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" }, { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" }] }];
   },
+  async rewrites() {
+    if (process.env.NODE_ENV !== "development") return [];
+    return [{ source: "/api/alphabacktest", destination: "http://127.0.0.1:8010/api/alphabacktest" }];
+  },
   async redirects() {
     const pageRedirects = redirectRecords.filter((record) => record.route !== "/" && !["author-card", "template"].includes(record.slug)).map((record) => ({ source: new URL(record.legacyUrl).pathname, destination: record.route, statusCode: 301 }));
     return [
