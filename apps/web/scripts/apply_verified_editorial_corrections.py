@@ -111,6 +111,9 @@ update(
 
 # Canonical links in all static fallback records must match the live extensionless route.
 for record in records:
+    # This historical page duplicates the corrected trading-sessions article; retain its legacy URL for a 301, but do not serve a stale duplicate.
+    if record["slug"] == "forexmax_article":
+        record["route"] = "/articles/trading_sessions"
     route = record.get("route")
     if route:
         record["canonical"] = "https://www.forexmax.com" + route

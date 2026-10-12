@@ -18,6 +18,7 @@ const nextConfig: NextConfig = {
     const pageRedirects = redirectRecords.filter((record) => record.route !== "/" && !["author-card", "template"].includes(record.slug)).map((record) => ({ source: new URL(record.legacyUrl).pathname, destination: record.route, statusCode: 301 }));
     return [
       { source: "/index.html", destination: "/", statusCode: 301 },
+      { source: "/forexmax_article", destination: "/articles/trading_sessions", statusCode: 301 },
       ...pageRedirects,
     ];
   },
