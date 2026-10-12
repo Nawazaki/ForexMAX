@@ -4,6 +4,7 @@ const { getPrisma } = vi.hoisted(() => ({ getPrisma: vi.fn() }));
 vi.mock("@/lib/prisma", () => ({ getPrisma }));
 import { getPublishedArticles, getPublishedAudits, getPublishedContent } from "@/lib/public-content";
 import { getLegacyRecord } from "@/lib/content";
+import { normalizePublicTitle } from "@/lib/seo";
 
 const article = { findMany: vi.fn(), findFirst: vi.fn() };
 const audit = { findMany: vi.fn(), findFirst: vi.fn() };
@@ -48,7 +49,7 @@ describe("version-controlled editorial overrides for public CMS content", () => 
       const expected = getLegacyRecord("article", slug)!;
       const actual = await getPublishedContent("article", slug);
       expect(article.findFirst).toHaveBeenCalledWith(expect.objectContaining({ where: { slug, status: "PUBLISHED" } }));
-      expect(actual?.title).toBe(expected.title);
+      expect(actual?.title).toBe(normalizePublicTitle(expected.title));
       expect(actual?.contentHtml).toBe(expected.contentHtml);
       if (slug === "post-cftc-prop-firm-era") expect(actual?.lastReviewedAt?.toISOString().slice(0, 10)).toBe("2026-10-12");
     }
@@ -57,7 +58,7 @@ describe("version-controlled editorial overrides for public CMS content", () => 
   it("serves the reviewed audit copy while retaining the CMS published-status gate", async () => {
     const expected = getLegacyRecord("audit", "earn2trade-gauntlet-mini")!;
     const actual = await getPublishedContent("audit", expected.slug);
-    expect(actual?.title).toBe(expected.title);
+    expect(actual?.title).toBe(normalizePublicTitle(expected.title));
     expect(actual?.contentHtml).toBe(expected.contentHtml);
     audit.findFirst.mockResolvedValueOnce(null as never);
     expect(await getPublishedContent("audit", expected.slug)).toBeUndefined();
@@ -65,9 +66,9 @@ describe("version-controlled editorial overrides for public CMS content", () => 
 
   it("applies only listed editorial overrides in public archives", async () => {
     const articles = await getPublishedArticles();
-    expect(articles.find((record) => record.slug === "post-cftc-prop-firm-era")?.title).toBe(getLegacyRecord("article", "post-cftc-prop-firm-era")?.title);
+    expect(articles.find((record) => record.slug === "post-cftc-prop-firm-era")?.title).toBe(normalizePublicTitle(getLegacyRecord("article", "post-cftc-prop-firm-era")!.title));
     expect(articles.find((record) => record.slug === "unmodified-article")?.title).toBe("Stale CMS title");
     const audits = await getPublishedAudits();
-    expect(audits.find((record) => record.slug === "earn2trade-gauntlet-mini")?.title).toBe(getLegacyRecord("audit", "earn2trade-gauntlet-mini")?.title);
+    expect(audits.find((record) => record.slug === "earn2trade-gauntlet-mini")?.title).toBe(normalizePublicTitle(getLegacyRecord("audit", "earn2trade-gauntlet-mini")!.title));
   });
 });

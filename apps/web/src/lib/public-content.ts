@@ -1,5 +1,6 @@
 import { getLegacyArticles, getLegacyAudits, getLegacyRecord, type LegacyKind, type LegacyRecord } from "@/lib/content";
 import { getPrisma } from "@/lib/prisma";
+import { normalizePublicTitle } from "@/lib/seo";
 
 export type PublicContent = {
   kind: "article" | "audit";
@@ -17,7 +18,7 @@ export type PublicContent = {
 export type PublicPage = { title: string; slug: string; route: string; description: string; contentHtml: string; ogImage?: string | null; updatedAt: Date };
 const readDate = (value?: string | null) => value ? new Date(`${value.slice(0, 10)}T00:00:00.000Z`) : null;
 const asLegacy = (kind: "article" | "audit") => (record: LegacyRecord): PublicContent => ({
-  kind, title: record.title, slug: record.slug, route: record.route, description: record.description,
+  kind, title: normalizePublicTitle(record.title), slug: record.slug, route: record.route, description: record.description,
   contentHtml: record.contentHtml, ogImage: record.ogImage, publishedAt: readDate(record.publishedAt),
   lastReviewedAt: readDate(record.lastReviewedAt), updatedAt: new Date(record.migratedAt),
 });
@@ -46,7 +47,7 @@ export async function getPublishedArticles(): Promise<PublicContent[]> {
   if (!db) return getLegacyArticles().map(asLegacy("article"));
   const articles = await db.article.findMany({ where: { status: "PUBLISHED" }, include: { author: true }, orderBy: { publishedAt: "desc" } });
   return articles.map((article) => getEditorialOverride("article", article.slug) ?? ({
-    kind: "article", title: article.title, slug: article.slug, route: `/articles/${article.slug}`,
+    kind: "article", title: normalizePublicTitle(article.title), slug: article.slug, route: `/articles/${article.slug}`,
     description: article.excerpt ?? article.seoDescription ?? "", contentHtml: article.contentHtml ?? "",
     ogImage: article.ogImage, publishedAt: article.publishedAt, lastReviewedAt: article.lastReviewedAt,
     updatedAt: article.updatedAt, authorName: article.author?.name,
@@ -58,7 +59,7 @@ export async function getPublishedAudits(): Promise<PublicContent[]> {
   if (!db) return getLegacyAudits().map(asLegacy("audit"));
   const audits = await db.audit.findMany({ where: { status: "PUBLISHED" }, include: { author: true }, orderBy: { publishedAt: "desc" } });
   return audits.map((audit) => getEditorialOverride("audit", audit.slug) ?? ({
-    kind: "audit", title: audit.title, slug: audit.slug, route: `/audits/${audit.slug}`,
+    kind: "audit", title: normalizePublicTitle(audit.title), slug: audit.slug, route: `/audits/${audit.slug}`,
     description: audit.summary ?? audit.seoDescription ?? "", contentHtml: audit.contentHtml ?? "",
     ogImage: audit.ogImage, publishedAt: audit.publishedAt, lastReviewedAt: audit.lastReviewedAt,
     updatedAt: audit.updatedAt, authorName: audit.author?.name,
@@ -75,7 +76,7 @@ export async function getPublishedContent(kind: "article" | "audit", slug: strin
     const article = await db.article.findFirst({ where: { slug, status: "PUBLISHED" }, include: { author: true } });
     if (!article) return undefined;
     return getEditorialOverride(kind, slug) ?? {
-      kind, title: article.title, slug: article.slug, route: `/articles/${article.slug}`,
+      kind, title: normalizePublicTitle(article.title), slug: article.slug, route: `/articles/${article.slug}`,
       description: article.excerpt ?? article.seoDescription ?? "", contentHtml: article.contentHtml ?? "",
       ogImage: article.ogImage, publishedAt: article.publishedAt, lastReviewedAt: article.lastReviewedAt,
       updatedAt: article.updatedAt, authorName: article.author?.name,
@@ -84,7 +85,7 @@ export async function getPublishedContent(kind: "article" | "audit", slug: strin
   const audit = await db.audit.findFirst({ where: { slug, status: "PUBLISHED" }, include: { author: true } });
   if (!audit) return undefined;
   return getEditorialOverride(kind, slug) ?? {
-    kind, title: audit.title, slug: audit.slug, route: `/audits/${audit.slug}`,
+    kind, title: normalizePublicTitle(audit.title), slug: audit.slug, route: `/audits/${audit.slug}`,
     description: audit.summary ?? audit.seoDescription ?? "", contentHtml: audit.contentHtml ?? "",
     ogImage: audit.ogImage, publishedAt: audit.publishedAt, lastReviewedAt: audit.lastReviewedAt,
     updatedAt: audit.updatedAt, authorName: audit.author?.name,
@@ -95,8 +96,8 @@ export async function getPublishedPage(slug: string): Promise<PublicPage | undef
   const db = getPrisma();
   if (!db) {
     const legacy = getLegacyRecord("page", slug);
-    return legacy ? { title: legacy.title, slug: legacy.slug, route: legacy.route, description: legacy.description, contentHtml: legacy.contentHtml, ogImage: legacy.ogImage, updatedAt: new Date(legacy.migratedAt) } : undefined;
+    return legacy ? { title: normalizePublicTitle(legacy.title), slug: legacy.slug, route: legacy.route, description: legacy.description, contentHtml: legacy.contentHtml, ogImage: legacy.ogImage, updatedAt: new Date(legacy.migratedAt) } : undefined;
   }
   const page = await db.contentPage.findFirst({ where: { slug, status: "PUBLISHED" } });
-  return page ? { title: page.title, slug: page.slug, route: `/${page.slug}`, description: page.excerpt ?? page.seoDescription ?? "", contentHtml: page.contentHtml ?? "", ogImage: page.ogImage, updatedAt: page.updatedAt } : undefined;
+  return page ? { title: normalizePublicTitle(page.title), slug: page.slug, route: `/${page.slug}`, description: page.excerpt ?? page.seoDescription ?? "", contentHtml: page.contentHtml ?? "", ogImage: page.ogImage, updatedAt: page.updatedAt } : undefined;
 }
