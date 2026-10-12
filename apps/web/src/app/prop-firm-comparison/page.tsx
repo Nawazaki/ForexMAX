@@ -3,5 +3,29 @@ import { PropComparison } from "@/components/prop-comparison";
 import { legacyPropFirms } from "@/lib/prop-firms";
 import { buildMetadata, jsonLd } from "@/lib/seo";
 
-export const metadata = buildMetadata({ title: "Prop Firm & Broker Research", description: "Independent research and comparison of third-party proprietary trading firms and retail brokers.", path: "/prop-firm-comparison" });
-export default function PropFirmComparisonPage() { const schema = { "@context": "https://schema.org", "@type": "CollectionPage", name: "ForexMax Prop Firm & Broker Research", url: "https://forexmax.com/prop-firm-comparison" }; return <PageShell><script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(schema)} /><section className="shell page-intro"><p className="eyebrow">COMPARISON RESEARCH</p><h1>Compare terms. Verify current evidence.</h1><p>Fields are migrated from the current static comparison. Each record is labelled with its review status; no score is published where evidence is pending.</p></section><section className="shell section"><PropComparison firms={legacyPropFirms} /></section></PageShell>; }
+export const metadata = buildMetadata({
+  title: "Prop Firm Research & Verified Program Terms | ForexMax",
+  description: "Date-stamped comparison of third-party simulated trading evaluation programs, with official sources, plan-specific conditions, and unresolved terms clearly labelled.",
+  path: "/prop-firm-comparison",
+});
+
+export default function PropFirmComparisonPage() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "ForexMax Proprietary Trading Program Research",
+    url: "https://www.forexmax.com/prop-firm-comparison",
+    dateModified: "2026-10-12",
+    inLanguage: "en-US",
+  };
+  return <PageShell>
+    <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(schema)} />
+    <section className="shell page-intro">
+      <p className="eyebrow">COMPARISON RESEARCH</p>
+      <h1>Compare documented terms—not marketing labels.</h1>
+      <p>This is a dated desk review of official program documents, not an execution test, payout verification, recommendation, or regulatory rating. The providers and program types are not directly equivalent.</p>
+      <p><strong>Official sources checked:</strong> <time dateTime="2026-10-12">October 12, 2026</time>.</p>
+    </section>
+    <section className="shell section"><PropComparison firms={legacyPropFirms} /></section>
+  </PageShell>;
+}

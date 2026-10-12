@@ -11,6 +11,8 @@ export type LegacyRecord = {
   canonical: string;
   ogImage?: string | null;
   contentHtml: string;
+  publishedAt?: string;
+  lastReviewedAt?: string;
   sourceFile: string;
   migratedAt: string;
 };
