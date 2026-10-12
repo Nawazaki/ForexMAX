@@ -1,0 +1,136 @@
+{
+  "routes": [
+    {
+      "path": "/about.html",
+      "title": "About"
+    },
+    {
+      "path": "/affiliate-disclosure.html",
+      "title": "Affiliate Disclosure"
+    },
+    {
+      "path": "/articles/central-banks-gold-buying-april.html",
+      "title": "Central Banks Gold Buying April"
+    },
+    {
+      "path": "/articles/central-banks-gold-buying.html",
+      "title": "Central Banks Gold Buying"
+    },
+    {
+      "path": "/articles/earn2trade-mobile-futures-killer-app.html",
+      "title": "Earn2Trade Mobile Futures Killer App"
+    },
+    {
+      "path": "/articles/earn2trade-mobile-futures-migration.html",
+      "title": "Earn2Trade Mobile Futures Migration"
+    },
+    {
+      "path": "/articles/finotive-instant-funding.html",
+      "title": "Finotive Instant Funding"
+    },
+    {
+      "path": "/articles/geopolitics-liquidity-sweeps.html",
+      "title": "Geopolitics Liquidity Sweeps"
+    },
+    {
+      "path": "/articles/gold-price-drop-opportunity-or-trap.html",
+      "title": "Gold Price Drop Opportunity Or Trap"
+    },
+    {
+      "path": "/articles/high-inflation-institutional-fx-strategies.html",
+      "title": "High Inflation Institutional Fx Strategies"
+    },
+    {
+      "path": "/articles/institutional-fx-market-report-2026-06-05.html",
+      "title": "Institutional Fx Market Report 2026 06 05"
+    },
+    {
+      "path": "/articles/iran-israel-escalation.html",
+      "title": "Iran Israel Escalation"
+    },
+    {
+      "path": "/articles/post-cftc-prop-firm-era.html",
+      "title": "Post Cftc Prop Firm Era"
+    },
+    {
+      "path": "/articles/template.html",
+      "title": "Template"
+    },
+    {
+      "path": "/articles/the-randomness-trap.html",
+      "title": "The Randomness Trap"
+    },
+    {
+      "path": "/articles/trading_sessions.html",
+      "title": "Trading Sessions"
+    },
+    {
+      "path": "/articles/us-market-opening-range-strategy.html",
+      "title": "Us Market Opening Range Strategy"
+    },
+    {
+      "path": "/articles/vwap-sd-bands-institutional-secrets.html",
+      "title": "Vwap Sd Bands Institutional Secrets"
+    },
+    {
+      "path": "/articles/xau-usd-liquidity-shock.html",
+      "title": "Xau Usd Liquidity Shock"
+    },
+    {
+      "path": "/audits/earn2trade-gauntlet-mini.html",
+      "title": "Earn2Trade Gauntlet Mini"
+    },
+    {
+      "path": "/audits/finotive-funding.html",
+      "title": "Finotive Funding"
+    },
+    {
+      "path": "/editorial-policy.html",
+      "title": "Editorial Policy"
+    },
+    {
+      "path": "/education.html",
+      "title": "Education"
+    },
+    {
+      "path": "/forexmax_article.html",
+      "title": "Forexmax Article"
+    },
+    {
+      "path": "/",
+      "title": "Index"
+    },
+    {
+      "path": "/methodology.html",
+      "title": "Methodology"
+    },
+    {
+      "path": "/privacy-policy.html",
+      "title": "Privacy Policy"
+    },
+    {
+      "path": "/prop-firm-comparison.html",
+      "title": "Prop Firm Comparison"
+    },
+    {
+      "path": "/risk-disclosure.html",
+      "title": "Risk Disclosure"
+    },
+    {
+      "path": "/risk-intelligence.html",
+      "title": "Risk Intelligence"
+    },
+    {
+      "path": "/search.html",
+      "title": "Search"
+    },
+    {
+      "path": "/terms-of-service.html",
+      "title": "Terms Of Service"
+    },
+    {
+      "path": "/tools.html",
+      "title": "Tools"
+    }
+  ]
+}
