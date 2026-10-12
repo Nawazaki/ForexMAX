@@ -22,11 +22,30 @@ const asLegacy = (kind: "article" | "audit") => (record: LegacyRecord): PublicCo
   lastReviewedAt: readDate(record.lastReviewedAt), updatedAt: new Date(record.migratedAt),
 });
 
+// Narrow, temporary overrides keep specifically reviewed copies ahead of stale CMS text without DB writes.
+// Remove each slug only after its published CMS row has been updated to the same verified copy.
+const editorialOverrideSlugs = {
+  article: new Set([
+    "post-cftc-prop-firm-era",
+    "vwap-sd-bands-institutional-secrets",
+    "us-market-opening-range-strategy",
+    "trading_sessions",
+    "earn2trade-mobile-futures-killer-app",
+    "earn2trade-mobile-futures-migration",
+  ]),
+  audit: new Set(["earn2trade-gauntlet-mini"]),
+};
+function getEditorialOverride(kind: "article" | "audit", slug: string): PublicContent | undefined {
+  if (!editorialOverrideSlugs[kind].has(slug)) return undefined;
+  const record = getLegacyRecord(kind, slug);
+  return record ? asLegacy(kind)(record) : undefined;
+}
+
 export async function getPublishedArticles(): Promise<PublicContent[]> {
   const db = getPrisma();
   if (!db) return getLegacyArticles().map(asLegacy("article"));
   const articles = await db.article.findMany({ where: { status: "PUBLISHED" }, include: { author: true }, orderBy: { publishedAt: "desc" } });
-  return articles.map((article) => ({
+  return articles.map((article) => getEditorialOverride("article", article.slug) ?? ({
     kind: "article", title: article.title, slug: article.slug, route: `/articles/${article.slug}`,
     description: article.excerpt ?? article.seoDescription ?? "", contentHtml: article.contentHtml ?? "",
     ogImage: article.ogImage, publishedAt: article.publishedAt, lastReviewedAt: article.lastReviewedAt,
@@ -38,7 +57,7 @@ export async function getPublishedAudits(): Promise<PublicContent[]> {
   const db = getPrisma();
   if (!db) return getLegacyAudits().map(asLegacy("audit"));
   const audits = await db.audit.findMany({ where: { status: "PUBLISHED" }, include: { author: true }, orderBy: { publishedAt: "desc" } });
-  return audits.map((audit) => ({
+  return audits.map((audit) => getEditorialOverride("audit", audit.slug) ?? ({
     kind: "audit", title: audit.title, slug: audit.slug, route: `/audits/${audit.slug}`,
     description: audit.summary ?? audit.seoDescription ?? "", contentHtml: audit.contentHtml ?? "",
     ogImage: audit.ogImage, publishedAt: audit.publishedAt, lastReviewedAt: audit.lastReviewedAt,
@@ -54,20 +73,22 @@ export async function getPublishedContent(kind: "article" | "audit", slug: strin
   }
   if (kind === "article") {
     const article = await db.article.findFirst({ where: { slug, status: "PUBLISHED" }, include: { author: true } });
-    return article ? {
+    if (!article) return undefined;
+    return getEditorialOverride(kind, slug) ?? {
       kind, title: article.title, slug: article.slug, route: `/articles/${article.slug}`,
       description: article.excerpt ?? article.seoDescription ?? "", contentHtml: article.contentHtml ?? "",
       ogImage: article.ogImage, publishedAt: article.publishedAt, lastReviewedAt: article.lastReviewedAt,
       updatedAt: article.updatedAt, authorName: article.author?.name,
-    } : undefined;
+    };
   }
   const audit = await db.audit.findFirst({ where: { slug, status: "PUBLISHED" }, include: { author: true } });
-  return audit ? {
+  if (!audit) return undefined;
+  return getEditorialOverride(kind, slug) ?? {
     kind, title: audit.title, slug: audit.slug, route: `/audits/${audit.slug}`,
     description: audit.summary ?? audit.seoDescription ?? "", contentHtml: audit.contentHtml ?? "",
     ogImage: audit.ogImage, publishedAt: audit.publishedAt, lastReviewedAt: audit.lastReviewedAt,
     updatedAt: audit.updatedAt, authorName: audit.author?.name,
-  } : undefined;
+  };
 }
 
 export async function getPublishedPage(slug: string): Promise<PublicPage | undefined> {

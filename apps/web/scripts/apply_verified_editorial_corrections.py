@@ -109,8 +109,25 @@ update(
 <p><strong>Sources:</strong> <a href="https://www.bis.org/publications/triennial-central-bank-survey-foreign-exchange-and-over-the-counter-otc-derivatives-markets-2025" rel="noopener noreferrer">BIS 2025 Triennial Survey: FX and OTC derivatives</a>; <a href="https://www.nyse.com/trade/hours-calendars" rel="noopener noreferrer">NYSE: Holidays &amp; Trading Hours</a>.</p></article>'''
 )
 
+# Label older referral-led promotional records without removing their historical copy.
+archive_note = '<div class="research-notice"><strong>Archive note:</strong> This page contains archived promotional material. Claims about mobile availability, execution, spreads, account access, or trading benefits have not been independently verified and are not guarantees. Check the <a href="https://help.earn2trade.com/en/articles/5941958-what-are-the-evaluation-rules">current official evaluation rules</a> and your selected agreement.</div>'
+affiliate_note = '<span class="research-notice"><strong>Affiliate disclosure:</strong> The adjacent referral link may generate compensation for ForexMax. See our <a href="/affiliate-disclosure">affiliate disclosure</a>. This relationship does not verify claims in the archived promotional copy.</span><br>'
+affiliate_anchor = re.compile(r'(<a\b[^>]*href="https://www\.earn2trade\.com/[^\"]*a_pid=Tradetolear4[^\"]*"[^>]*>)', re.IGNORECASE)
+for slug in ("earn2trade-mobile-futures-killer-app", "earn2trade-mobile-futures-migration"):
+    html = by_slug[slug].get("contentHtml", "")
+    if "archived promotional material" not in html:
+        html = archive_note + html
+    if "The adjacent referral link may generate compensation" not in html:
+        html, count = affiliate_anchor.subn(lambda match: affiliate_note + match.group(1), html, count=1)
+        if count != 1:
+            raise RuntimeError(f"Cannot add nearby affiliate notice to {slug}: referral anchor not found")
+    by_slug[slug]["contentHtml"] = html
+
 # Canonical links in all static fallback records must match the live extensionless route.
 for record in records:
+    # This historical page duplicates the corrected trading-sessions article; retain its legacy URL for a 301, but do not serve a stale duplicate.
+    if record["slug"] == "forexmax_article":
+        record["route"] = "/articles/trading_sessions"
     route = record.get("route")
     if route:
         record["canonical"] = "https://www.forexmax.com" + route

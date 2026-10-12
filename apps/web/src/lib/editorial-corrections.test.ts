@@ -62,6 +62,19 @@ describe("verified editorial corrections", () => {
     expect(sessions).toContain("https://www.bis.org/publications/");
   });
 
+  it("labels older affiliate-led Earn2Trade articles as unverified and discloses referral links next to the CTA", () => {
+    for (const slug of ["earn2trade-mobile-futures-killer-app", "earn2trade-mobile-futures-migration"]) {
+      const content = bySlug.get(slug)!.contentHtml;
+      expect(content).toContain("archived promotional material");
+      expect(content).toContain("have not been independently verified");
+      const cta = content.indexOf("a_pid=Tradetolear4");
+      const disclosure = content.lastIndexOf("Affiliate disclosure:", cta);
+      expect(cta).toBeGreaterThan(-1);
+      expect(disclosure).toBeGreaterThan(-1);
+      expect(cta - disclosure).toBeLessThan(650);
+    }
+  });
+
   it("links verified plan terms and explicitly excludes providers with unresolved current status", () => {
     expect(legacyPropFirms.some((firm) => firm.slug === "myforexfunds")).toBe(false);
     expect(legacyPropFirms.find((firm) => firm.slug === "the-funded-trader")?.assessment).toContain("could not be verified");
