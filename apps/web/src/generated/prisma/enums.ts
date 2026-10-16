@@ -35,3 +35,121 @@ export const AuditType = {
 } as const
 
 export type AuditType = (typeof AuditType)[keyof typeof AuditType]
+
+
+export const MarketKind = {
+  FOREX: 'FOREX',
+  COMMODITIES: 'COMMODITIES',
+  INDICES: 'INDICES',
+  CRYPTO: 'CRYPTO',
+  MACRO: 'MACRO',
+  RATES: 'RATES',
+  ECONOMY: 'ECONOMY',
+  COMPANIES: 'COMPANIES'
+} as const
+
+export type MarketKind = (typeof MarketKind)[keyof typeof MarketKind]
+
+
+export const AssetClass = {
+  FX_PAIR: 'FX_PAIR',
+  METAL: 'METAL',
+  ENERGY: 'ENERGY',
+  EQUITY_INDEX: 'EQUITY_INDEX',
+  CRYPTO_ASSET: 'CRYPTO_ASSET',
+  ECONOMIC_SERIES: 'ECONOMIC_SERIES',
+  EQUITY: 'EQUITY',
+  OTHER: 'OTHER'
+} as const
+
+export type AssetClass = (typeof AssetClass)[keyof typeof AssetClass]
+
+
+export const DataQualityStatus = {
+  VERIFIED: 'VERIFIED',
+  DELAYED: 'DELAYED',
+  STALE: 'STALE',
+  UNAVAILABLE: 'UNAVAILABLE',
+  REQUIRES_REVIEW: 'REQUIRES_REVIEW'
+} as const
+
+export type DataQualityStatus = (typeof DataQualityStatus)[keyof typeof DataQualityStatus]
+
+
+export const SourceDocumentStatus = {
+  INGESTED: 'INGESTED',
+  RETRIEVED: 'RETRIEVED',
+  VERIFIED: 'VERIFIED',
+  REJECTED: 'REJECTED',
+  STALE: 'STALE'
+} as const
+
+export type SourceDocumentStatus = (typeof SourceDocumentStatus)[keyof typeof SourceDocumentStatus]
+
+
+export const ResearchEventStatus = {
+  INGESTED: 'INGESTED',
+  PROCESSING: 'PROCESSING',
+  REQUIRES_REVIEW: 'REQUIRES_REVIEW',
+  VERIFIED: 'VERIFIED',
+  PUBLISHED: 'PUBLISHED',
+  REJECTED: 'REJECTED',
+  STALE: 'STALE',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type ResearchEventStatus = (typeof ResearchEventStatus)[keyof typeof ResearchEventStatus]
+
+
+export const EvidenceVerificationStatus = {
+  UNVERIFIED: 'UNVERIFIED',
+  VERIFYING: 'VERIFYING',
+  VERIFIED: 'VERIFIED',
+  CONFLICTED: 'CONFLICTED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type EvidenceVerificationStatus = (typeof EvidenceVerificationStatus)[keyof typeof EvidenceVerificationStatus]
+
+
+export const ResearchAssessmentStatus = {
+  DRAFT: 'DRAFT',
+  REVIEW: 'REVIEW',
+  APPROVED: 'APPROVED',
+  PUBLISHED: 'PUBLISHED',
+  SUPERSEDED: 'SUPERSEDED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type ResearchAssessmentStatus = (typeof ResearchAssessmentStatus)[keyof typeof ResearchAssessmentStatus]
+
+
+export const DriverDirection = {
+  UPSIDE: 'UPSIDE',
+  DOWNSIDE: 'DOWNSIDE',
+  RISK: 'RISK',
+  CATALYST: 'CATALYST',
+  INVALIDATION: 'INVALIDATION'
+} as const
+
+export type DriverDirection = (typeof DriverDirection)[keyof typeof DriverDirection]
+
+
+export const IngestionJobStatus = {
+  QUEUED: 'QUEUED',
+  RUNNING: 'RUNNING',
+  SUCCEEDED: 'SUCCEEDED',
+  FAILED: 'FAILED',
+  SKIPPED: 'SKIPPED'
+} as const
+
+export type IngestionJobStatus = (typeof IngestionJobStatus)[keyof typeof IngestionJobStatus]
+
+
+export const EditorialDecision = {
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  CHANGES_REQUESTED: 'CHANGES_REQUESTED'
+} as const
+
+export type EditorialDecision = (typeof EditorialDecision)[keyof typeof EditorialDecision]

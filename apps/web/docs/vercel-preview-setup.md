@@ -1,31 +1,41 @@
-# Vercel preview setup
+# Vercel Preview setup
 
-This document applies only to the existing Vercel project `nawazakis-projects/forex-max`. It must deploy the Git branch `migration/nextjs-platform` as a **Preview**; it does not alter `main`, the production branch, domains, or production deployments.
+This is a Preview-only deployment checklist. It does not authorize changing the Production branch, production environment variables, domains, DNS, database, or deployments. No deployment or Vercel project setting is changed by following this document unless an operator performs the steps below.
 
-| Setting | Exact Vercel location | Required value |
+## Vercel project settings
+
+| Setting | Location | Required value |
 |---|---|---|
 | Root Directory | `Project → Settings → General → Root Directory` | `apps/web` |
 | Framework Preset | `Project → Settings → General → Build & Development Settings` | `Next.js` (auto-detected) |
 | Install Command | `Project → Settings → General → Build & Development Settings` | `pnpm install --frozen-lockfile` |
 | Build Command | `Project → Settings → General → Build & Development Settings` | `pnpm build` |
-| Production Branch | `Project → Settings → Git` | Leave unchanged; do **not** switch it to the migration branch. |
+| Production Branch | `Project → Settings → Git` | Leave unchanged. Never set an improvement or migration branch as Production. |
 
-The repository additionally contains `apps/web/vercel.json`, which pins the install and build commands in source control. Vercel still needs Root Directory configured at project level because the repository root has no `package.json`.
+The repository has no root `package.json`; configure `apps/web` as the Root Directory. The install and build commands are also declared in `vercel.json`.
 
-## Environment variable names
+## Database isolation is mandatory
 
-Add the following in `Project → Settings → Environment Variables` for **Preview** first. Do not commit or paste connection strings, passwords, or keys into source control or chat.
+Before configuring Preview variables, provision or identify a **dedicated Supabase Preview project** (expected project name: `ForexMax-Preview`). The project reference and connection hosts must be verified against the Preview project by an authorized operator. Do not reuse a Production project's URL, publishable key, or database connection strings for Preview.
 
-| Variable | Value source | Purpose |
-|---|---|---|
-| `DATABASE_URL` | Supabase **transaction pooler** connection on port `6543`, with `pgbouncer=true` | Prisma runtime queries. |
-| `DIRECT_URL` | Supabase **session pooler/direct** connection on port `5432` | Prisma CLI migrations and controlled seed execution. |
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL for `xvhjsbakmokmgymwrldo` | Supabase SSR auth and Storage client. |
-| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Supabase `Project Settings → API Keys → Publishable key` | Browser and SSR auth client. |
-| `NEXT_PUBLIC_SITE_URL` | `https://www.forexmax.com` | Canonical metadata; do not replace with a Preview URL. The apex redirects here. |
+Set these variables in Vercel's **Preview** scope only, using values from that dedicated Preview project:
 
-The Supabase schema and imported content already exist in the target project. Therefore a Preview must not run destructive resets, fresh `prisma migrate dev`, or arbitrary seed scripts. The verified migrations are retained in `supabase/migrations/`, and the generated idempotent content seed is retained in `supabase/seed/`.
+| Variable | Purpose |
+|---|---|
+| `DATABASE_URL` | Prisma runtime queries, using the Preview project's supported pooler. |
+| `DIRECT_URL` | Prisma CLI migrations and controlled seed operations, using the Preview project only. |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase SSR auth and Storage client for Preview. |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Preview project's publishable key. |
+| `NEXT_PUBLIC_SITE_URL` | Canonical URL setting. Review SEO/noindex behavior for Preview before enabling a deployment; never use a Preview URL as the Production canonical. |
 
-## Preview-only deployment
+Do not paste connection strings, passwords, or keys into source control, tickets, or chat. Before any migration or seed operation, independently verify that **both** `DATABASE_URL` and `DIRECT_URL` point to the dedicated Preview project. Never run destructive resets, `prisma migrate dev`, or arbitrary seeds against Production. Keep database writes blocked until Preview isolation and authorization are verified.
 
-After the project settings and Preview environment scope are saved, use `Project → Deployments → Create Deployment`, select `migration/nextjs-platform`, and create a **Preview**. Verify the resulting deployment is labeled Preview and that its source commit is `83d9621` or newer. Do not promote it to Production.
+## Create and verify a Preview deployment
+
+1. Confirm the Git branch is non-Production and the Production Branch setting remains unchanged.
+2. Confirm the Vercel deployment will use the Preview environment and only Preview-scoped variables.
+3. Create a Preview deployment from the explicitly selected branch; do not promote it to Production.
+4. Verify the deployment is labeled **Preview**, its source branch and commit are expected, and Preview indexing is appropriately disabled.
+5. Verify application logs and routes without performing database writes unless the isolated Preview database has been independently verified and the operation is authorized.
+
+This guide intentionally does not name a branch or minimum commit: those values change over time and must be selected and verified for each deployment.

@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ForexMAX web application
 
-## Getting Started
+The deployable web application is the Next.js App Router project in `apps/web/`. The repository root also contains legacy static HTML and assets; Vercel should use `apps/web` as its Root Directory.
 
-First, run the development server:
+## Toolchain
+
+- Node.js compatible with the Next.js version declared in `package.json`.
+- pnpm `11.21.0`, pinned by the `packageManager` field.
+
+Run application commands from this directory. For a local checkout with dependencies available:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install --frozen-lockfile
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Available scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Purpose |
+|---|---|
+| `pnpm dev` | Start the development server. |
+| `pnpm build` | Create a production build. |
+| `pnpm start` | Serve a production build. |
+| `pnpm lint` | Run ESLint. |
+| `pnpm typecheck` | Run TypeScript without emitting files. |
+| `pnpm test` | Run the Vitest suite. |
+| `pnpm db:generate` | Generate the Prisma client. |
+| `pnpm db:migrate` | Deploy Prisma migrations; requires `DIRECT_URL` and changes a database. |
+| `pnpm db:seed` | Run the Prisma seed; requires `DIRECT_URL` and changes a database. |
+| `pnpm seed:sql` | Generate Supabase seed SQL and a report in `supabase/seed/`. |
 
-## Learn More
+Do not run database-changing commands against Production. Use only an explicitly isolated, non-Production database for development or Preview work. See [configuration](docs/configuration.md), [Supabase operations](docs/supabase-operations.md), and the [Vercel Preview setup](docs/vercel-preview-setup.md). Never place credentials or secret keys in source control.
 
-To learn more about Next.js, take a look at the following resources:
+## Application structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `src/app/` — public, admin, and API routes.
+- `src/components/` — shared interface components.
+- `src/lib/` — data access, source integrations, SEO, validation, and domain logic.
+- `src/content/legacy-content.json` — legacy content used by migration routes and fallback rendering.
+- `prisma/` and `supabase/` — data model, migrations, and generated seed artifacts.

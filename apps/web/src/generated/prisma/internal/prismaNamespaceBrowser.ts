@@ -63,7 +63,22 @@ export const ModelName = {
   PropFirm: 'PropFirm',
   ArticleSource: 'ArticleSource',
   AuditSource: 'AuditSource',
-  PropFirmSource: 'PropFirmSource'
+  PropFirmSource: 'PropFirmSource',
+  Market: 'Market',
+  Asset: 'Asset',
+  Country: 'Country',
+  CentralBank: 'CentralBank',
+  SourceDocument: 'SourceDocument',
+  ResearchEvent: 'ResearchEvent',
+  ResearchEventAsset: 'ResearchEventAsset',
+  ResearchEvidence: 'ResearchEvidence',
+  ResearchAssessment: 'ResearchAssessment',
+  ResearchDriver: 'ResearchDriver',
+  EconomicIndicator: 'EconomicIndicator',
+  EconomicRelease: 'EconomicRelease',
+  DataQualityCheck: 'DataQualityCheck',
+  IngestionJob: 'IngestionJob',
+  EditorialReview: 'EditorialReview'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -154,6 +169,14 @@ export const ResearchSourceScalarFieldEnum = {
   name: 'name',
   url: 'url',
   sourceType: 'sourceType',
+  organization: 'organization',
+  jurisdiction: 'jurisdiction',
+  isPrimary: 'isPrimary',
+  reliabilityTier: 'reliabilityTier',
+  verificationStatus: 'verificationStatus',
+  lastVerifiedAt: 'lastVerifiedAt',
+  accessPolicy: 'accessPolicy',
+  isActive: 'isActive',
   accessedAt: 'accessedAt',
   note: 'note',
   createdAt: 'createdAt',
@@ -291,6 +314,246 @@ export const PropFirmSourceScalarFieldEnum = {
 } as const
 
 export type PropFirmSourceScalarFieldEnum = (typeof PropFirmSourceScalarFieldEnum)[keyof typeof PropFirmSourceScalarFieldEnum]
+
+
+export const MarketScalarFieldEnum = {
+  id: 'id',
+  slug: 'slug',
+  name: 'name',
+  kind: 'kind',
+  description: 'description',
+  isPublic: 'isPublic',
+  availabilityStatus: 'availabilityStatus',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MarketScalarFieldEnum = (typeof MarketScalarFieldEnum)[keyof typeof MarketScalarFieldEnum]
+
+
+export const AssetScalarFieldEnum = {
+  id: 'id',
+  marketId: 'marketId',
+  slug: 'slug',
+  symbol: 'symbol',
+  displayName: 'displayName',
+  assetClass: 'assetClass',
+  isPublic: 'isPublic',
+  isActive: 'isActive',
+  availabilityStatus: 'availabilityStatus',
+  dataUpdatedAt: 'dataUpdatedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AssetScalarFieldEnum = (typeof AssetScalarFieldEnum)[keyof typeof AssetScalarFieldEnum]
+
+
+export const CountryScalarFieldEnum = {
+  id: 'id',
+  isoCode: 'isoCode',
+  name: 'name',
+  region: 'region',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CountryScalarFieldEnum = (typeof CountryScalarFieldEnum)[keyof typeof CountryScalarFieldEnum]
+
+
+export const CentralBankScalarFieldEnum = {
+  id: 'id',
+  countryId: 'countryId',
+  name: 'name',
+  slug: 'slug',
+  officialUrl: 'officialUrl',
+  isPublic: 'isPublic',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CentralBankScalarFieldEnum = (typeof CentralBankScalarFieldEnum)[keyof typeof CentralBankScalarFieldEnum]
+
+
+export const SourceDocumentScalarFieldEnum = {
+  id: 'id',
+  sourceId: 'sourceId',
+  url: 'url',
+  headline: 'headline',
+  author: 'author',
+  publishedAt: 'publishedAt',
+  retrievedAt: 'retrievedAt',
+  contentHash: 'contentHash',
+  status: 'status',
+  isPublic: 'isPublic',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SourceDocumentScalarFieldEnum = (typeof SourceDocumentScalarFieldEnum)[keyof typeof SourceDocumentScalarFieldEnum]
+
+
+export const ResearchEventScalarFieldEnum = {
+  id: 'id',
+  slug: 'slug',
+  title: 'title',
+  summary: 'summary',
+  marketId: 'marketId',
+  countryId: 'countryId',
+  importance: 'importance',
+  status: 'status',
+  isPublic: 'isPublic',
+  observedAt: 'observedAt',
+  verifiedAt: 'verifiedAt',
+  publishedAt: 'publishedAt',
+  lastReviewedAt: 'lastReviewedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ResearchEventScalarFieldEnum = (typeof ResearchEventScalarFieldEnum)[keyof typeof ResearchEventScalarFieldEnum]
+
+
+export const ResearchEventAssetScalarFieldEnum = {
+  eventId: 'eventId',
+  assetId: 'assetId'
+} as const
+
+export type ResearchEventAssetScalarFieldEnum = (typeof ResearchEventAssetScalarFieldEnum)[keyof typeof ResearchEventAssetScalarFieldEnum]
+
+
+export const ResearchEvidenceScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  sourceDocumentId: 'sourceDocumentId',
+  statement: 'statement',
+  evidenceType: 'evidenceType',
+  verificationStatus: 'verificationStatus',
+  verifiedAt: 'verifiedAt',
+  verifierId: 'verifierId',
+  isPublic: 'isPublic',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ResearchEvidenceScalarFieldEnum = (typeof ResearchEvidenceScalarFieldEnum)[keyof typeof ResearchEvidenceScalarFieldEnum]
+
+
+export const ResearchAssessmentScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  assetId: 'assetId',
+  articleId: 'articleId',
+  title: 'title',
+  thesis: 'thesis',
+  methodology: 'methodology',
+  status: 'status',
+  authorId: 'authorId',
+  reviewerId: 'reviewerId',
+  reviewedAt: 'reviewedAt',
+  publishedAt: 'publishedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ResearchAssessmentScalarFieldEnum = (typeof ResearchAssessmentScalarFieldEnum)[keyof typeof ResearchAssessmentScalarFieldEnum]
+
+
+export const ResearchDriverScalarFieldEnum = {
+  id: 'id',
+  assessmentId: 'assessmentId',
+  evidenceId: 'evidenceId',
+  direction: 'direction',
+  detail: 'detail',
+  isPublic: 'isPublic',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ResearchDriverScalarFieldEnum = (typeof ResearchDriverScalarFieldEnum)[keyof typeof ResearchDriverScalarFieldEnum]
+
+
+export const EconomicIndicatorScalarFieldEnum = {
+  id: 'id',
+  countryId: 'countryId',
+  slug: 'slug',
+  name: 'name',
+  unit: 'unit',
+  methodologySourceUrl: 'methodologySourceUrl',
+  isPublic: 'isPublic',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EconomicIndicatorScalarFieldEnum = (typeof EconomicIndicatorScalarFieldEnum)[keyof typeof EconomicIndicatorScalarFieldEnum]
+
+
+export const EconomicReleaseScalarFieldEnum = {
+  id: 'id',
+  indicatorId: 'indicatorId',
+  eventId: 'eventId',
+  sourceDocumentId: 'sourceDocumentId',
+  releaseAt: 'releaseAt',
+  previousValue: 'previousValue',
+  forecastValue: 'forecastValue',
+  actualValue: 'actualValue',
+  surpriseValue: 'surpriseValue',
+  dataStatus: 'dataStatus',
+  isPublic: 'isPublic',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EconomicReleaseScalarFieldEnum = (typeof EconomicReleaseScalarFieldEnum)[keyof typeof EconomicReleaseScalarFieldEnum]
+
+
+export const DataQualityCheckScalarFieldEnum = {
+  id: 'id',
+  sourceDocumentId: 'sourceDocumentId',
+  scopeType: 'scopeType',
+  scopeId: 'scopeId',
+  checkType: 'checkType',
+  status: 'status',
+  observedAt: 'observedAt',
+  resolvedAt: 'resolvedAt',
+  resolution: 'resolution',
+  isPublic: 'isPublic',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DataQualityCheckScalarFieldEnum = (typeof DataQualityCheckScalarFieldEnum)[keyof typeof DataQualityCheckScalarFieldEnum]
+
+
+export const IngestionJobScalarFieldEnum = {
+  id: 'id',
+  sourceId: 'sourceId',
+  sourceDocumentId: 'sourceDocumentId',
+  jobType: 'jobType',
+  status: 'status',
+  dedupeKey: 'dedupeKey',
+  payload: 'payload',
+  errorSummary: 'errorSummary',
+  startedAt: 'startedAt',
+  finishedAt: 'finishedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type IngestionJobScalarFieldEnum = (typeof IngestionJobScalarFieldEnum)[keyof typeof IngestionJobScalarFieldEnum]
+
+
+export const EditorialReviewScalarFieldEnum = {
+  id: 'id',
+  assessmentId: 'assessmentId',
+  reviewerId: 'reviewerId',
+  decision: 'decision',
+  rationale: 'rationale',
+  createdAt: 'createdAt'
+} as const
+
+export type EditorialReviewScalarFieldEnum = (typeof EditorialReviewScalarFieldEnum)[keyof typeof EditorialReviewScalarFieldEnum]
 
 
 export const SortOrder = {

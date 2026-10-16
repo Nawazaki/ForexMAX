@@ -193,6 +193,10 @@ export type UserWhereInput = {
   articles?: Prisma.ArticleListRelationFilter
   audits?: Prisma.AuditListRelationFilter
   pages?: Prisma.ContentPageListRelationFilter
+  evidenceVerifications?: Prisma.ResearchEvidenceListRelationFilter
+  authoredAssessments?: Prisma.ResearchAssessmentListRelationFilter
+  reviewedAssessments?: Prisma.ResearchAssessmentListRelationFilter
+  editorialReviews?: Prisma.EditorialReviewListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -205,6 +209,10 @@ export type UserOrderByWithRelationInput = {
   articles?: Prisma.ArticleOrderByRelationAggregateInput
   audits?: Prisma.AuditOrderByRelationAggregateInput
   pages?: Prisma.ContentPageOrderByRelationAggregateInput
+  evidenceVerifications?: Prisma.ResearchEvidenceOrderByRelationAggregateInput
+  authoredAssessments?: Prisma.ResearchAssessmentOrderByRelationAggregateInput
+  reviewedAssessments?: Prisma.ResearchAssessmentOrderByRelationAggregateInput
+  editorialReviews?: Prisma.EditorialReviewOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -220,6 +228,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   articles?: Prisma.ArticleListRelationFilter
   audits?: Prisma.AuditListRelationFilter
   pages?: Prisma.ContentPageListRelationFilter
+  evidenceVerifications?: Prisma.ResearchEvidenceListRelationFilter
+  authoredAssessments?: Prisma.ResearchAssessmentListRelationFilter
+  reviewedAssessments?: Prisma.ResearchAssessmentListRelationFilter
+  editorialReviews?: Prisma.EditorialReviewListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -256,6 +268,10 @@ export type UserCreateInput = {
   articles?: Prisma.ArticleCreateNestedManyWithoutEditorInput
   audits?: Prisma.AuditCreateNestedManyWithoutEditorInput
   pages?: Prisma.ContentPageCreateNestedManyWithoutEditorInput
+  evidenceVerifications?: Prisma.ResearchEvidenceCreateNestedManyWithoutVerifierInput
+  authoredAssessments?: Prisma.ResearchAssessmentCreateNestedManyWithoutAuthorInput
+  reviewedAssessments?: Prisma.ResearchAssessmentCreateNestedManyWithoutReviewerInput
+  editorialReviews?: Prisma.EditorialReviewCreateNestedManyWithoutReviewerInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -268,6 +284,10 @@ export type UserUncheckedCreateInput = {
   articles?: Prisma.ArticleUncheckedCreateNestedManyWithoutEditorInput
   audits?: Prisma.AuditUncheckedCreateNestedManyWithoutEditorInput
   pages?: Prisma.ContentPageUncheckedCreateNestedManyWithoutEditorInput
+  evidenceVerifications?: Prisma.ResearchEvidenceUncheckedCreateNestedManyWithoutVerifierInput
+  authoredAssessments?: Prisma.ResearchAssessmentUncheckedCreateNestedManyWithoutAuthorInput
+  reviewedAssessments?: Prisma.ResearchAssessmentUncheckedCreateNestedManyWithoutReviewerInput
+  editorialReviews?: Prisma.EditorialReviewUncheckedCreateNestedManyWithoutReviewerInput
 }
 
 export type UserUpdateInput = {
@@ -280,6 +300,10 @@ export type UserUpdateInput = {
   articles?: Prisma.ArticleUpdateManyWithoutEditorNestedInput
   audits?: Prisma.AuditUpdateManyWithoutEditorNestedInput
   pages?: Prisma.ContentPageUpdateManyWithoutEditorNestedInput
+  evidenceVerifications?: Prisma.ResearchEvidenceUpdateManyWithoutVerifierNestedInput
+  authoredAssessments?: Prisma.ResearchAssessmentUpdateManyWithoutAuthorNestedInput
+  reviewedAssessments?: Prisma.ResearchAssessmentUpdateManyWithoutReviewerNestedInput
+  editorialReviews?: Prisma.EditorialReviewUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -292,6 +316,10 @@ export type UserUncheckedUpdateInput = {
   articles?: Prisma.ArticleUncheckedUpdateManyWithoutEditorNestedInput
   audits?: Prisma.AuditUncheckedUpdateManyWithoutEditorNestedInput
   pages?: Prisma.ContentPageUncheckedUpdateManyWithoutEditorNestedInput
+  evidenceVerifications?: Prisma.ResearchEvidenceUncheckedUpdateManyWithoutVerifierNestedInput
+  authoredAssessments?: Prisma.ResearchAssessmentUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewedAssessments?: Prisma.ResearchAssessmentUncheckedUpdateManyWithoutReviewerNestedInput
+  editorialReviews?: Prisma.EditorialReviewUncheckedUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -417,6 +445,70 @@ export type UserUpdateOneWithoutAuditsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAuditsInput, Prisma.UserUpdateWithoutAuditsInput>, Prisma.UserUncheckedUpdateWithoutAuditsInput>
 }
 
+export type UserCreateNestedOneWithoutEvidenceVerificationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutEvidenceVerificationsInput, Prisma.UserUncheckedCreateWithoutEvidenceVerificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutEvidenceVerificationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutEvidenceVerificationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutEvidenceVerificationsInput, Prisma.UserUncheckedCreateWithoutEvidenceVerificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutEvidenceVerificationsInput
+  upsert?: Prisma.UserUpsertWithoutEvidenceVerificationsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutEvidenceVerificationsInput, Prisma.UserUpdateWithoutEvidenceVerificationsInput>, Prisma.UserUncheckedUpdateWithoutEvidenceVerificationsInput>
+}
+
+export type UserCreateNestedOneWithoutAuthoredAssessmentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAuthoredAssessmentsInput, Prisma.UserUncheckedCreateWithoutAuthoredAssessmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuthoredAssessmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutReviewedAssessmentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewedAssessmentsInput, Prisma.UserUncheckedCreateWithoutReviewedAssessmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewedAssessmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutAuthoredAssessmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAuthoredAssessmentsInput, Prisma.UserUncheckedCreateWithoutAuthoredAssessmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuthoredAssessmentsInput
+  upsert?: Prisma.UserUpsertWithoutAuthoredAssessmentsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAuthoredAssessmentsInput, Prisma.UserUpdateWithoutAuthoredAssessmentsInput>, Prisma.UserUncheckedUpdateWithoutAuthoredAssessmentsInput>
+}
+
+export type UserUpdateOneWithoutReviewedAssessmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewedAssessmentsInput, Prisma.UserUncheckedCreateWithoutReviewedAssessmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewedAssessmentsInput
+  upsert?: Prisma.UserUpsertWithoutReviewedAssessmentsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReviewedAssessmentsInput, Prisma.UserUpdateWithoutReviewedAssessmentsInput>, Prisma.UserUncheckedUpdateWithoutReviewedAssessmentsInput>
+}
+
+export type UserCreateNestedOneWithoutEditorialReviewsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutEditorialReviewsInput, Prisma.UserUncheckedCreateWithoutEditorialReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutEditorialReviewsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutEditorialReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutEditorialReviewsInput, Prisma.UserUncheckedCreateWithoutEditorialReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutEditorialReviewsInput
+  upsert?: Prisma.UserUpsertWithoutEditorialReviewsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutEditorialReviewsInput, Prisma.UserUpdateWithoutEditorialReviewsInput>, Prisma.UserUncheckedUpdateWithoutEditorialReviewsInput>
+}
+
 export type UserCreateWithoutArticlesInput = {
   id: string
   email: string
@@ -426,6 +518,10 @@ export type UserCreateWithoutArticlesInput = {
   updatedAt?: Date | string
   audits?: Prisma.AuditCreateNestedManyWithoutEditorInput
   pages?: Prisma.ContentPageCreateNestedManyWithoutEditorInput
+  evidenceVerifications?: Prisma.ResearchEvidenceCreateNestedManyWithoutVerifierInput
+  authoredAssessments?: Prisma.ResearchAssessmentCreateNestedManyWithoutAuthorInput
+  reviewedAssessments?: Prisma.ResearchAssessmentCreateNestedManyWithoutReviewerInput
+  editorialReviews?: Prisma.EditorialReviewCreateNestedManyWithoutReviewerInput
 }
 
 export type UserUncheckedCreateWithoutArticlesInput = {
@@ -437,6 +533,10 @@ export type UserUncheckedCreateWithoutArticlesInput = {
   updatedAt?: Date | string
   audits?: Prisma.AuditUncheckedCreateNestedManyWithoutEditorInput
   pages?: Prisma.ContentPageUncheckedCreateNestedManyWithoutEditorInput
+  evidenceVerifications?: Prisma.ResearchEvidenceUncheckedCreateNestedManyWithoutVerifierInput
+  authoredAssessments?: Prisma.ResearchAssessmentUncheckedCreateNestedManyWithoutAuthorInput
+  reviewedAssessments?: Prisma.ResearchAssessmentUncheckedCreateNestedManyWithoutReviewerInput
+  editorialReviews?: Prisma.EditorialReviewUncheckedCreateNestedManyWithoutReviewerInput
 }
 
 export type UserCreateOrConnectWithoutArticlesInput = {
@@ -464,6 +564,10 @@ export type UserUpdateWithoutArticlesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   audits?: Prisma.AuditUpdateManyWithoutEditorNestedInput
   pages?: Prisma.ContentPageUpdateManyWithoutEditorNestedInput
+  evidenceVerifications?: Prisma.ResearchEvidenceUpdateManyWithoutVerifierNestedInput
+  authoredAssessments?: Prisma.ResearchAssessmentUpdateManyWithoutAuthorNestedInput
+  reviewedAssessments?: Prisma.ResearchAssessmentUpdateManyWithoutReviewerNestedInput
+  editorialReviews?: Prisma.EditorialReviewUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutArticlesInput = {
@@ -475,6 +579,10 @@ export type UserUncheckedUpdateWithoutArticlesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   audits?: Prisma.AuditUncheckedUpdateManyWithoutEditorNestedInput
   pages?: Prisma.ContentPageUncheckedUpdateManyWithoutEditorNestedInput
+  evidenceVerifications?: Prisma.ResearchEvidenceUncheckedUpdateManyWithoutVerifierNestedInput
+  authoredAssessments?: Prisma.ResearchAssessmentUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewedAssessments?: Prisma.ResearchAssessmentUncheckedUpdateManyWithoutReviewerNestedInput
+  editorialReviews?: Prisma.EditorialReviewUncheckedUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserCreateWithoutPagesInput = {
@@ -486,6 +594,10 @@ export type UserCreateWithoutPagesInput = {
   updatedAt?: Date | string
   articles?: Prisma.ArticleCreateNestedManyWithoutEditorInput
   audits?: Prisma.AuditCreateNestedManyWithoutEditorInput
+  evidenceVerifications?: Prisma.ResearchEvidenceCreateNestedManyWithoutVerifierInput
+  authoredAssessments?: Prisma.ResearchAssessmentCreateNestedManyWithoutAuthorInput
+  reviewedAssessments?: Prisma.ResearchAssessmentCreateNestedManyWithoutReviewerInput
+  editorialReviews?: Prisma.EditorialReviewCreateNestedManyWithoutReviewerInput
 }
 
 export type UserUncheckedCreateWithoutPagesInput = {
@@ -497,6 +609,10 @@ export type UserUncheckedCreateWithoutPagesInput = {
   updatedAt?: Date | string
   articles?: Prisma.ArticleUncheckedCreateNestedManyWithoutEditorInput
   audits?: Prisma.AuditUncheckedCreateNestedManyWithoutEditorInput
+  evidenceVerifications?: Prisma.ResearchEvidenceUncheckedCreateNestedManyWithoutVerifierInput
+  authoredAssessments?: Prisma.ResearchAssessmentUncheckedCreateNestedManyWithoutAuthorInput
+  reviewedAssessments?: Prisma.ResearchAssessmentUncheckedCreateNestedManyWithoutReviewerInput
+  editorialReviews?: Prisma.EditorialReviewUncheckedCreateNestedManyWithoutReviewerInput
 }
 
 export type UserCreateOrConnectWithoutPagesInput = {
@@ -524,6 +640,10 @@ export type UserUpdateWithoutPagesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   articles?: Prisma.ArticleUpdateManyWithoutEditorNestedInput
   audits?: Prisma.AuditUpdateManyWithoutEditorNestedInput
+  evidenceVerifications?: Prisma.ResearchEvidenceUpdateManyWithoutVerifierNestedInput
+  authoredAssessments?: Prisma.ResearchAssessmentUpdateManyWithoutAuthorNestedInput
+  reviewedAssessments?: Prisma.ResearchAssessmentUpdateManyWithoutReviewerNestedInput
+  editorialReviews?: Prisma.EditorialReviewUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPagesInput = {
@@ -535,6 +655,10 @@ export type UserUncheckedUpdateWithoutPagesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   articles?: Prisma.ArticleUncheckedUpdateManyWithoutEditorNestedInput
   audits?: Prisma.AuditUncheckedUpdateManyWithoutEditorNestedInput
+  evidenceVerifications?: Prisma.ResearchEvidenceUncheckedUpdateManyWithoutVerifierNestedInput
+  authoredAssessments?: Prisma.ResearchAssessmentUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewedAssessments?: Prisma.ResearchAssessmentUncheckedUpdateManyWithoutReviewerNestedInput
+  editorialReviews?: Prisma.EditorialReviewUncheckedUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserCreateWithoutAuditsInput = {
@@ -546,6 +670,10 @@ export type UserCreateWithoutAuditsInput = {
   updatedAt?: Date | string
   articles?: Prisma.ArticleCreateNestedManyWithoutEditorInput
   pages?: Prisma.ContentPageCreateNestedManyWithoutEditorInput
+  evidenceVerifications?: Prisma.ResearchEvidenceCreateNestedManyWithoutVerifierInput
+  authoredAssessments?: Prisma.ResearchAssessmentCreateNestedManyWithoutAuthorInput
+  reviewedAssessments?: Prisma.ResearchAssessmentCreateNestedManyWithoutReviewerInput
+  editorialReviews?: Prisma.EditorialReviewCreateNestedManyWithoutReviewerInput
 }
 
 export type UserUncheckedCreateWithoutAuditsInput = {
@@ -557,6 +685,10 @@ export type UserUncheckedCreateWithoutAuditsInput = {
   updatedAt?: Date | string
   articles?: Prisma.ArticleUncheckedCreateNestedManyWithoutEditorInput
   pages?: Prisma.ContentPageUncheckedCreateNestedManyWithoutEditorInput
+  evidenceVerifications?: Prisma.ResearchEvidenceUncheckedCreateNestedManyWithoutVerifierInput
+  authoredAssessments?: Prisma.ResearchAssessmentUncheckedCreateNestedManyWithoutAuthorInput
+  reviewedAssessments?: Prisma.ResearchAssessmentUncheckedCreateNestedManyWithoutReviewerInput
+  editorialReviews?: Prisma.EditorialReviewUncheckedCreateNestedManyWithoutReviewerInput
 }
 
 export type UserCreateOrConnectWithoutAuditsInput = {
@@ -584,6 +716,10 @@ export type UserUpdateWithoutAuditsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   articles?: Prisma.ArticleUpdateManyWithoutEditorNestedInput
   pages?: Prisma.ContentPageUpdateManyWithoutEditorNestedInput
+  evidenceVerifications?: Prisma.ResearchEvidenceUpdateManyWithoutVerifierNestedInput
+  authoredAssessments?: Prisma.ResearchAssessmentUpdateManyWithoutAuthorNestedInput
+  reviewedAssessments?: Prisma.ResearchAssessmentUpdateManyWithoutReviewerNestedInput
+  editorialReviews?: Prisma.EditorialReviewUpdateManyWithoutReviewerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditsInput = {
@@ -595,6 +731,314 @@ export type UserUncheckedUpdateWithoutAuditsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   articles?: Prisma.ArticleUncheckedUpdateManyWithoutEditorNestedInput
   pages?: Prisma.ContentPageUncheckedUpdateManyWithoutEditorNestedInput
+  evidenceVerifications?: Prisma.ResearchEvidenceUncheckedUpdateManyWithoutVerifierNestedInput
+  authoredAssessments?: Prisma.ResearchAssessmentUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewedAssessments?: Prisma.ResearchAssessmentUncheckedUpdateManyWithoutReviewerNestedInput
+  editorialReviews?: Prisma.EditorialReviewUncheckedUpdateManyWithoutReviewerNestedInput
+}
+
+export type UserCreateWithoutEvidenceVerificationsInput = {
+  id: string
+  email: string
+  name?: string | null
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  articles?: Prisma.ArticleCreateNestedManyWithoutEditorInput
+  audits?: Prisma.AuditCreateNestedManyWithoutEditorInput
+  pages?: Prisma.ContentPageCreateNestedManyWithoutEditorInput
+  authoredAssessments?: Prisma.ResearchAssessmentCreateNestedManyWithoutAuthorInput
+  reviewedAssessments?: Prisma.ResearchAssessmentCreateNestedManyWithoutReviewerInput
+  editorialReviews?: Prisma.EditorialReviewCreateNestedManyWithoutReviewerInput
+}
+
+export type UserUncheckedCreateWithoutEvidenceVerificationsInput = {
+  id: string
+  email: string
+  name?: string | null
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  articles?: Prisma.ArticleUncheckedCreateNestedManyWithoutEditorInput
+  audits?: Prisma.AuditUncheckedCreateNestedManyWithoutEditorInput
+  pages?: Prisma.ContentPageUncheckedCreateNestedManyWithoutEditorInput
+  authoredAssessments?: Prisma.ResearchAssessmentUncheckedCreateNestedManyWithoutAuthorInput
+  reviewedAssessments?: Prisma.ResearchAssessmentUncheckedCreateNestedManyWithoutReviewerInput
+  editorialReviews?: Prisma.EditorialReviewUncheckedCreateNestedManyWithoutReviewerInput
+}
+
+export type UserCreateOrConnectWithoutEvidenceVerificationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutEvidenceVerificationsInput, Prisma.UserUncheckedCreateWithoutEvidenceVerificationsInput>
+}
+
+export type UserUpsertWithoutEvidenceVerificationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutEvidenceVerificationsInput, Prisma.UserUncheckedUpdateWithoutEvidenceVerificationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutEvidenceVerificationsInput, Prisma.UserUncheckedCreateWithoutEvidenceVerificationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutEvidenceVerificationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutEvidenceVerificationsInput, Prisma.UserUncheckedUpdateWithoutEvidenceVerificationsInput>
+}
+
+export type UserUpdateWithoutEvidenceVerificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  articles?: Prisma.ArticleUpdateManyWithoutEditorNestedInput
+  audits?: Prisma.AuditUpdateManyWithoutEditorNestedInput
+  pages?: Prisma.ContentPageUpdateManyWithoutEditorNestedInput
+  authoredAssessments?: Prisma.ResearchAssessmentUpdateManyWithoutAuthorNestedInput
+  reviewedAssessments?: Prisma.ResearchAssessmentUpdateManyWithoutReviewerNestedInput
+  editorialReviews?: Prisma.EditorialReviewUpdateManyWithoutReviewerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutEvidenceVerificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  articles?: Prisma.ArticleUncheckedUpdateManyWithoutEditorNestedInput
+  audits?: Prisma.AuditUncheckedUpdateManyWithoutEditorNestedInput
+  pages?: Prisma.ContentPageUncheckedUpdateManyWithoutEditorNestedInput
+  authoredAssessments?: Prisma.ResearchAssessmentUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewedAssessments?: Prisma.ResearchAssessmentUncheckedUpdateManyWithoutReviewerNestedInput
+  editorialReviews?: Prisma.EditorialReviewUncheckedUpdateManyWithoutReviewerNestedInput
+}
+
+export type UserCreateWithoutAuthoredAssessmentsInput = {
+  id: string
+  email: string
+  name?: string | null
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  articles?: Prisma.ArticleCreateNestedManyWithoutEditorInput
+  audits?: Prisma.AuditCreateNestedManyWithoutEditorInput
+  pages?: Prisma.ContentPageCreateNestedManyWithoutEditorInput
+  evidenceVerifications?: Prisma.ResearchEvidenceCreateNestedManyWithoutVerifierInput
+  reviewedAssessments?: Prisma.ResearchAssessmentCreateNestedManyWithoutReviewerInput
+  editorialReviews?: Prisma.EditorialReviewCreateNestedManyWithoutReviewerInput
+}
+
+export type UserUncheckedCreateWithoutAuthoredAssessmentsInput = {
+  id: string
+  email: string
+  name?: string | null
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  articles?: Prisma.ArticleUncheckedCreateNestedManyWithoutEditorInput
+  audits?: Prisma.AuditUncheckedCreateNestedManyWithoutEditorInput
+  pages?: Prisma.ContentPageUncheckedCreateNestedManyWithoutEditorInput
+  evidenceVerifications?: Prisma.ResearchEvidenceUncheckedCreateNestedManyWithoutVerifierInput
+  reviewedAssessments?: Prisma.ResearchAssessmentUncheckedCreateNestedManyWithoutReviewerInput
+  editorialReviews?: Prisma.EditorialReviewUncheckedCreateNestedManyWithoutReviewerInput
+}
+
+export type UserCreateOrConnectWithoutAuthoredAssessmentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAuthoredAssessmentsInput, Prisma.UserUncheckedCreateWithoutAuthoredAssessmentsInput>
+}
+
+export type UserCreateWithoutReviewedAssessmentsInput = {
+  id: string
+  email: string
+  name?: string | null
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  articles?: Prisma.ArticleCreateNestedManyWithoutEditorInput
+  audits?: Prisma.AuditCreateNestedManyWithoutEditorInput
+  pages?: Prisma.ContentPageCreateNestedManyWithoutEditorInput
+  evidenceVerifications?: Prisma.ResearchEvidenceCreateNestedManyWithoutVerifierInput
+  authoredAssessments?: Prisma.ResearchAssessmentCreateNestedManyWithoutAuthorInput
+  editorialReviews?: Prisma.EditorialReviewCreateNestedManyWithoutReviewerInput
+}
+
+export type UserUncheckedCreateWithoutReviewedAssessmentsInput = {
+  id: string
+  email: string
+  name?: string | null
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  articles?: Prisma.ArticleUncheckedCreateNestedManyWithoutEditorInput
+  audits?: Prisma.AuditUncheckedCreateNestedManyWithoutEditorInput
+  pages?: Prisma.ContentPageUncheckedCreateNestedManyWithoutEditorInput
+  evidenceVerifications?: Prisma.ResearchEvidenceUncheckedCreateNestedManyWithoutVerifierInput
+  authoredAssessments?: Prisma.ResearchAssessmentUncheckedCreateNestedManyWithoutAuthorInput
+  editorialReviews?: Prisma.EditorialReviewUncheckedCreateNestedManyWithoutReviewerInput
+}
+
+export type UserCreateOrConnectWithoutReviewedAssessmentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewedAssessmentsInput, Prisma.UserUncheckedCreateWithoutReviewedAssessmentsInput>
+}
+
+export type UserUpsertWithoutAuthoredAssessmentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAuthoredAssessmentsInput, Prisma.UserUncheckedUpdateWithoutAuthoredAssessmentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAuthoredAssessmentsInput, Prisma.UserUncheckedCreateWithoutAuthoredAssessmentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAuthoredAssessmentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAuthoredAssessmentsInput, Prisma.UserUncheckedUpdateWithoutAuthoredAssessmentsInput>
+}
+
+export type UserUpdateWithoutAuthoredAssessmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  articles?: Prisma.ArticleUpdateManyWithoutEditorNestedInput
+  audits?: Prisma.AuditUpdateManyWithoutEditorNestedInput
+  pages?: Prisma.ContentPageUpdateManyWithoutEditorNestedInput
+  evidenceVerifications?: Prisma.ResearchEvidenceUpdateManyWithoutVerifierNestedInput
+  reviewedAssessments?: Prisma.ResearchAssessmentUpdateManyWithoutReviewerNestedInput
+  editorialReviews?: Prisma.EditorialReviewUpdateManyWithoutReviewerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAuthoredAssessmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  articles?: Prisma.ArticleUncheckedUpdateManyWithoutEditorNestedInput
+  audits?: Prisma.AuditUncheckedUpdateManyWithoutEditorNestedInput
+  pages?: Prisma.ContentPageUncheckedUpdateManyWithoutEditorNestedInput
+  evidenceVerifications?: Prisma.ResearchEvidenceUncheckedUpdateManyWithoutVerifierNestedInput
+  reviewedAssessments?: Prisma.ResearchAssessmentUncheckedUpdateManyWithoutReviewerNestedInput
+  editorialReviews?: Prisma.EditorialReviewUncheckedUpdateManyWithoutReviewerNestedInput
+}
+
+export type UserUpsertWithoutReviewedAssessmentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReviewedAssessmentsInput, Prisma.UserUncheckedUpdateWithoutReviewedAssessmentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewedAssessmentsInput, Prisma.UserUncheckedCreateWithoutReviewedAssessmentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReviewedAssessmentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReviewedAssessmentsInput, Prisma.UserUncheckedUpdateWithoutReviewedAssessmentsInput>
+}
+
+export type UserUpdateWithoutReviewedAssessmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  articles?: Prisma.ArticleUpdateManyWithoutEditorNestedInput
+  audits?: Prisma.AuditUpdateManyWithoutEditorNestedInput
+  pages?: Prisma.ContentPageUpdateManyWithoutEditorNestedInput
+  evidenceVerifications?: Prisma.ResearchEvidenceUpdateManyWithoutVerifierNestedInput
+  authoredAssessments?: Prisma.ResearchAssessmentUpdateManyWithoutAuthorNestedInput
+  editorialReviews?: Prisma.EditorialReviewUpdateManyWithoutReviewerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReviewedAssessmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  articles?: Prisma.ArticleUncheckedUpdateManyWithoutEditorNestedInput
+  audits?: Prisma.AuditUncheckedUpdateManyWithoutEditorNestedInput
+  pages?: Prisma.ContentPageUncheckedUpdateManyWithoutEditorNestedInput
+  evidenceVerifications?: Prisma.ResearchEvidenceUncheckedUpdateManyWithoutVerifierNestedInput
+  authoredAssessments?: Prisma.ResearchAssessmentUncheckedUpdateManyWithoutAuthorNestedInput
+  editorialReviews?: Prisma.EditorialReviewUncheckedUpdateManyWithoutReviewerNestedInput
+}
+
+export type UserCreateWithoutEditorialReviewsInput = {
+  id: string
+  email: string
+  name?: string | null
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  articles?: Prisma.ArticleCreateNestedManyWithoutEditorInput
+  audits?: Prisma.AuditCreateNestedManyWithoutEditorInput
+  pages?: Prisma.ContentPageCreateNestedManyWithoutEditorInput
+  evidenceVerifications?: Prisma.ResearchEvidenceCreateNestedManyWithoutVerifierInput
+  authoredAssessments?: Prisma.ResearchAssessmentCreateNestedManyWithoutAuthorInput
+  reviewedAssessments?: Prisma.ResearchAssessmentCreateNestedManyWithoutReviewerInput
+}
+
+export type UserUncheckedCreateWithoutEditorialReviewsInput = {
+  id: string
+  email: string
+  name?: string | null
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  articles?: Prisma.ArticleUncheckedCreateNestedManyWithoutEditorInput
+  audits?: Prisma.AuditUncheckedCreateNestedManyWithoutEditorInput
+  pages?: Prisma.ContentPageUncheckedCreateNestedManyWithoutEditorInput
+  evidenceVerifications?: Prisma.ResearchEvidenceUncheckedCreateNestedManyWithoutVerifierInput
+  authoredAssessments?: Prisma.ResearchAssessmentUncheckedCreateNestedManyWithoutAuthorInput
+  reviewedAssessments?: Prisma.ResearchAssessmentUncheckedCreateNestedManyWithoutReviewerInput
+}
+
+export type UserCreateOrConnectWithoutEditorialReviewsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutEditorialReviewsInput, Prisma.UserUncheckedCreateWithoutEditorialReviewsInput>
+}
+
+export type UserUpsertWithoutEditorialReviewsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutEditorialReviewsInput, Prisma.UserUncheckedUpdateWithoutEditorialReviewsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutEditorialReviewsInput, Prisma.UserUncheckedCreateWithoutEditorialReviewsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutEditorialReviewsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutEditorialReviewsInput, Prisma.UserUncheckedUpdateWithoutEditorialReviewsInput>
+}
+
+export type UserUpdateWithoutEditorialReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  articles?: Prisma.ArticleUpdateManyWithoutEditorNestedInput
+  audits?: Prisma.AuditUpdateManyWithoutEditorNestedInput
+  pages?: Prisma.ContentPageUpdateManyWithoutEditorNestedInput
+  evidenceVerifications?: Prisma.ResearchEvidenceUpdateManyWithoutVerifierNestedInput
+  authoredAssessments?: Prisma.ResearchAssessmentUpdateManyWithoutAuthorNestedInput
+  reviewedAssessments?: Prisma.ResearchAssessmentUpdateManyWithoutReviewerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutEditorialReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  articles?: Prisma.ArticleUncheckedUpdateManyWithoutEditorNestedInput
+  audits?: Prisma.AuditUncheckedUpdateManyWithoutEditorNestedInput
+  pages?: Prisma.ContentPageUncheckedUpdateManyWithoutEditorNestedInput
+  evidenceVerifications?: Prisma.ResearchEvidenceUncheckedUpdateManyWithoutVerifierNestedInput
+  authoredAssessments?: Prisma.ResearchAssessmentUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewedAssessments?: Prisma.ResearchAssessmentUncheckedUpdateManyWithoutReviewerNestedInput
 }
 
 
@@ -606,12 +1050,20 @@ export type UserCountOutputType = {
   articles: number
   audits: number
   pages: number
+  evidenceVerifications: number
+  authoredAssessments: number
+  reviewedAssessments: number
+  editorialReviews: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   articles?: boolean | UserCountOutputTypeCountArticlesArgs
   audits?: boolean | UserCountOutputTypeCountAuditsArgs
   pages?: boolean | UserCountOutputTypeCountPagesArgs
+  evidenceVerifications?: boolean | UserCountOutputTypeCountEvidenceVerificationsArgs
+  authoredAssessments?: boolean | UserCountOutputTypeCountAuthoredAssessmentsArgs
+  reviewedAssessments?: boolean | UserCountOutputTypeCountReviewedAssessmentsArgs
+  editorialReviews?: boolean | UserCountOutputTypeCountEditorialReviewsArgs
 }
 
 /**
@@ -645,6 +1097,34 @@ export type UserCountOutputTypeCountPagesArgs<ExtArgs extends runtime.Types.Exte
   where?: Prisma.ContentPageWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountEvidenceVerificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ResearchEvidenceWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAuthoredAssessmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ResearchAssessmentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReviewedAssessmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ResearchAssessmentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountEditorialReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EditorialReviewWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -656,6 +1136,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   articles?: boolean | Prisma.User$articlesArgs<ExtArgs>
   audits?: boolean | Prisma.User$auditsArgs<ExtArgs>
   pages?: boolean | Prisma.User$pagesArgs<ExtArgs>
+  evidenceVerifications?: boolean | Prisma.User$evidenceVerificationsArgs<ExtArgs>
+  authoredAssessments?: boolean | Prisma.User$authoredAssessmentsArgs<ExtArgs>
+  reviewedAssessments?: boolean | Prisma.User$reviewedAssessmentsArgs<ExtArgs>
+  editorialReviews?: boolean | Prisma.User$editorialReviewsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -691,6 +1175,10 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   articles?: boolean | Prisma.User$articlesArgs<ExtArgs>
   audits?: boolean | Prisma.User$auditsArgs<ExtArgs>
   pages?: boolean | Prisma.User$pagesArgs<ExtArgs>
+  evidenceVerifications?: boolean | Prisma.User$evidenceVerificationsArgs<ExtArgs>
+  authoredAssessments?: boolean | Prisma.User$authoredAssessmentsArgs<ExtArgs>
+  reviewedAssessments?: boolean | Prisma.User$reviewedAssessmentsArgs<ExtArgs>
+  editorialReviews?: boolean | Prisma.User$editorialReviewsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -702,6 +1190,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     articles: Prisma.$ArticlePayload<ExtArgs>[]
     audits: Prisma.$AuditPayload<ExtArgs>[]
     pages: Prisma.$ContentPagePayload<ExtArgs>[]
+    evidenceVerifications: Prisma.$ResearchEvidencePayload<ExtArgs>[]
+    authoredAssessments: Prisma.$ResearchAssessmentPayload<ExtArgs>[]
+    reviewedAssessments: Prisma.$ResearchAssessmentPayload<ExtArgs>[]
+    editorialReviews: Prisma.$EditorialReviewPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1107,6 +1599,10 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   articles<T extends Prisma.User$articlesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$articlesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ArticlePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   audits<T extends Prisma.User$auditsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auditsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   pages<T extends Prisma.User$pagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$pagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ContentPagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  evidenceVerifications<T extends Prisma.User$evidenceVerificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$evidenceVerificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResearchEvidencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  authoredAssessments<T extends Prisma.User$authoredAssessmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$authoredAssessmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResearchAssessmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviewedAssessments<T extends Prisma.User$reviewedAssessmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewedAssessmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ResearchAssessmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  editorialReviews<T extends Prisma.User$editorialReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$editorialReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EditorialReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1604,6 +2100,102 @@ export type User$pagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
   take?: number
   skip?: number
   distinct?: Prisma.ContentPageScalarFieldEnum | Prisma.ContentPageScalarFieldEnum[]
+}
+
+/**
+ * User.evidenceVerifications
+ */
+export type User$evidenceVerificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ResearchEvidence
+   */
+  select?: Prisma.ResearchEvidenceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ResearchEvidence
+   */
+  omit?: Prisma.ResearchEvidenceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ResearchEvidenceInclude<ExtArgs> | null
+  where?: Prisma.ResearchEvidenceWhereInput
+  orderBy?: Prisma.ResearchEvidenceOrderByWithRelationInput | Prisma.ResearchEvidenceOrderByWithRelationInput[]
+  cursor?: Prisma.ResearchEvidenceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ResearchEvidenceScalarFieldEnum | Prisma.ResearchEvidenceScalarFieldEnum[]
+}
+
+/**
+ * User.authoredAssessments
+ */
+export type User$authoredAssessmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ResearchAssessment
+   */
+  select?: Prisma.ResearchAssessmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ResearchAssessment
+   */
+  omit?: Prisma.ResearchAssessmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ResearchAssessmentInclude<ExtArgs> | null
+  where?: Prisma.ResearchAssessmentWhereInput
+  orderBy?: Prisma.ResearchAssessmentOrderByWithRelationInput | Prisma.ResearchAssessmentOrderByWithRelationInput[]
+  cursor?: Prisma.ResearchAssessmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ResearchAssessmentScalarFieldEnum | Prisma.ResearchAssessmentScalarFieldEnum[]
+}
+
+/**
+ * User.reviewedAssessments
+ */
+export type User$reviewedAssessmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ResearchAssessment
+   */
+  select?: Prisma.ResearchAssessmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ResearchAssessment
+   */
+  omit?: Prisma.ResearchAssessmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ResearchAssessmentInclude<ExtArgs> | null
+  where?: Prisma.ResearchAssessmentWhereInput
+  orderBy?: Prisma.ResearchAssessmentOrderByWithRelationInput | Prisma.ResearchAssessmentOrderByWithRelationInput[]
+  cursor?: Prisma.ResearchAssessmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ResearchAssessmentScalarFieldEnum | Prisma.ResearchAssessmentScalarFieldEnum[]
+}
+
+/**
+ * User.editorialReviews
+ */
+export type User$editorialReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EditorialReview
+   */
+  select?: Prisma.EditorialReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EditorialReview
+   */
+  omit?: Prisma.EditorialReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EditorialReviewInclude<ExtArgs> | null
+  where?: Prisma.EditorialReviewWhereInput
+  orderBy?: Prisma.EditorialReviewOrderByWithRelationInput | Prisma.EditorialReviewOrderByWithRelationInput[]
+  cursor?: Prisma.EditorialReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EditorialReviewScalarFieldEnum | Prisma.EditorialReviewScalarFieldEnum[]
 }
 
 /**

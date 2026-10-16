@@ -1,0 +1,66 @@
+name: Validate web app
+
+on:
+  push:
+    branches:
+      - main
+      - "improvements/**"
+    paths:
+      - "apps/web/**"
+      - "todo.md"
+      - ".github/workflows/validate-web.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "apps/web/**"
+      - "todo.md"
+      - ".github/workflows/validate-web.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-web-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Node 22 · pnpm 11
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: apps/web
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.21.0
+          run_install: false
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: apps/web/pnpm-lock.yaml
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm run typecheck
+
+      - name: Lint
+        run: pnpm run lint
+
+      - name: Test
+        run: pnpm run test
+
+      - name: Build
+        run: pnpm run build
