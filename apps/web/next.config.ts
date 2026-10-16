@@ -1,8 +1,9 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import type { NextConfig } from "next";
-import legacyContent from "./src/content/legacy-content.json";
 
 type LegacyRecord = { legacyUrl: string; route: string; slug: string };
-const redirectRecords = legacyContent as LegacyRecord[];
+const redirectRecords = JSON.parse(readFileSync(join(process.cwd(), "src/content/legacy-content.json"), "utf8")) as LegacyRecord[];
 
 const nextConfig: NextConfig = {
   images: {
