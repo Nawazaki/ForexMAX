@@ -1,10 +1,12 @@
 # ForexMAX project owner report
 
-**Updated:** 2026-10-16 16:12 CET (Africa/Algiers)
+**Updated:** 2026-10-16 16:35 CET (Africa/Algiers)
 
-**Branch:** `improvements/forexmax-hardening-2026-10-16` (local only; no remote branch yet)
+**Branch:** `improvements/forexmax-hardening-2026-10-16` (pushed to `origin`; validation completed at `c4cfa4d`)
 
-**Production changes:** None. No deployment, database writes, credential access, push, or pull request has occurred.
+**Production changes:** None. No deployment, database writes, credential access, or pull request has occurred.
+
+**Validation status:** Hosted Ubuntu 24.04 / Node 22 typecheck, lint, tests, and production build all passed. Preview isolation and remaining operational acceptance checks are still unverified, so ForexMAX is not declared production-ready.
 
 ## Completed changes
 
@@ -38,14 +40,14 @@ The Prisma install scripts warn that Prisma 7.9.1 supports Node.js 20.19+, 22.12
 
 ## Hosted CI status
 
-- GitHub authentication is available. The improvement branch is local only and has not yet been pushed; GitHub reported 404 when the branch was queried.
-- Before adding the application workflow, the repository listed only the SLSA generic generator and GitHub Pages deployment workflows. The new validation workflow is staged locally but has not yet run.
+- Pushed `improvements/forexmax-hardening-2026-10-16` to `origin` and ran [GitHub Actions run 38925000531](https://github.com/Nawazaki/ForexMAX/actions/runs/38925000531) on Ubuntu 24.04 with Node 22 and pnpm 11.21.0. **Passed**: frozen dependency install, typecheck, lint, Vitest suite, and production build.
+- The Vercel branch guard worked as intended: GitHub's deployments API returned zero deployments for this branch. No Preview or Production deployment has occurred.
+- GitHub emitted a non-failing warning that `actions/checkout@v4`, `actions/setup-node@v4`, and `pnpm/action-setup@v4` target Node 20, which is deprecated for Actions and was forced to Node 24. The workflow itself ran application validation on Node 22. GitHub also noted `ubuntu-latest` will migrate to Ubuntu 26 on October 19, 2026.
 - Docker, Podman, and `act` are not installed locally. The Codespaces API returned HTTP 403 because the current GitHub token lacks the `codespace` scope; no scope refresh was requested.
-- The branch-specific Vercel deployment guard prevents an unverified Preview deployment when the CI branch is pushed. No Preview or Production deployment has occurred.
 
 ## Remaining validation and safety boundaries
 
-1. Push the authorized improvement branch to trigger the Node 22 Linux workflow, then review and fix any failures and repeat until typecheck, lint, tests, and production build pass.
+1. Hosted Node 22/Linux validation passed on the pushed commit. Re-run the workflow after any further application or workflow changes; no failure fixes were needed.
 2. Review the generated Prisma output before any eventual merge; it is a `postinstall` artifact from the existing schema. No schema migration, seed, or database operation was run.
 3. Before enabling Preview deployments or any database write, independently verify the dedicated `ForexMax-Preview` project and both Preview database URLs. Production has not been modified.
 4. Source management, evidence, editorial review, and persisted research remain disabled/read-only pending verified Preview isolation, auth/RLS/storage validation, and a documented manual source-to-public-page acceptance test.
