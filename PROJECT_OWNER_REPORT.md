@@ -4,7 +4,7 @@
 
 **Branch:** `improvements/forexmax-hardening-2026-10-16` (pushed to `origin`; validation completed at `c4cfa4d`)
 
-**Production changes:** None. No deployment, database writes, credential access, or pull request has occurred.
+**Production changes:** None. No deployment was observed; no database writes, credential access, or pull request has occurred.
 
 **Validation status:** Hosted Ubuntu 24.04 / Node 22 typecheck, lint, tests, and production build all passed. Preview isolation and remaining operational acceptance checks are still unverified, so ForexMAX is not declared production-ready.
 
@@ -41,7 +41,7 @@ The Prisma install scripts warn that Prisma 7.9.1 supports Node.js 20.19+, 22.12
 ## Hosted CI status
 
 - Pushed `improvements/forexmax-hardening-2026-10-16` to `origin` and ran [GitHub Actions run 38925000531](https://github.com/Nawazaki/ForexMAX/actions/runs/38925000531) on Ubuntu 24.04 with Node 22 and pnpm 11.21.0. **Passed**: frozen dependency install, typecheck, lint, Vitest suite, and production build.
-- The Vercel branch guard worked as intended: GitHub's deployments API returned zero deployments for this branch. No Preview or Production deployment has occurred.
+- The Vercel branch-specific deployment guard is committed. GitHub's deployments API returned zero deployment records for this branch; no Preview or Production deployment was observed. Vercel dashboard/API access was unavailable, so platform-side status was not independently queried.
 - GitHub emitted a non-failing warning that `actions/checkout@v4`, `actions/setup-node@v4`, and `pnpm/action-setup@v4` target Node 20, which is deprecated for Actions and was forced to Node 24. The workflow itself ran application validation on Node 22. GitHub also noted `ubuntu-latest` will migrate to Ubuntu 26 on October 19, 2026.
 - Docker, Podman, and `act` are not installed locally. The Codespaces API returned HTTP 403 because the current GitHub token lacks the `codespace` scope; no scope refresh was requested.
 
