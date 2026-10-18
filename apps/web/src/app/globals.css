@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-:root { --canvas: #f2f1eb; --paper: #fbfbf8; --ink: #1c2930; --navy: #173247; --blue: #0e6877; --accent: #a36f20; --muted: #647179; --line: #d7d9d3; --line-strong: #aeb6b6; --bg: var(--canvas); --bg-soft: var(--paper); --surface: var(--paper); --gold: var(--accent); --cyan: var(--blue); --shadow: none; }
+:root { --canvas: #f2f1eb; --paper: #fbfbf8; --ink: #1c2930; --navy: #173247; --blue: #0e6877; --accent: #8c5c12; --muted: #647179; --line: #d7d9d3; --line-strong: #aeb6b6; --bg: var(--canvas); --bg-soft: var(--paper); --surface: var(--paper); --gold: var(--accent); --cyan: var(--blue); --shadow: none; }
 * { box-sizing: border-box; }
 html { background: var(--canvas); scroll-behavior: smooth; }
 body { margin: 0; background: var(--canvas); color: var(--ink); font-family: Arial, Helvetica, sans-serif; }

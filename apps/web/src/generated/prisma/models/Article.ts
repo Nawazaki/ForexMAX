@@ -350,6 +350,7 @@ export type ArticleWhereInput = {
   editor?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   tags?: Prisma.TagListRelationFilter
   sources?: Prisma.ArticleSourceListRelationFilter
+  researchAssessment?: Prisma.XOR<Prisma.ResearchAssessmentNullableScalarRelationFilter, Prisma.ResearchAssessmentWhereInput> | null
 }
 
 export type ArticleOrderByWithRelationInput = {
@@ -380,6 +381,7 @@ export type ArticleOrderByWithRelationInput = {
   editor?: Prisma.UserOrderByWithRelationInput
   tags?: Prisma.TagOrderByRelationAggregateInput
   sources?: Prisma.ArticleSourceOrderByRelationAggregateInput
+  researchAssessment?: Prisma.ResearchAssessmentOrderByWithRelationInput
 }
 
 export type ArticleWhereUniqueInput = Prisma.AtLeast<{
@@ -413,6 +415,7 @@ export type ArticleWhereUniqueInput = Prisma.AtLeast<{
   editor?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   tags?: Prisma.TagListRelationFilter
   sources?: Prisma.ArticleSourceListRelationFilter
+  researchAssessment?: Prisma.XOR<Prisma.ResearchAssessmentNullableScalarRelationFilter, Prisma.ResearchAssessmentWhereInput> | null
 }, "id" | "slug" | "legacyUrl">
 
 export type ArticleOrderByWithAggregationInput = {
@@ -495,6 +498,7 @@ export type ArticleCreateInput = {
   editor?: Prisma.UserCreateNestedOneWithoutArticlesInput
   tags?: Prisma.TagCreateNestedManyWithoutArticlesInput
   sources?: Prisma.ArticleSourceCreateNestedManyWithoutArticleInput
+  researchAssessment?: Prisma.ResearchAssessmentCreateNestedOneWithoutArticleInput
 }
 
 export type ArticleUncheckedCreateInput = {
@@ -521,6 +525,7 @@ export type ArticleUncheckedCreateInput = {
   editorId?: string | null
   tags?: Prisma.TagUncheckedCreateNestedManyWithoutArticlesInput
   sources?: Prisma.ArticleSourceUncheckedCreateNestedManyWithoutArticleInput
+  researchAssessment?: Prisma.ResearchAssessmentUncheckedCreateNestedOneWithoutArticleInput
 }
 
 export type ArticleUpdateInput = {
@@ -547,6 +552,7 @@ export type ArticleUpdateInput = {
   editor?: Prisma.UserUpdateOneWithoutArticlesNestedInput
   tags?: Prisma.TagUpdateManyWithoutArticlesNestedInput
   sources?: Prisma.ArticleSourceUpdateManyWithoutArticleNestedInput
+  researchAssessment?: Prisma.ResearchAssessmentUpdateOneWithoutArticleNestedInput
 }
 
 export type ArticleUncheckedUpdateInput = {
@@ -573,6 +579,7 @@ export type ArticleUncheckedUpdateInput = {
   editorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.TagUncheckedUpdateManyWithoutArticlesNestedInput
   sources?: Prisma.ArticleSourceUncheckedUpdateManyWithoutArticleNestedInput
+  researchAssessment?: Prisma.ResearchAssessmentUncheckedUpdateOneWithoutArticleNestedInput
 }
 
 export type ArticleCreateManyInput = {
@@ -736,6 +743,11 @@ export type ArticleSumOrderByAggregateInput = {
 export type ArticleScalarRelationFilter = {
   is?: Prisma.ArticleWhereInput
   isNot?: Prisma.ArticleWhereInput
+}
+
+export type ArticleNullableScalarRelationFilter = {
+  is?: Prisma.ArticleWhereInput | null
+  isNot?: Prisma.ArticleWhereInput | null
 }
 
 export type ArticleCreateNestedManyWithoutEditorInput = {
@@ -962,6 +974,22 @@ export type ArticleUpdateOneRequiredWithoutSourcesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ArticleUpdateToOneWithWhereWithoutSourcesInput, Prisma.ArticleUpdateWithoutSourcesInput>, Prisma.ArticleUncheckedUpdateWithoutSourcesInput>
 }
 
+export type ArticleCreateNestedOneWithoutResearchAssessmentInput = {
+  create?: Prisma.XOR<Prisma.ArticleCreateWithoutResearchAssessmentInput, Prisma.ArticleUncheckedCreateWithoutResearchAssessmentInput>
+  connectOrCreate?: Prisma.ArticleCreateOrConnectWithoutResearchAssessmentInput
+  connect?: Prisma.ArticleWhereUniqueInput
+}
+
+export type ArticleUpdateOneWithoutResearchAssessmentNestedInput = {
+  create?: Prisma.XOR<Prisma.ArticleCreateWithoutResearchAssessmentInput, Prisma.ArticleUncheckedCreateWithoutResearchAssessmentInput>
+  connectOrCreate?: Prisma.ArticleCreateOrConnectWithoutResearchAssessmentInput
+  upsert?: Prisma.ArticleUpsertWithoutResearchAssessmentInput
+  disconnect?: Prisma.ArticleWhereInput | boolean
+  delete?: Prisma.ArticleWhereInput | boolean
+  connect?: Prisma.ArticleWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ArticleUpdateToOneWithWhereWithoutResearchAssessmentInput, Prisma.ArticleUpdateWithoutResearchAssessmentInput>, Prisma.ArticleUncheckedUpdateWithoutResearchAssessmentInput>
+}
+
 export type ArticleCreateWithoutEditorInput = {
   id?: string
   title: string
@@ -985,6 +1013,7 @@ export type ArticleCreateWithoutEditorInput = {
   featuredMedia?: Prisma.MediaCreateNestedOneWithoutArticlesInput
   tags?: Prisma.TagCreateNestedManyWithoutArticlesInput
   sources?: Prisma.ArticleSourceCreateNestedManyWithoutArticleInput
+  researchAssessment?: Prisma.ResearchAssessmentCreateNestedOneWithoutArticleInput
 }
 
 export type ArticleUncheckedCreateWithoutEditorInput = {
@@ -1010,6 +1039,7 @@ export type ArticleUncheckedCreateWithoutEditorInput = {
   updatedAt?: Date | string
   tags?: Prisma.TagUncheckedCreateNestedManyWithoutArticlesInput
   sources?: Prisma.ArticleSourceUncheckedCreateNestedManyWithoutArticleInput
+  researchAssessment?: Prisma.ResearchAssessmentUncheckedCreateNestedOneWithoutArticleInput
 }
 
 export type ArticleCreateOrConnectWithoutEditorInput = {
@@ -1088,6 +1118,7 @@ export type ArticleCreateWithoutAuthorInput = {
   editor?: Prisma.UserCreateNestedOneWithoutArticlesInput
   tags?: Prisma.TagCreateNestedManyWithoutArticlesInput
   sources?: Prisma.ArticleSourceCreateNestedManyWithoutArticleInput
+  researchAssessment?: Prisma.ResearchAssessmentCreateNestedOneWithoutArticleInput
 }
 
 export type ArticleUncheckedCreateWithoutAuthorInput = {
@@ -1113,6 +1144,7 @@ export type ArticleUncheckedCreateWithoutAuthorInput = {
   editorId?: string | null
   tags?: Prisma.TagUncheckedCreateNestedManyWithoutArticlesInput
   sources?: Prisma.ArticleSourceUncheckedCreateNestedManyWithoutArticleInput
+  researchAssessment?: Prisma.ResearchAssessmentUncheckedCreateNestedOneWithoutArticleInput
 }
 
 export type ArticleCreateOrConnectWithoutAuthorInput = {
@@ -1164,6 +1196,7 @@ export type ArticleCreateWithoutCategoryInput = {
   editor?: Prisma.UserCreateNestedOneWithoutArticlesInput
   tags?: Prisma.TagCreateNestedManyWithoutArticlesInput
   sources?: Prisma.ArticleSourceCreateNestedManyWithoutArticleInput
+  researchAssessment?: Prisma.ResearchAssessmentCreateNestedOneWithoutArticleInput
 }
 
 export type ArticleUncheckedCreateWithoutCategoryInput = {
@@ -1189,6 +1222,7 @@ export type ArticleUncheckedCreateWithoutCategoryInput = {
   editorId?: string | null
   tags?: Prisma.TagUncheckedCreateNestedManyWithoutArticlesInput
   sources?: Prisma.ArticleSourceUncheckedCreateNestedManyWithoutArticleInput
+  researchAssessment?: Prisma.ResearchAssessmentUncheckedCreateNestedOneWithoutArticleInput
 }
 
 export type ArticleCreateOrConnectWithoutCategoryInput = {
@@ -1240,6 +1274,7 @@ export type ArticleCreateWithoutTagsInput = {
   featuredMedia?: Prisma.MediaCreateNestedOneWithoutArticlesInput
   editor?: Prisma.UserCreateNestedOneWithoutArticlesInput
   sources?: Prisma.ArticleSourceCreateNestedManyWithoutArticleInput
+  researchAssessment?: Prisma.ResearchAssessmentCreateNestedOneWithoutArticleInput
 }
 
 export type ArticleUncheckedCreateWithoutTagsInput = {
@@ -1265,6 +1300,7 @@ export type ArticleUncheckedCreateWithoutTagsInput = {
   updatedAt?: Date | string
   editorId?: string | null
   sources?: Prisma.ArticleSourceUncheckedCreateNestedManyWithoutArticleInput
+  researchAssessment?: Prisma.ResearchAssessmentUncheckedCreateNestedOneWithoutArticleInput
 }
 
 export type ArticleCreateOrConnectWithoutTagsInput = {
@@ -1311,6 +1347,7 @@ export type ArticleCreateWithoutFeaturedMediaInput = {
   editor?: Prisma.UserCreateNestedOneWithoutArticlesInput
   tags?: Prisma.TagCreateNestedManyWithoutArticlesInput
   sources?: Prisma.ArticleSourceCreateNestedManyWithoutArticleInput
+  researchAssessment?: Prisma.ResearchAssessmentCreateNestedOneWithoutArticleInput
 }
 
 export type ArticleUncheckedCreateWithoutFeaturedMediaInput = {
@@ -1336,6 +1373,7 @@ export type ArticleUncheckedCreateWithoutFeaturedMediaInput = {
   editorId?: string | null
   tags?: Prisma.TagUncheckedCreateNestedManyWithoutArticlesInput
   sources?: Prisma.ArticleSourceUncheckedCreateNestedManyWithoutArticleInput
+  researchAssessment?: Prisma.ResearchAssessmentUncheckedCreateNestedOneWithoutArticleInput
 }
 
 export type ArticleCreateOrConnectWithoutFeaturedMediaInput = {
@@ -1387,6 +1425,7 @@ export type ArticleCreateWithoutSourcesInput = {
   featuredMedia?: Prisma.MediaCreateNestedOneWithoutArticlesInput
   editor?: Prisma.UserCreateNestedOneWithoutArticlesInput
   tags?: Prisma.TagCreateNestedManyWithoutArticlesInput
+  researchAssessment?: Prisma.ResearchAssessmentCreateNestedOneWithoutArticleInput
 }
 
 export type ArticleUncheckedCreateWithoutSourcesInput = {
@@ -1412,6 +1451,7 @@ export type ArticleUncheckedCreateWithoutSourcesInput = {
   updatedAt?: Date | string
   editorId?: string | null
   tags?: Prisma.TagUncheckedCreateNestedManyWithoutArticlesInput
+  researchAssessment?: Prisma.ResearchAssessmentUncheckedCreateNestedOneWithoutArticleInput
 }
 
 export type ArticleCreateOrConnectWithoutSourcesInput = {
@@ -1453,6 +1493,7 @@ export type ArticleUpdateWithoutSourcesInput = {
   featuredMedia?: Prisma.MediaUpdateOneWithoutArticlesNestedInput
   editor?: Prisma.UserUpdateOneWithoutArticlesNestedInput
   tags?: Prisma.TagUpdateManyWithoutArticlesNestedInput
+  researchAssessment?: Prisma.ResearchAssessmentUpdateOneWithoutArticleNestedInput
 }
 
 export type ArticleUncheckedUpdateWithoutSourcesInput = {
@@ -1478,6 +1519,127 @@ export type ArticleUncheckedUpdateWithoutSourcesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   editorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.TagUncheckedUpdateManyWithoutArticlesNestedInput
+  researchAssessment?: Prisma.ResearchAssessmentUncheckedUpdateOneWithoutArticleNestedInput
+}
+
+export type ArticleCreateWithoutResearchAssessmentInput = {
+  id?: string
+  title: string
+  slug: string
+  excerpt?: string | null
+  contentMarkdown: string
+  contentHtml?: string | null
+  status?: $Enums.PublicationStatus
+  publishedAt?: Date | string | null
+  lastReviewedAt?: Date | string | null
+  seoTitle?: string | null
+  seoDescription?: string | null
+  canonical?: string | null
+  ogImage?: string | null
+  readingMinutes?: number | null
+  legacyUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  author?: Prisma.AuthorCreateNestedOneWithoutArticlesInput
+  category?: Prisma.CategoryCreateNestedOneWithoutArticlesInput
+  featuredMedia?: Prisma.MediaCreateNestedOneWithoutArticlesInput
+  editor?: Prisma.UserCreateNestedOneWithoutArticlesInput
+  tags?: Prisma.TagCreateNestedManyWithoutArticlesInput
+  sources?: Prisma.ArticleSourceCreateNestedManyWithoutArticleInput
+}
+
+export type ArticleUncheckedCreateWithoutResearchAssessmentInput = {
+  id?: string
+  title: string
+  slug: string
+  excerpt?: string | null
+  contentMarkdown: string
+  contentHtml?: string | null
+  status?: $Enums.PublicationStatus
+  publishedAt?: Date | string | null
+  lastReviewedAt?: Date | string | null
+  authorId?: string | null
+  categoryId?: string | null
+  featuredMediaId?: string | null
+  seoTitle?: string | null
+  seoDescription?: string | null
+  canonical?: string | null
+  ogImage?: string | null
+  readingMinutes?: number | null
+  legacyUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  editorId?: string | null
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutArticlesInput
+  sources?: Prisma.ArticleSourceUncheckedCreateNestedManyWithoutArticleInput
+}
+
+export type ArticleCreateOrConnectWithoutResearchAssessmentInput = {
+  where: Prisma.ArticleWhereUniqueInput
+  create: Prisma.XOR<Prisma.ArticleCreateWithoutResearchAssessmentInput, Prisma.ArticleUncheckedCreateWithoutResearchAssessmentInput>
+}
+
+export type ArticleUpsertWithoutResearchAssessmentInput = {
+  update: Prisma.XOR<Prisma.ArticleUpdateWithoutResearchAssessmentInput, Prisma.ArticleUncheckedUpdateWithoutResearchAssessmentInput>
+  create: Prisma.XOR<Prisma.ArticleCreateWithoutResearchAssessmentInput, Prisma.ArticleUncheckedCreateWithoutResearchAssessmentInput>
+  where?: Prisma.ArticleWhereInput
+}
+
+export type ArticleUpdateToOneWithWhereWithoutResearchAssessmentInput = {
+  where?: Prisma.ArticleWhereInput
+  data: Prisma.XOR<Prisma.ArticleUpdateWithoutResearchAssessmentInput, Prisma.ArticleUncheckedUpdateWithoutResearchAssessmentInput>
+}
+
+export type ArticleUpdateWithoutResearchAssessmentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentMarkdown?: Prisma.StringFieldUpdateOperationsInput | string
+  contentHtml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumPublicationStatusFieldUpdateOperationsInput | $Enums.PublicationStatus
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  canonical?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ogImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  readingMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  legacyUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  author?: Prisma.AuthorUpdateOneWithoutArticlesNestedInput
+  category?: Prisma.CategoryUpdateOneWithoutArticlesNestedInput
+  featuredMedia?: Prisma.MediaUpdateOneWithoutArticlesNestedInput
+  editor?: Prisma.UserUpdateOneWithoutArticlesNestedInput
+  tags?: Prisma.TagUpdateManyWithoutArticlesNestedInput
+  sources?: Prisma.ArticleSourceUpdateManyWithoutArticleNestedInput
+}
+
+export type ArticleUncheckedUpdateWithoutResearchAssessmentInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  excerpt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contentMarkdown?: Prisma.StringFieldUpdateOperationsInput | string
+  contentHtml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumPublicationStatusFieldUpdateOperationsInput | $Enums.PublicationStatus
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastReviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  authorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  featuredMediaId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  seoDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  canonical?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ogImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  readingMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  legacyUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  editorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.TagUncheckedUpdateManyWithoutArticlesNestedInput
+  sources?: Prisma.ArticleSourceUncheckedUpdateManyWithoutArticleNestedInput
 }
 
 export type ArticleCreateManyEditorInput = {
@@ -1526,6 +1688,7 @@ export type ArticleUpdateWithoutEditorInput = {
   featuredMedia?: Prisma.MediaUpdateOneWithoutArticlesNestedInput
   tags?: Prisma.TagUpdateManyWithoutArticlesNestedInput
   sources?: Prisma.ArticleSourceUpdateManyWithoutArticleNestedInput
+  researchAssessment?: Prisma.ResearchAssessmentUpdateOneWithoutArticleNestedInput
 }
 
 export type ArticleUncheckedUpdateWithoutEditorInput = {
@@ -1551,6 +1714,7 @@ export type ArticleUncheckedUpdateWithoutEditorInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tags?: Prisma.TagUncheckedUpdateManyWithoutArticlesNestedInput
   sources?: Prisma.ArticleSourceUncheckedUpdateManyWithoutArticleNestedInput
+  researchAssessment?: Prisma.ResearchAssessmentUncheckedUpdateOneWithoutArticleNestedInput
 }
 
 export type ArticleUncheckedUpdateManyWithoutEditorInput = {
@@ -1622,6 +1786,7 @@ export type ArticleUpdateWithoutAuthorInput = {
   editor?: Prisma.UserUpdateOneWithoutArticlesNestedInput
   tags?: Prisma.TagUpdateManyWithoutArticlesNestedInput
   sources?: Prisma.ArticleSourceUpdateManyWithoutArticleNestedInput
+  researchAssessment?: Prisma.ResearchAssessmentUpdateOneWithoutArticleNestedInput
 }
 
 export type ArticleUncheckedUpdateWithoutAuthorInput = {
@@ -1647,6 +1812,7 @@ export type ArticleUncheckedUpdateWithoutAuthorInput = {
   editorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.TagUncheckedUpdateManyWithoutArticlesNestedInput
   sources?: Prisma.ArticleSourceUncheckedUpdateManyWithoutArticleNestedInput
+  researchAssessment?: Prisma.ResearchAssessmentUncheckedUpdateOneWithoutArticleNestedInput
 }
 
 export type ArticleUncheckedUpdateManyWithoutAuthorInput = {
@@ -1718,6 +1884,7 @@ export type ArticleUpdateWithoutCategoryInput = {
   editor?: Prisma.UserUpdateOneWithoutArticlesNestedInput
   tags?: Prisma.TagUpdateManyWithoutArticlesNestedInput
   sources?: Prisma.ArticleSourceUpdateManyWithoutArticleNestedInput
+  researchAssessment?: Prisma.ResearchAssessmentUpdateOneWithoutArticleNestedInput
 }
 
 export type ArticleUncheckedUpdateWithoutCategoryInput = {
@@ -1743,6 +1910,7 @@ export type ArticleUncheckedUpdateWithoutCategoryInput = {
   editorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.TagUncheckedUpdateManyWithoutArticlesNestedInput
   sources?: Prisma.ArticleSourceUncheckedUpdateManyWithoutArticleNestedInput
+  researchAssessment?: Prisma.ResearchAssessmentUncheckedUpdateOneWithoutArticleNestedInput
 }
 
 export type ArticleUncheckedUpdateManyWithoutCategoryInput = {
@@ -1791,6 +1959,7 @@ export type ArticleUpdateWithoutTagsInput = {
   featuredMedia?: Prisma.MediaUpdateOneWithoutArticlesNestedInput
   editor?: Prisma.UserUpdateOneWithoutArticlesNestedInput
   sources?: Prisma.ArticleSourceUpdateManyWithoutArticleNestedInput
+  researchAssessment?: Prisma.ResearchAssessmentUpdateOneWithoutArticleNestedInput
 }
 
 export type ArticleUncheckedUpdateWithoutTagsInput = {
@@ -1816,6 +1985,7 @@ export type ArticleUncheckedUpdateWithoutTagsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   editorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sources?: Prisma.ArticleSourceUncheckedUpdateManyWithoutArticleNestedInput
+  researchAssessment?: Prisma.ResearchAssessmentUncheckedUpdateOneWithoutArticleNestedInput
 }
 
 export type ArticleUncheckedUpdateManyWithoutTagsInput = {
@@ -1888,6 +2058,7 @@ export type ArticleUpdateWithoutFeaturedMediaInput = {
   editor?: Prisma.UserUpdateOneWithoutArticlesNestedInput
   tags?: Prisma.TagUpdateManyWithoutArticlesNestedInput
   sources?: Prisma.ArticleSourceUpdateManyWithoutArticleNestedInput
+  researchAssessment?: Prisma.ResearchAssessmentUpdateOneWithoutArticleNestedInput
 }
 
 export type ArticleUncheckedUpdateWithoutFeaturedMediaInput = {
@@ -1913,6 +2084,7 @@ export type ArticleUncheckedUpdateWithoutFeaturedMediaInput = {
   editorId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.TagUncheckedUpdateManyWithoutArticlesNestedInput
   sources?: Prisma.ArticleSourceUncheckedUpdateManyWithoutArticleNestedInput
+  researchAssessment?: Prisma.ResearchAssessmentUncheckedUpdateOneWithoutArticleNestedInput
 }
 
 export type ArticleUncheckedUpdateManyWithoutFeaturedMediaInput = {
@@ -2006,6 +2178,7 @@ export type ArticleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   editor?: boolean | Prisma.Article$editorArgs<ExtArgs>
   tags?: boolean | Prisma.Article$tagsArgs<ExtArgs>
   sources?: boolean | Prisma.Article$sourcesArgs<ExtArgs>
+  researchAssessment?: boolean | Prisma.Article$researchAssessmentArgs<ExtArgs>
   _count?: boolean | Prisma.ArticleCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["article"]>
 
@@ -2097,6 +2270,7 @@ export type ArticleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   editor?: boolean | Prisma.Article$editorArgs<ExtArgs>
   tags?: boolean | Prisma.Article$tagsArgs<ExtArgs>
   sources?: boolean | Prisma.Article$sourcesArgs<ExtArgs>
+  researchAssessment?: boolean | Prisma.Article$researchAssessmentArgs<ExtArgs>
   _count?: boolean | Prisma.ArticleCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ArticleIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2121,6 +2295,7 @@ export type $ArticlePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     editor: Prisma.$UserPayload<ExtArgs> | null
     tags: Prisma.$TagPayload<ExtArgs>[]
     sources: Prisma.$ArticleSourcePayload<ExtArgs>[]
+    researchAssessment: Prisma.$ResearchAssessmentPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2544,6 +2719,7 @@ export interface Prisma__ArticleClient<T, Null = never, ExtArgs extends runtime.
   editor<T extends Prisma.Article$editorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Article$editorArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   tags<T extends Prisma.Article$tagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Article$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sources<T extends Prisma.Article$sourcesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Article$sourcesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ArticleSourcePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  researchAssessment<T extends Prisma.Article$researchAssessmentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Article$researchAssessmentArgs<ExtArgs>>): Prisma.Prisma__ResearchAssessmentClient<runtime.Types.Result.GetResult<Prisma.$ResearchAssessmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3116,6 +3292,25 @@ export type Article$sourcesArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.ArticleSourceScalarFieldEnum | Prisma.ArticleSourceScalarFieldEnum[]
+}
+
+/**
+ * Article.researchAssessment
+ */
+export type Article$researchAssessmentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ResearchAssessment
+   */
+  select?: Prisma.ResearchAssessmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ResearchAssessment
+   */
+  omit?: Prisma.ResearchAssessmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ResearchAssessmentInclude<ExtArgs> | null
+  where?: Prisma.ResearchAssessmentWhereInput
 }
 
 /**

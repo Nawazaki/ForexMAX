@@ -11,5 +11,5 @@ export const searchQuerySchema = z.object({
 export type SearchParams = z.infer<typeof searchQuerySchema>;
 export function getSearchPlan(params: SearchParams) {
   const type = params.category && params.type === "all" ? "article" : params.type;
-  return { type, skip: (params.page - 1) * params.limit, take: params.limit + 1, outputLimit: params.limit };
+  return { type, skip: (params.page - 1) * params.limit, outputLimit: params.limit };
 }
